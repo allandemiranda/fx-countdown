@@ -1,0 +1,38 @@
+package br.allandemiranda.fx.robot.service.impl;
+
+import br.allandemiranda.fx.robot.dto.impl.base.DashboardDto;
+import br.allandemiranda.fx.robot.dto.impl.create.DashboardCreateDto;
+import br.allandemiranda.fx.robot.mapper.impl.DashboardMapper;
+import br.allandemiranda.fx.robot.model.impl.Dashboard;
+import br.allandemiranda.fx.robot.repository.impl.DashboardRepository;
+import br.allandemiranda.fx.robot.service.InputObjectServiceTest;
+import lombok.Getter;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+public class DashboardServiceTest extends InputObjectServiceTest<Dashboard, DashboardDto, DashboardCreateDto> {
+
+  @Mock
+  @Getter
+  private Dashboard model;
+
+  @Mock
+  @Getter
+  private DashboardRepository repository;
+
+  @Spy
+  @Getter
+  private DashboardMapper mapper;
+
+  @InjectMocks
+  @Getter
+  private DashboardService service;
+
+  @Mock
+  @Getter
+  private DashboardCreateDto createDto;
+}

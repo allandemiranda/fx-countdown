@@ -1,0 +1,22 @@
+package br.allandemiranda.fx.robot.controller.advice;
+
+import jakarta.validation.ConstraintViolationException;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+@Validated
+@RestControllerAdvice
+public class ViolationExceptionHandler {
+
+  @ResponseStatus(HttpStatus.BAD_REQUEST)
+  @ExceptionHandler(ConstraintViolationException.class)
+  public ViolationResponseHandler handle(ConstraintViolationException ex) {
+    String error = "Constraint violation";
+    return new ViolationResponseHandler(error, ex.getMessage());
+  }
+
+}

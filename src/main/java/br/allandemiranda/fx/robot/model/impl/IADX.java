@@ -1,0 +1,17 @@
+package br.allandemiranda.fx.robot.model.impl;
+
+import br.allandemiranda.fx.robot.model.InputObjectModel;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import java.util.UUID;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
+/**
+ * @param period averaging period
+ */
+@Table("i_adx")
+public record IADX(@Id @Column("chart_id") @NotNull UUID chartId, @Column("adx_period") @Positive short period) implements InputObjectModel {
+
+}

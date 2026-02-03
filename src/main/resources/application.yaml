@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: fx-countdown
+  sql:
+    init:
+      mode: always
+  webflux:
+    problemdetails:
+      enabled: true
