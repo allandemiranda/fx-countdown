@@ -1,12 +1,12 @@
 package br.allandemiranda.fx.robot.model;
 
-import br.allandemiranda.fx.robot.model.embeddable.iADX;
-import br.allandemiranda.fx.robot.model.embeddable.iATR;
-import br.allandemiranda.fx.robot.model.embeddable.iBands;
-import br.allandemiranda.fx.robot.model.embeddable.iMA;
+import br.allandemiranda.fx.robot.model.embeddable.IADX;
+import br.allandemiranda.fx.robot.model.embeddable.IATR;
+import br.allandemiranda.fx.robot.model.embeddable.IBands;
+import br.allandemiranda.fx.robot.model.embeddable.IMA;
 import br.allandemiranda.fx.robot.model.embeddable.iMACD;
 import br.allandemiranda.fx.robot.model.embeddable.iRSI;
-import br.allandemiranda.fx.robot.model.embeddable.iStochastic;
+import br.allandemiranda.fx.robot.model.embeddable.IStochastic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -60,13 +60,13 @@ public class ScriptInfo {
   private LocalDateTime endScope;
 
   @Embedded
-  private iADX iAdx;
+  private IADX iAdx;
 
   @Embedded
-  private iATR iAtr;
+  private IATR iAtr;
 
   @Embedded
-  private iBands iBands;
+  private IBands iBands;
 
   @Embedded
   private iMACD iMacd;
@@ -75,13 +75,13 @@ public class ScriptInfo {
   private iRSI iRsi;
 
   @Embedded
-  private iStochastic iStochastic;
+  private IStochastic iStochastic;
 
   @Embedded
-  private iMA iMaSlow;
+  private IMA iMaSlow;
 
   @Embedded
-  private iMA iMaFast;
+  private IMA iMaFast;
 
   @Override
   public final boolean equals(Object o) {

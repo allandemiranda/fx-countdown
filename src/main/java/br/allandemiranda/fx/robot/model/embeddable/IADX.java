@@ -9,11 +9,11 @@ import org.hibernate.type.SqlTypes;
 
 @Data
 @Embeddable
-public class iATR {
+public class IADX {
 
   @Positive
-  @Column(nullable = false, updatable = false, name = "ma_period", comment = "averaging period ")
+  @Column(nullable = false, updatable = false, name = "adx_period", comment = "averaging period")
   @JdbcTypeCode(SqlTypes.SMALLINT)
-  private short maPeriod;
+  private short period;
 
 }

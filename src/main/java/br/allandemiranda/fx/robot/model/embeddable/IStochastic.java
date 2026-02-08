@@ -13,7 +13,7 @@ import org.hibernate.type.SqlTypes;
 
 @Data
 @Embeddable
-public class iStochastic {
+public class IStochastic {
 
   @Positive
   @Column(nullable = false, updatable = false, name = "Kperiod", comment = "K-period (number of bars for calculations)")
@@ -33,7 +33,7 @@ public class iStochastic {
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, updatable = false, name = "ma_method", comment = "type of smoothing")
   @JdbcTypeCode(SqlTypes.VARCHAR)
-  private SmoothingMethod maMethod;
+  private SmoothingMethod method;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, updatable = false, name = "price_field", comment = "stochastic calculation method")

@@ -12,16 +12,26 @@ import org.hibernate.type.SqlTypes;
 
 @Data
 @Embeddable
-public class iRSI {
+public class IMACD {
 
   @Positive
-  @Column(nullable = false, updatable = false, name = "ma_period", comment = "averaging period")
+  @Column(nullable = false, updatable = false, name = "fast_ema_period", comment = "period for Fast average calculation")
   @JdbcTypeCode(SqlTypes.SMALLINT)
-  private short maPeriod;
+  private short fastEma;
+
+  @Positive
+  @Column(nullable = false, updatable = false, name = "slow_ema_period", comment = "period for Slow average calculation")
+  @JdbcTypeCode(SqlTypes.SMALLINT)
+  private short slowEma;
+
+  @Positive
+  @Column(nullable = false, updatable = false, name = "signal_period", comment = "period for their difference averaging")
+  @JdbcTypeCode(SqlTypes.SMALLINT)
+  private short macdSma;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, updatable = false, name = "applied_price", comment = "type of price or handle")
   @JdbcTypeCode(SqlTypes.VARCHAR)
-  private AppliedPrice appliedPrice;
+  private AppliedPrice applyTo;
 
 }

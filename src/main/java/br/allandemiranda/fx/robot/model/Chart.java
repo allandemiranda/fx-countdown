@@ -15,7 +15,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -56,6 +55,14 @@ public class Chart {
 
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude
+  private Set<Candlestick> candlesticks = new LinkedHashSet<>();
+
+  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
+  @JoinColumn(name = "script_info_id", nullable = false, unique = true)
+  private ScriptInfo scriptInfo;
+
+  @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  @Exclude
   private Set<ADX> timelineADX = new LinkedHashSet<>();
 
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -68,10 +75,6 @@ public class Chart {
 
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude
-  private Set<Candlestick> candlesticks = new LinkedHashSet<>();
-
-  @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
-  @Exclude
   private Set<MACD> timelineMACD = new LinkedHashSet<>();
 
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
@@ -81,10 +84,6 @@ public class Chart {
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude
   private Set<Stochastic> timelineStochastics = new LinkedHashSet<>();
-
-  @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
-  @JoinColumn(name = "script_info_id", nullable = false, unique = true)
-  private ScriptInfo scriptInfo;
 
   @Override
   public final boolean equals(Object o) {

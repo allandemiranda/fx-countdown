@@ -14,17 +14,17 @@ import org.hibernate.type.SqlTypes;
 
 @Data
 @Embeddable
-public class iBands {
+public class IBands {
 
   @Positive
   @Column(nullable = false, updatable = false, name = "bands_period", comment = "period for average line calculation")
   @JdbcTypeCode(SqlTypes.SMALLINT)
-  private short bandsPeriod;
+  private short period;
 
   @PositiveOrZero
   @Column(nullable = false, updatable = false, name = "bands_shift", comment = "horizontal shift of the indicator")
   @JdbcTypeCode(SqlTypes.SMALLINT)
-  private short bandsShift;
+  private short shift;
 
   @PositiveOrZero
   @Column(nullable = false, precision = 6, scale = 3, updatable = false, name = "deviation", comment = "number of standard deviations")
@@ -34,6 +34,6 @@ public class iBands {
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, updatable = false, name = "applied_price", comment = "type of price or handle")
   @JdbcTypeCode(SqlTypes.VARCHAR)
-  private AppliedPrice appliedPrice;
+  private AppliedPrice applyTo;
 
 }
