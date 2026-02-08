@@ -61,17 +61,29 @@ public class Chart {
   @JoinColumn(name = "script_info_id", nullable = false, unique = true)
   private ScriptInfo scriptInfo;
 
+  // Trend
+
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude
   private Set<ADX> timelineADX = new LinkedHashSet<>();
 
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude
-  private Set<ATR> timelineATR = new LinkedHashSet<>();
+  private Set<Bands> timelineBands = new LinkedHashSet<>();
 
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude
-  private Set<Bands> timelineBands = new LinkedHashSet<>();
+  private Set<MaFast> timelineMaFast = new LinkedHashSet<>();
+
+  @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  @Exclude
+  private Set<MaSlow> timelineMaSlow = new LinkedHashSet<>();
+
+  // Oscillators
+
+  @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  @Exclude
+  private Set<ATR> timelineATR = new LinkedHashSet<>();
 
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude

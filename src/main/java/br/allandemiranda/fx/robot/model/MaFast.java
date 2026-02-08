@@ -1,22 +1,18 @@
 package br.allandemiranda.fx.robot.model;
 
-import br.allandemiranda.fx.robot.model.embeddable.IADX;
-import br.allandemiranda.fx.robot.model.embeddable.IATR;
-import br.allandemiranda.fx.robot.model.embeddable.IBands;
-import br.allandemiranda.fx.robot.model.embeddable.IMA;
-import br.allandemiranda.fx.robot.model.embeddable.IMACD;
-import br.allandemiranda.fx.robot.model.embeddable.IRSI;
-import br.allandemiranda.fx.robot.model.embeddable.IStochastic;
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.Index;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.PastOrPresent;
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
 import lombok.Getter;
@@ -24,6 +20,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.annotations.TimeZoneStorage;
+import org.hibernate.annotations.TimeZoneStorageType;
 import org.hibernate.proxy.HibernateProxy;
 import org.hibernate.type.SqlTypes;
 
@@ -32,8 +30,12 @@ import org.hibernate.type.SqlTypes;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "ScriptInfo")
-public class ScriptInfo {
+@Table(name = "MA_FAST", indexes = {
+    @Index(name = "idx_maFast_symbol_period_timestamp", columnList = "chart_id, timestamp", unique = true)
+}, uniqueConstraints = {
+    @UniqueConstraint(name = "uc_maFast_symbol_period_timestamp", columnNames = {"chart_id", "timestamp"})
+})
+public class MaFast {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -41,51 +43,19 @@ public class ScriptInfo {
   @JdbcTypeCode(SqlTypes.UUID)
   private UUID id;
 
-  @OneToOne(mappedBy = "scriptInfo")
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "chart_id", nullable = false, updatable = false)
   private Chart chart;
 
   @PastOrPresent
-  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   @Column(nullable = false, updatable = false)
-  private LocalDateTime updateTime;
-
-  @PastOrPresent
   @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
-  @Column(nullable = false, updatable = false)
-  private LocalDateTime startScope;
+  @TimeZoneStorage(TimeZoneStorageType.AUTO)
+  private ZonedDateTime timestamp;
 
-  @PastOrPresent
-  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
-  @Column(nullable = false, updatable = false)
-  private LocalDateTime endScope;
-
-  // Trend
-
-  @Embedded
-  private IADX iAdx;
-
-  @Embedded
-  private IBands iBands;
-
-  @Embedded
-  private IMA iMaFast;
-
-  @Embedded
-  private IMA iMaSlow;
-
-  // Oscillators
-
-  @Embedded
-  private IATR iAtr;
-
-  @Embedded
-  private IMACD iMacd;
-
-  @Embedded
-  private IRSI iRsi;
-
-  @Embedded
-  private IStochastic iStochastic;
+  @Column(nullable = false, precision = 10, scale = 6, updatable = false, comment = "Returns the handle of a specified technical indicator")
+  @JdbcTypeCode(SqlTypes.DECIMAL)
+  private BigDecimal ma;
 
   @Override
   public final boolean equals(Object o) {
@@ -100,8 +70,8 @@ public class ScriptInfo {
     if (thisEffectiveClass != oEffectiveClass) {
       return false;
     }
-    ScriptInfo that = (ScriptInfo) o;
-    return getId() != null && Objects.equals(getId(), that.getId());
+    MaFast maSlow = (MaFast) o;
+    return getId() != null && Objects.equals(getId(), maSlow.getId());
   }
 
   @Override
