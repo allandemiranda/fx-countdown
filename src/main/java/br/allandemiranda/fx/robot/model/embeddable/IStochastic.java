@@ -7,13 +7,14 @@ import jakarta.persistence.Embeddable;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Positive;
+import java.io.Serializable;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 @Data
 @Embeddable
-public class IStochastic {
+public class IStochastic implements Serializable {
 
   @Positive
   @Column(nullable = false, updatable = false, name = "Kperiod", comment = "K-period (number of bars for calculations)")

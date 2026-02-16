@@ -7,6 +7,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
@@ -14,7 +15,7 @@ import org.hibernate.type.SqlTypes;
 
 @Data
 @Embeddable
-public class IBands {
+public class IBands implements Serializable {
 
   @Positive
   @Column(nullable = false, updatable = false, name = "bands_period", comment = "period for average line calculation")
