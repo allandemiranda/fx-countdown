@@ -57,6 +57,10 @@ public class Chart {
   @Exclude
   private Set<Candlestick> candlesticks = new LinkedHashSet<>();
 
+  @OneToMany(mappedBy = "tick", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  @Exclude
+  private Set<Tick> ticks = new LinkedHashSet<>();
+
   @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
   @JoinColumn(name = "script_info_id", nullable = false, unique = true)
   private ScriptInfo scriptInfo;
