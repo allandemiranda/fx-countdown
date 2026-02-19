@@ -4,9 +4,13 @@ import br.allandemiranda.fx.robot.enums.AppliedPrice;
 import br.allandemiranda.fx.robot.enums.PriceField;
 import br.allandemiranda.fx.robot.enums.SmoothingMethod;
 import br.allandemiranda.fx.robot.enums.Timeframe;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -18,6 +22,11 @@ import lombok.Value;
 @Value
 public class ChartCreateDto implements Serializable {
 
+  @NotNull
+  @Size(min = 6, max = 6)
+  @Pattern(regexp = "^[A-Z]{6}$")
+  @NotEmpty
+  @NotBlank
   String symbolName;
   @NotNull
   Timeframe period;

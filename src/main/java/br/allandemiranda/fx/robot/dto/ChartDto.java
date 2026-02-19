@@ -16,6 +16,7 @@ public class ChartDto implements Serializable {
   UUID id;
   @NotNull
   SymbolDto symbol;
+  @NotNull
   Timeframe period;
   @NotNull
   ScriptInfoDto scriptInfo;
