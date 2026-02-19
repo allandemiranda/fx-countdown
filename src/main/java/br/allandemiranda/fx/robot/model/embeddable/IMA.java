@@ -8,14 +8,13 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
-import java.io.Serializable;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 @Data
 @Embeddable
-public class IMA implements Serializable {
+public class IMA {
 
   @Positive
   @Column(nullable = false, updatable = false, name = "ma_period", comment = "averaging period")

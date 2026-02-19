@@ -3,14 +3,13 @@ package br.allandemiranda.fx.robot.model.embeddable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.Positive;
-import java.io.Serializable;
 import lombok.Data;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
 @Data
 @Embeddable
-public class IATR implements Serializable {
+public class IATR {
 
   @Positive
   @Column(nullable = false, updatable = false, name = "ma_period", comment = "averaging period ")
