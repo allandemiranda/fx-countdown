@@ -57,7 +57,7 @@ public class Chart {
   @Exclude
   private Set<Candlestick> candlesticks = new LinkedHashSet<>();
 
-  @OneToMany(mappedBy = "tick", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude
   private Set<Tick> ticks = new LinkedHashSet<>();
 
