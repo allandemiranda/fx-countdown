@@ -1,8 +1,7 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.TickChartDto;
+import br.allandemiranda.fx.robot.dto.ChartCreateDto;
 import br.allandemiranda.fx.robot.model.Chart;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,21 +10,16 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = ComponentModel.SPRING, uses = {TickMapper.class})
-public interface TickChartMapper {
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = ComponentModel.SPRING)
+public interface ChartCreateMapper {
 
   @Mapping(source = "symbolName", target = "symbol.name")
-  Chart toEntity(TickChartDto tickChartDto);
-
-  @AfterMapping
-  default void linkTicks(@MappingTarget Chart chart) {
-    chart.getTicks().forEach(tick -> tick.setChart(chart));
-  }
+  Chart toEntity(ChartCreateDto chartCreateDto);
 
   @Mapping(source = "symbol.name", target = "symbolName")
-  TickChartDto toDto(Chart chart);
+  ChartCreateDto toDto(Chart chart);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
   @Mapping(source = "symbolName", target = "symbol.name")
-  Chart partialUpdate(TickChartDto tickChartDto, @MappingTarget Chart chart);
+  Chart partialUpdate(ChartCreateDto chartCreateDto, @MappingTarget Chart chart);
 }

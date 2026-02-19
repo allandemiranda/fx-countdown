@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ADXDto;
-import br.allandemiranda.fx.robot.model.ADX;
+import br.allandemiranda.fx.robot.dto.TickCreateDto;
+import br.allandemiranda.fx.robot.model.Tick;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants.ComponentModel;
@@ -10,12 +10,12 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = ComponentModel.SPRING)
-public interface ADXMapper {
+public interface TickCreateMapper {
 
-  ADX toEntity(ADXDto ADXDto);
+  Tick toEntity(TickCreateDto tickCreateDto);
 
-  ADXDto toDto(ADX ADX);
+  TickCreateDto toDto(Tick tick);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  ADX partialUpdate(ADXDto ADXDto, @MappingTarget ADX ADX);
+  Tick partialUpdate(TickCreateDto tickCreateDto, @MappingTarget Tick tick);
 }

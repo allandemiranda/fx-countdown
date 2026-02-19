@@ -5,14 +5,16 @@ import br.allandemiranda.fx.robot.model.Chart;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants.ComponentModel;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
-@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = ComponentModel.SPRING)
+@Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = ComponentModel.SPRING, uses = {CandlestickMapper.class, ADXMapper.class, BandsMapper.class, MaFastMapper.class, MaSlowMapper.class, ATRMapper.class, MACDMapper.class, RSIMapper.class, StochasticMapper.class})
 public interface CandlestickChartMapper {
 
+  @Mapping(source = "symbolName", target = "symbol.name")
   Chart toEntity(CandlestickChartDto candlestickChartDto);
 
   @AfterMapping
@@ -60,8 +62,10 @@ public interface CandlestickChartMapper {
     chart.getTimelineStochastics().forEach(timelineStochastic -> timelineStochastic.setChart(chart));
   }
 
+  @Mapping(source = "symbol.name", target = "symbolName")
   CandlestickChartDto toDto(Chart chart);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+  @Mapping(source = "symbolName", target = "symbol.name")
   Chart partialUpdate(CandlestickChartDto candlestickChartDto, @MappingTarget Chart chart);
 }

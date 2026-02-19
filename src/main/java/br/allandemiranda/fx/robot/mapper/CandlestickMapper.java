@@ -1,12 +1,9 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.CandlestickCreateDto;
+import br.allandemiranda.fx.robot.dto.CandlestickDto;
 import br.allandemiranda.fx.robot.model.Candlestick;
 import org.mapstruct.BeanMapping;
-import org.mapstruct.InheritConfiguration;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants.ComponentModel;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
@@ -15,14 +12,10 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = ComponentModel.SPRING)
 public interface CandlestickMapper {
 
-  @Mapping(source = "chartPeriod", target = "chart.period")
-  @Mapping(source = "chartSymbolName", target = "chart.symbol.name")
-  Candlestick toEntity(CandlestickCreateDto candlestickCreateDto);
+  Candlestick toEntity(CandlestickDto candlestickDto);
 
-  @InheritInverseConfiguration(name = "toEntity")
-  CandlestickCreateDto toDto(Candlestick candlestick);
+  CandlestickDto toDto(Candlestick candlestick);
 
-  @InheritConfiguration(name = "toEntity")
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  Candlestick partialUpdate(CandlestickCreateDto candlestickCreateDto, @MappingTarget Candlestick candlestick);
+  Candlestick partialUpdate(CandlestickDto candlestickDto, @MappingTarget Candlestick candlestick);
 }

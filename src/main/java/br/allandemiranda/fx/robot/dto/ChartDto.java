@@ -3,7 +3,6 @@ package br.allandemiranda.fx.robot.dto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Set;
 import java.util.UUID;
 import lombok.Value;
 
@@ -11,13 +10,13 @@ import lombok.Value;
  * DTO for {@link br.allandemiranda.fx.robot.model.Chart}
  */
 @Value
-public class TickChartDto implements Serializable {
+public class ChartDto implements Serializable {
 
   @NotNull
   UUID id;
-  String symbolName;
   @NotNull
+  SymbolDto symbol;
   Timeframe period;
   @NotNull
-  Set<TickDto> ticks;
+  ScriptInfoDto scriptInfo;
 }

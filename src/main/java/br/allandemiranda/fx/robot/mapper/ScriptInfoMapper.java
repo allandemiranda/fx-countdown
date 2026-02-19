@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ADXDto;
-import br.allandemiranda.fx.robot.model.ADX;
+import br.allandemiranda.fx.robot.dto.ScriptInfoDto;
+import br.allandemiranda.fx.robot.model.ScriptInfo;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants.ComponentModel;
@@ -10,12 +10,12 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = ComponentModel.SPRING)
-public interface ADXMapper {
+public interface ScriptInfoMapper {
 
-  ADX toEntity(ADXDto ADXDto);
+  ScriptInfo toEntity(ScriptInfoDto scriptInfoDto);
 
-  ADXDto toDto(ADX ADX);
+  ScriptInfoDto toDto(ScriptInfo scriptInfo);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  ADX partialUpdate(ADXDto ADXDto, @MappingTarget ADX ADX);
+  ScriptInfo partialUpdate(ScriptInfoDto scriptInfoDto, @MappingTarget ScriptInfo scriptInfo);
 }
