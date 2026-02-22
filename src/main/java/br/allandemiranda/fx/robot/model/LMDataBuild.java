@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.model;
 
-import br.allandemiranda.fx.robot.model.embeddable.LMBuildResult;
+import br.allandemiranda.fx.robot.model.embeddable.LMDataBuildGarch;
+import br.allandemiranda.fx.robot.model.embeddable.LMDataBuildStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -43,7 +44,10 @@ public class LMDataBuild {
   private Chart chart;
 
   @Embedded
-  private LMBuildResult lmBuildResult;
+  private LMDataBuildStatus status;
+
+  @Embedded
+  private LMDataBuildGarch garch;
 
   @Exclude
   @OneToMany
