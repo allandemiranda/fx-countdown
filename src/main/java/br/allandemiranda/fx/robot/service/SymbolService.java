@@ -2,11 +2,14 @@ package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.SymbolCreateDto;
 import br.allandemiranda.fx.robot.dto.SymbolDto;
+import br.allandemiranda.fx.robot.exception.SymbolNotFoundException;
 import br.allandemiranda.fx.robot.mapper.SymbolCreateMapper;
 import br.allandemiranda.fx.robot.mapper.SymbolMapper;
 import br.allandemiranda.fx.robot.model.Symbol;
 import br.allandemiranda.fx.robot.repository.SymbolRepository;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,12 +37,18 @@ public class SymbolService {
     return this.getSymbolEntity(name).map(symbol -> this.getMapper().toDto(symbol));
   }
 
+  @Transactional(readOnly = true)
+  public Collection<SymbolDto> getSymbols() {
+    return this.getRepository().findAll().stream().map(symbol -> this.getMapper().toDto(symbol)).collect(Collectors.toList());
+  }
+
   private Optional<Symbol> getSymbolEntity(String name) {
     return this.getRepository().findFirstByName(name);
   }
 
   public void deleteSymbol(String name) {
-    this.getSymbolEntity(name).ifPresent(symbol -> this.getRepository().delete(symbol));
+    Symbol symbol = this.getSymbolEntity(name).orElseThrow(() -> new SymbolNotFoundException(name));
+    this.getRepository().delete(symbol);
   }
 
 }

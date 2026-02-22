@@ -11,7 +11,9 @@ import br.allandemiranda.fx.robot.mapper.ChartMapper;
 import br.allandemiranda.fx.robot.mapper.TickChartMapper;
 import br.allandemiranda.fx.robot.model.Chart;
 import br.allandemiranda.fx.robot.repository.ChartRepository;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -39,6 +41,11 @@ public class ChartService {
   @Transactional(readOnly = true)
   public Optional<ChartDto> getChart(String symbolName, Timeframe period) {
     return this.getChartEntity(symbolName, period).map(chart -> this.getMapper().toDto(chart));
+  }
+
+  @Transactional(readOnly = true)
+  public Collection<ChartDto> getCharts() {
+    return this.getRepository().findAll().stream().map(chart -> this.getMapper().toDto(chart)).collect(Collectors.toList());
   }
 
   private Optional<Chart> getChartEntity(String symbolName, Timeframe period) {
