@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,6 +61,10 @@ public class ChartService {
   @Transactional(readOnly = true)
   public Optional<TickChartDto> getTicks(String symbolName, Timeframe period) {
     return this.getChartEntity(symbolName, period).map(chart -> this.getTickChartMapper().toDto(chart));
+  }
+
+  public void deleteChart(@NonNull ChartDto chartDto) {
+    this.getRepository().deleteById(chartDto.getId());
   }
 
 }

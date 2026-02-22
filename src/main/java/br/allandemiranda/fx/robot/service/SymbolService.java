@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,9 +47,8 @@ public class SymbolService {
     return this.getRepository().findFirstByName(name);
   }
 
-  public void deleteSymbol(String name) {
-    Symbol symbol = this.getSymbolEntity(name).orElseThrow(() -> new SymbolNotFoundException(name));
-    this.getRepository().delete(symbol);
+  public void deleteSymbol(@NonNull SymbolDto symbolDto) {
+    this.getRepository().deleteById(symbolDto.getName());
   }
 
 }

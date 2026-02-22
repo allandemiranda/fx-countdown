@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter(AccessLevel.PRIVATE)
 @RestController
 @RequestMapping("mt5/import/symbols")
-public class MT5ImportsSymbol {
+public class MT5ImportSymbol {
 
   private final SymbolService symbolService;
 
@@ -52,7 +52,8 @@ public class MT5ImportsSymbol {
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(path = "/{name}", produces = "application/json")
-  public void deleteSymbol(@PathVariable String name) {
-    this.getSymbolService().deleteSymbol(name);
+  public void deleteSymbol(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
+    SymbolDto symbolDto = this.getSymbolService().getSymbol(name).orElseThrow(SymbolNotFoundException::new);
+    this.getSymbolService().deleteSymbol(symbolDto);
   }
 }
