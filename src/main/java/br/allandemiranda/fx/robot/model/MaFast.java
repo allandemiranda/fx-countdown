@@ -11,7 +11,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.PastOrPresent;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -19,11 +18,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.TimeZoneStorage;
 import org.hibernate.annotations.TimeZoneStorageType;
 import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.type.SqlTypes;
 
 @Getter
 @Setter
@@ -40,7 +37,6 @@ public class MaFast {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(nullable = false, updatable = false, unique = true)
-  @JdbcTypeCode(SqlTypes.UUID)
   private UUID id;
 
   @ManyToOne(optional = false)
@@ -49,13 +45,11 @@ public class MaFast {
 
   @PastOrPresent
   @Column(nullable = false, updatable = false)
-  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   @TimeZoneStorage(TimeZoneStorageType.AUTO)
   private ZonedDateTime timestamp;
 
-  @Column(nullable = false, precision = 10, scale = 6, updatable = false, comment = "Returns the handle of a specified technical indicator")
-  @JdbcTypeCode(SqlTypes.DECIMAL)
-  private BigDecimal ma;
+  @Column(nullable = false, updatable = false, comment = "Returns the handle of a specified technical indicator")
+  private double ma;
 
   @Override
   public final boolean equals(Object o) {

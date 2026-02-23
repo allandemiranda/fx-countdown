@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.Value;
@@ -65,7 +64,7 @@ public class ScriptInfoDto implements Serializable {
     short shift;
     @NotNull
     @PositiveOrZero
-    BigDecimal deviations;
+    double deviations;
     @NotNull
     AppliedPrice applyTo;
   }

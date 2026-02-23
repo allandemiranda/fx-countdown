@@ -8,7 +8,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import lombok.Value;
 
@@ -28,16 +27,12 @@ public class CandlestickCreateDto implements Serializable {
   Timeframe chartPeriod;
   @NotNull
   ZonedDateTime timestamp;
-  @NotNull
   @Positive
-  BigDecimal open;
-  @NotNull
+  double open;
   @Positive
-  BigDecimal high;
-  @NotNull
+  double high;
   @Positive
-  BigDecimal low;
-  @NotNull
+  double low;
   @Positive
-  BigDecimal close;
+  double close;
 }

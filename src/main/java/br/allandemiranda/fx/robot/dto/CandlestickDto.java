@@ -3,7 +3,6 @@ package br.allandemiranda.fx.robot.dto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 import lombok.Value;
@@ -18,16 +17,12 @@ public class CandlestickDto implements Serializable {
   UUID id;
   @NotNull
   ZonedDateTime timestamp;
-  @NotNull
   @Positive
-  BigDecimal open;
-  @NotNull
+  double open;
   @Positive
-  BigDecimal high;
-  @NotNull
+  double high;
   @Positive
-  BigDecimal low;
-  @NotNull
+  double low;
   @Positive
-  BigDecimal close;
+  double close;
 }

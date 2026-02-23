@@ -12,7 +12,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Value;
 
@@ -82,9 +81,8 @@ public class ChartCreateDto implements Serializable {
 
       short period;
       short shift;
-      @NotNull
       @PositiveOrZero
-      BigDecimal deviations;
+      double deviations;
       @NotNull
       AppliedPrice applyTo;
     }

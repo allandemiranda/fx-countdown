@@ -7,8 +7,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Positive;
 import lombok.Data;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 @Data
 @Embeddable
@@ -16,12 +14,10 @@ public class IRSI {
 
   @Positive
   @Column(nullable = false, updatable = false, name = "ma_period", comment = "averaging period")
-  @JdbcTypeCode(SqlTypes.SMALLINT)
   private short period;
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, updatable = false, name = "applied_price", comment = "type of price or handle")
-  @JdbcTypeCode(SqlTypes.VARCHAR)
   private AppliedPrice applyTo;
 
 }

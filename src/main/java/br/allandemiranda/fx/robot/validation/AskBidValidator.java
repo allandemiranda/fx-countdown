@@ -10,7 +10,7 @@ public class AskBidValidator implements ConstraintValidator<AskBidValidate, Tick
   @Override
   public boolean isValid(Tick tick, ConstraintValidatorContext context) {
 
-    boolean valid = tick.getAsk().compareTo(tick.getBid()) >= 0;
+    boolean valid = tick.getAsk() >= tick.getBid();
 
     if (!valid) {
       context.disableDefaultConstraintViolation();

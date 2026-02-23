@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import lombok.Value;
 
@@ -29,12 +28,10 @@ public class StochasticCreateDto implements Serializable {
   Timeframe chartPeriod;
   @NotNull
   ZonedDateTime timestamp;
-  @NotNull
   @Min(0)
   @Max(100)
-  BigDecimal mainLine;
-  @NotNull
+  double mainLine;
   @Min(0)
   @Max(100)
-  BigDecimal signalLine;
+  double signalLine;
 }

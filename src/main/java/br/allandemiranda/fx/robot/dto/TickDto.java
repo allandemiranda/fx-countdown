@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.dto;
 
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 import lombok.Value;
@@ -17,8 +17,8 @@ public class TickDto implements Serializable {
   UUID id;
   @NotNull
   ZonedDateTime timestamp;
-  @NotNull
-  BigDecimal ask;
-  @NotNull
-  BigDecimal bid;
+  @Positive
+  double ask;
+  @Positive
+  double bid;
 }

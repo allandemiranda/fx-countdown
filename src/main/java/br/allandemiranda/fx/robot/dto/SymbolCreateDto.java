@@ -7,7 +7,6 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import lombok.Value;
 
 /**
@@ -22,11 +21,8 @@ public class SymbolCreateDto implements Serializable {
   @NotEmpty
   @NotBlank
   String name;
-  @NotNull
   @Positive
-  BigDecimal point;
-  @NotNull
-  BigDecimal swapLong;
-  @NotNull
-  BigDecimal swapShort;
+  double point;
+  double swapLong;
+  double swapShort;
 }

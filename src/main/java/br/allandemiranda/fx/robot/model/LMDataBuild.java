@@ -1,7 +1,8 @@
 package br.allandemiranda.fx.robot.model;
 
 import br.allandemiranda.fx.robot.model.embeddable.LMDataBuildGarch;
-import br.allandemiranda.fx.robot.model.embeddable.LMDataBuildStatus;
+import br.allandemiranda.fx.robot.model.embeddable.LMDataBuildTradePerformance;
+import br.allandemiranda.fx.robot.model.embeddable.LMDateBuildRiskLevel;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
@@ -11,7 +12,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -22,9 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.type.SqlTypes;
 
 @Getter
 @Setter
@@ -37,7 +35,6 @@ public class LMDataBuild {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(nullable = false, updatable = false, unique = true)
-  @JdbcTypeCode(SqlTypes.UUID)
   private UUID id;
 
   @Exclude
@@ -48,7 +45,10 @@ public class LMDataBuild {
   // Build result
 
   @Embedded
-  private LMDataBuildStatus status;
+  private LMDataBuildTradePerformance performance;
+
+  @Embedded
+  private LMDateBuildRiskLevel riskLevel;
 
   // GARCH Data to build
 

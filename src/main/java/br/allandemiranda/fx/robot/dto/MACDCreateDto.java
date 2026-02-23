@@ -7,7 +7,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import lombok.Value;
 
@@ -27,8 +26,6 @@ public class MACDCreateDto implements Serializable {
   Timeframe chartPeriod;
   @NotNull
   ZonedDateTime timestamp;
-  @NotNull
-  BigDecimal mainLine;
-  @NotNull
-  BigDecimal signalLine;
+  double mainLine;
+  double signalLine;
 }

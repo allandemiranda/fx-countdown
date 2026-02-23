@@ -23,9 +23,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.type.SqlTypes;
 
 @Getter
 @Setter
@@ -38,24 +36,20 @@ public class ScriptInfo {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(nullable = false, updatable = false, unique = true)
-  @JdbcTypeCode(SqlTypes.UUID)
   private UUID id;
 
   @OneToOne(mappedBy = "scriptInfo")
   private Chart chart;
 
   @PastOrPresent
-  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   @Column(nullable = false, updatable = false)
   private LocalDateTime updateTime;
 
   @PastOrPresent
-  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   @Column(nullable = false, updatable = false)
   private LocalDateTime startScope;
 
   @PastOrPresent
-  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   @Column(nullable = false, updatable = false)
   private LocalDateTime endScope;
 

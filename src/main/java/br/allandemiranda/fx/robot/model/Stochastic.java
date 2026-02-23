@@ -13,7 +13,6 @@ import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PastOrPresent;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -21,11 +20,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.TimeZoneStorage;
 import org.hibernate.annotations.TimeZoneStorageType;
 import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.type.SqlTypes;
 
 @Getter
 @Setter
@@ -42,7 +39,6 @@ public class Stochastic {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(nullable = false, updatable = false, unique = true)
-  @JdbcTypeCode(SqlTypes.UUID)
   private UUID id;
 
   @ManyToOne(optional = false)
@@ -51,21 +47,18 @@ public class Stochastic {
 
   @PastOrPresent
   @Column(nullable = false, updatable = false)
-  @JdbcTypeCode(SqlTypes.TIMESTAMP_WITH_TIMEZONE)
   @TimeZoneStorage(TimeZoneStorageType.AUTO)
   private ZonedDateTime timestamp;
 
   @Max(100)
   @Min(0)
-  @Column(nullable = false, precision = 4, scale = 4, updatable = false, name = "main_line")
-  @JdbcTypeCode(SqlTypes.DECIMAL)
-  private BigDecimal mainLine;
+  @Column(nullable = false, updatable = false, name = "main_line")
+  private double mainLine;
 
   @Max(100)
   @Min(0)
-  @Column(nullable = false, precision = 4, scale = 4, updatable = false, name = "signal_line")
-  @JdbcTypeCode(SqlTypes.DECIMAL)
-  private BigDecimal signalLine;
+  @Column(nullable = false, updatable = false, name = "signal_line")
+  private double signalLine;
 
   @Override
   public final boolean equals(Object o) {

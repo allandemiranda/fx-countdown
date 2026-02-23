@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 import lombok.Value;
@@ -19,12 +18,10 @@ public class StochasticDto implements Serializable {
   UUID id;
   @NotNull
   ZonedDateTime timestamp;
-  @NotNull
   @Min(0)
   @Max(100)
-  BigDecimal mainLine;
-  @NotNull
+  double mainLine;
   @Min(0)
   @Max(100)
-  BigDecimal signalLine;
+  double signalLine;
 }

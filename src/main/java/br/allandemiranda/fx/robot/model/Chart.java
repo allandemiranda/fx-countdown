@@ -24,9 +24,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.type.SqlTypes;
 
 @Getter
 @Setter
@@ -41,7 +39,6 @@ public class Chart {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   @Column(nullable = false, updatable = false, unique = true)
-  @JdbcTypeCode(SqlTypes.UUID)
   private UUID id;
 
   @ManyToOne(optional = false)
@@ -50,7 +47,6 @@ public class Chart {
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false, length = 10, updatable = false, comment = "Chart Timeframe")
-  @JdbcTypeCode(SqlTypes.VARCHAR)
   private Timeframe period;
 
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)

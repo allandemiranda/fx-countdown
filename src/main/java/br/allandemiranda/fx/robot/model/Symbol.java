@@ -8,7 +8,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
-import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -17,9 +16,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.ToString.Exclude;
-import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.type.SqlTypes;
 
 @Getter
 @Setter
@@ -32,21 +29,17 @@ public class Symbol {
   @Column(nullable = false, length = 6, updatable = false, unique = true, comment = "Symbol name")
   @Size(min = 6, max = 6)
   @Pattern(regexp = "^[A-Z]{6}$")
-  @JdbcTypeCode(SqlTypes.VARCHAR)
   private String name;
 
   @Positive
-  @Column(nullable = false, precision = 7, scale = 6, updatable = false, comment = "Symbol point value")
-  @JdbcTypeCode(SqlTypes.DECIMAL)
-  private BigDecimal point;
+  @Column(nullable = false, updatable = false, comment = "Symbol point value")
+  private double point;
 
-  @Column(nullable = false, precision = 6, scale = 3, updatable = false, name = "swap_long", comment = "Long swap value")
-  @JdbcTypeCode(SqlTypes.DECIMAL)
-  private BigDecimal swapLong;
+  @Column(nullable = false, updatable = false, name = "swap_long", comment = "Long swap value")
+  private double swapLong;
 
-  @Column(nullable = false, precision = 6, scale = 3, updatable = false, name = "swap_short", comment = "Short swap value")
-  @JdbcTypeCode(SqlTypes.DECIMAL)
-  private BigDecimal swapShort;
+  @Column(nullable = false, updatable = false, name = "swap_short", comment = "Short swap value")
+  private double swapShort;
 
   @OneToMany(mappedBy = "symbol", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude
