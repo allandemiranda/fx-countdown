@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -39,15 +40,26 @@ public class LMDataBuild {
   @JdbcTypeCode(SqlTypes.UUID)
   private UUID id;
 
-  @OneToOne(optional = false, orphanRemoval = true)
-  @JoinColumn(name = "chart_id", nullable = false, unique = true)
+  @Exclude
+  @ManyToOne(optional = false)
+  @JoinColumn(name = "chart_id", nullable = false)
   private Chart chart;
+
+  // Build result
 
   @Embedded
   private LMDataBuildStatus status;
 
+  // GARCH Data to build
+
+  @Exclude
+  @OneToMany
+  private Set<Candlestick> candlesticksGarch = new LinkedHashSet<>();
+
   @Embedded
   private LMDataBuildGarch garch;
+
+  // LM Data to build
 
   @Exclude
   @OneToMany

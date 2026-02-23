@@ -65,6 +65,10 @@ public class Chart {
   @JoinColumn(name = "script_info_id", nullable = false, unique = true)
   private ScriptInfo scriptInfo;
 
+  @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
+  @Exclude
+  private Set<LMDataBuild> lmDataBuilds = new LinkedHashSet<>();
+
   // Trend
 
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
