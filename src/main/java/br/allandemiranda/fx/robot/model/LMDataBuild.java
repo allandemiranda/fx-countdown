@@ -9,10 +9,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -29,7 +31,11 @@ import org.hibernate.proxy.HibernateProxy;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "LM_DATA_BUILD")
+@Table(name = "LM_DATA_BUILD", indexes = {
+    @Index(name = "idx_lmdatabuild_chart_id", columnList = "chart_id")
+}, uniqueConstraints = {
+    @UniqueConstraint(name = "uc_lmdatabuild_chart_id", columnNames = {"chart_id", "openTime"})
+})
 public class LMDataBuild {
 
   @Id

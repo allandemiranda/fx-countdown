@@ -15,6 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -33,6 +34,9 @@ import org.hibernate.proxy.HibernateProxy;
 @Entity
 @Table(name = "CHART", indexes = {
     @Index(name = "idx_chart_symbol_name_unq", columnList = "symbol_name, period", unique = true)
+}, uniqueConstraints = {
+    @UniqueConstraint(name = "uc_chart_script_info_id", columnNames = {"script_info_id"}),
+    @UniqueConstraint(name = "uc_chart_dashboard_id", columnNames = {"dashboard_id"})
 })
 public class Chart {
 

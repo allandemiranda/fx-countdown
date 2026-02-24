@@ -6,8 +6,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import java.time.ZonedDateTime;
@@ -27,6 +30,11 @@ import org.hibernate.proxy.HibernateProxy;
 @RequiredArgsConstructor
 @AskBidValidate
 @Entity
+@Table(name = "Tick", indexes = {
+    @Index(name = "idx_tick_chart_id", columnList = "chart_id")
+}, uniqueConstraints = {
+    @UniqueConstraint(name = "uc_tick_chart_id_timestamp", columnNames = {"chart_id", "timestamp"})
+})
 public class Tick {
 
   @Id

@@ -29,9 +29,9 @@ import org.hibernate.proxy.HibernateProxy;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "STOCHASTIC", indexes = {
-    @Index(name = "idx_stochastic_symbol_period_timestamp_unq", columnList = "chart_id, timestamp", unique = true)
+    @Index(name = "idx_stochastic_chart_id", columnList = "chart_id")
 }, uniqueConstraints = {
-    @UniqueConstraint(name = "uc_stochastic_symbol_period_timestamp", columnNames = {"chart_id", "timestamp"})
+    @UniqueConstraint(name = "uc_stochastic_chart_id", columnNames = {"chart_id", "timestamp"})
 })
 @Entity
 public class Stochastic {

@@ -26,13 +26,13 @@ import org.hibernate.proxy.HibernateProxy;
 public class Symbol {
 
   @Id
-  @Column(nullable = false, length = 6, updatable = false, unique = true, comment = "Symbol name")
+  @Column(nullable = false, length = 6, updatable = false, unique = true, name = "name", comment = "Symbol name")
   @Size(min = 6, max = 6)
   @Pattern(regexp = "^[A-Z]{6}$")
   private String name;
 
   @Positive
-  @Column(nullable = false, updatable = false, comment = "Symbol point value")
+  @Column(nullable = false, updatable = false, name = "point", comment = "Symbol point value")
   private double point;
 
   @Column(nullable = false, updatable = false, name = "swap_long", comment = "Long swap value")

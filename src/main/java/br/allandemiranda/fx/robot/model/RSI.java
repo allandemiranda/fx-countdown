@@ -29,9 +29,9 @@ import org.hibernate.proxy.HibernateProxy;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "RSI", indexes = {
-    @Index(name = "idx_rsi_symbol_period_timestamp_unq", columnList = "chart_id, timestamp", unique = true)
+    @Index(name = "idx_rsi_chart_id", columnList = "chart_id")
 }, uniqueConstraints = {
-    @UniqueConstraint(name = "uc_rsi_symbol_period_timestamp", columnNames = {"chart_id", "timestamp"})
+    @UniqueConstraint(name = "uc_rsi_chart_id", columnNames = {"chart_id", "timestamp"})
 })
 @Entity
 public class RSI {
@@ -52,7 +52,7 @@ public class RSI {
 
   @Max(100)
   @Min(0)
-  @Column(nullable = false, updatable = false)
+  @Column(nullable = false, updatable = false, name = "value")
   private double value;
 
   @Override

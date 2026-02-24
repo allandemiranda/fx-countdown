@@ -27,9 +27,9 @@ import org.hibernate.proxy.HibernateProxy;
 @ToString
 @RequiredArgsConstructor
 @Table(name = "ATR", indexes = {
-    @Index(name = "idx_atr_symbol_period_timestamp_unq", columnList = "chart_id, timestamp", unique = true)
+    @Index(name = "idx_atr_chart_id", columnList = "chart_id")
 }, uniqueConstraints = {
-    @UniqueConstraint(name = "uc_atr_symbol_period_timestamp", columnNames = {"chart_id", "timestamp"})
+    @UniqueConstraint(name = "uc_atr_chart_id", columnNames = {"chart_id", "timestamp"})
 })
 @Entity
 public class ATR {

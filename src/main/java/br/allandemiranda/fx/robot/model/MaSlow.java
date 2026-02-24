@@ -28,9 +28,9 @@ import org.hibernate.proxy.HibernateProxy;
 @RequiredArgsConstructor
 @Entity
 @Table(name = "MA_SLOW", indexes = {
-    @Index(name = "idx_maSlow_symbol_period_timestamp", columnList = "chart_id, timestamp", unique = true)
+    @Index(name = "idx_maSlow_chart_id", columnList = "chart_id")
 }, uniqueConstraints = {
-    @UniqueConstraint(name = "uc_maSlow_symbol_period_timestamp", columnNames = {"chart_id", "timestamp"})
+    @UniqueConstraint(name = "uc_maSlow_chart_id", columnNames = {"chart_id", "timestamp"})
 })
 public class MaSlow {
 
@@ -48,7 +48,7 @@ public class MaSlow {
   @TimeZoneStorage(TimeZoneStorageType.AUTO)
   private ZonedDateTime timestamp;
 
-  @Column(nullable = false, updatable = false, comment = "Returns the handle of a specified technical indicator")
+  @Column(nullable = false, updatable = false, name = "ma", comment = "Returns the handle of a specified technical indicator")
   private double ma;
 
   @Override
