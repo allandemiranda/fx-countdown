@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.CandlestickCreateDto;
-import br.allandemiranda.fx.robot.dto.CandlestickDto;
-import br.allandemiranda.fx.robot.service.CandlestickService;
+import br.allandemiranda.fx.robot.dto.BandsCreateDto;
+import br.allandemiranda.fx.robot.dto.BandsDto;
+import br.allandemiranda.fx.robot.service.BandsService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Getter(AccessLevel.PRIVATE)
 @RestController
-@RequestMapping("mt5/import/candlesticks")
-public class MT5ImportCandlestick {
+@RequestMapping("mt5/import/bands")
+public class BandsController {
 
-  private final CandlestickService candlestickService;
+  private final BandsService bandsService;
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
-  public CandlestickDto createCandlestick(@RequestBody @Valid CandlestickCreateDto candlestickCreateDto) {
-    return this.getCandlestickService().create(candlestickCreateDto);
+  public BandsDto createBands(@RequestBody @Valid BandsCreateDto bandsCreateDto) {
+    return this.getBandsService().create(bandsCreateDto);
   }
 }

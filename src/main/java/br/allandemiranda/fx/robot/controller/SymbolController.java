@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter(AccessLevel.PRIVATE)
 @RestController
 @RequestMapping("mt5/import/symbols")
-public class MT5ImportSymbol {
+public class SymbolController {
 
   private final SymbolService symbolService;
 

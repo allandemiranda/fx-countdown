@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.MaSlowCreateDto;
-import br.allandemiranda.fx.robot.dto.MaSlowDto;
-import br.allandemiranda.fx.robot.service.MaSlowService;
+import br.allandemiranda.fx.robot.dto.MACDCreateDto;
+import br.allandemiranda.fx.robot.dto.MACDDto;
+import br.allandemiranda.fx.robot.service.MACDService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Getter(AccessLevel.PRIVATE)
 @RestController
-@RequestMapping("mt5/import/maSlows")
-public class MT5ImportMaSlow {
+@RequestMapping("mt5/import/macds")
+public class MACDController {
 
-  private final MaSlowService maSlowService;
+  private final MACDService macdService;
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
-  public MaSlowDto createMaSlow(@RequestBody @Valid MaSlowCreateDto maSlowCreateDto) {
-    return this.getMaSlowService().create(maSlowCreateDto);
+  public MACDDto createMACD(@RequestBody @Valid MACDCreateDto macdCreateDto) {
+    return this.getMacdService().create(macdCreateDto);
   }
 }

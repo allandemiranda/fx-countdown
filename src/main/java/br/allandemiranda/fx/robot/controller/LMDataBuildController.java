@@ -1,6 +1,5 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.LMBuildRequirementsDTO;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.service.LMDataBuildService;
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter(AccessLevel.PRIVATE)
 @RestController
 @RequestMapping("ml/build")
-public class LMDataBuild {
+public class LMDataBuildController {
 
   private final LMDataBuildService lmDataBuildService;
 

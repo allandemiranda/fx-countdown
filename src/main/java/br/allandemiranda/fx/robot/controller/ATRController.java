@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter(AccessLevel.PRIVATE)
 @RestController
 @RequestMapping("mt5/import/atrs")
-public class MT5ImportATR {
+public class ATRController {
 
   private final ATRService atrService;
 

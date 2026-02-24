@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.RSICreateDto;
-import br.allandemiranda.fx.robot.dto.RSIDto;
-import br.allandemiranda.fx.robot.service.RSIService;
+import br.allandemiranda.fx.robot.dto.StochasticCreateDto;
+import br.allandemiranda.fx.robot.dto.StochasticDto;
+import br.allandemiranda.fx.robot.service.StochasticService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Getter(AccessLevel.PRIVATE)
 @RestController
-@RequestMapping("mt5/import/rsis")
-public class MT5ImportRSI {
+@RequestMapping("mt5/import/stochastics")
+public class StochasticController {
 
-  private final RSIService rsiService;
+  private final StochasticService stochasticService;
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
-  public RSIDto createRSI(@RequestBody @Valid RSICreateDto rsiCreateDto) {
-    return this.getRsiService().create(rsiCreateDto);
+  public StochasticDto createStochastic(@RequestBody @Valid StochasticCreateDto stochasticCreateDto) {
+    return this.getStochasticService().create(stochasticCreateDto);
   }
 }

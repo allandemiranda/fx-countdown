@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.MaFastCreateDto;
-import br.allandemiranda.fx.robot.dto.MaFastDto;
-import br.allandemiranda.fx.robot.service.MaFastService;
+import br.allandemiranda.fx.robot.dto.RSICreateDto;
+import br.allandemiranda.fx.robot.dto.RSIDto;
+import br.allandemiranda.fx.robot.service.RSIService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Getter(AccessLevel.PRIVATE)
 @RestController
-@RequestMapping("mt5/import/maFasts")
-public class MT5ImportMaFast {
+@RequestMapping("mt5/import/rsis")
+public class RSIController {
 
-  private final MaFastService maFastService;
+  private final RSIService rsiService;
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
-  public MaFastDto createMaFast(@RequestBody @Valid MaFastCreateDto maFastCreateDto) {
-    return this.getMaFastService().create(maFastCreateDto);
+  public RSIDto createRSI(@RequestBody @Valid RSICreateDto rsiCreateDto) {
+    return this.getRsiService().create(rsiCreateDto);
   }
 }

@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter(AccessLevel.PRIVATE)
 @RestController
 @RequestMapping("mt5/import/charts")
-public class MT5ImportChart {
+public class ChartController {
 
   private final ChartService chartService;
 

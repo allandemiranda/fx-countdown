@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.MACDCreateDto;
-import br.allandemiranda.fx.robot.dto.MACDDto;
-import br.allandemiranda.fx.robot.service.MACDService;
+import br.allandemiranda.fx.robot.dto.ADXCreateDto;
+import br.allandemiranda.fx.robot.dto.ADXDto;
+import br.allandemiranda.fx.robot.service.ADXService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @Getter(AccessLevel.PRIVATE)
 @RestController
-@RequestMapping("mt5/import/macds")
-public class MT5ImportMACD {
+@RequestMapping("mt5/import/adxs")
+public class ADXController {
 
-  private final MACDService macdService;
+  private final ADXService adxService;
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
-  public MACDDto createMACD(@RequestBody @Valid MACDCreateDto macdCreateDto) {
-    return this.getMacdService().create(macdCreateDto);
+  public ADXDto createADX(@RequestBody @Valid ADXCreateDto adxCreateDto) {
+    return this.getAdxService().create(adxCreateDto);
   }
 }
