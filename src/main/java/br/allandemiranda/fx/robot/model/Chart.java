@@ -61,6 +61,10 @@ public class Chart {
   @JoinColumn(name = "script_info_id", nullable = false, unique = true)
   private ScriptInfo scriptInfo;
 
+  @OneToOne(cascade = CascadeType.ALL, optional = false, orphanRemoval = true)
+  @JoinColumn(name = "dashboard_id", nullable = false)
+  private Dashboard dashboard;
+
   @OneToMany(mappedBy = "chart", cascade = CascadeType.REMOVE, orphanRemoval = true)
   @Exclude
   private Set<LMDataBuild> lmDataBuilds = new LinkedHashSet<>();

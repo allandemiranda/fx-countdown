@@ -4,13 +4,9 @@ import br.allandemiranda.fx.robot.enums.AppliedPrice;
 import br.allandemiranda.fx.robot.enums.PriceField;
 import br.allandemiranda.fx.robot.enums.SmoothingMethod;
 import br.allandemiranda.fx.robot.enums.Timeframe;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.Value;
@@ -21,16 +17,12 @@ import lombok.Value;
 @Value
 public class ChartCreateDto implements Serializable {
 
-  @NotNull
-  @Size(min = 6, max = 6)
-  @Pattern(regexp = "^[A-Z]{6}$")
-  @NotEmpty
-  @NotBlank
   String symbolName;
-  @NotNull
   Timeframe period;
   @NotNull
   ChartCreateDto.ScriptInfoDto scriptInfo;
+  @NotNull
+  DashboardCreateDto dashboard;
 
   /**
    * DTO for {@link br.allandemiranda.fx.robot.model.ScriptInfo}
@@ -52,9 +44,9 @@ public class ChartCreateDto implements Serializable {
     @NotNull
     ChartCreateDto.ScriptInfoDto.IBandsDto iBands;
     @NotNull
-    ChartCreateDto.ScriptInfoDto.IMAFastDto iMaFast;
+    ChartCreateDto.ScriptInfoDto.IMaFastDto iMaFast;
     @NotNull
-    ChartCreateDto.ScriptInfoDto.IMASlowDto iMaSlow;
+    ChartCreateDto.ScriptInfoDto.IMaSlowDto iMaSlow;
     @NotNull
     ChartCreateDto.ScriptInfoDto.IATRDto iAtr;
     @NotNull
@@ -91,7 +83,7 @@ public class ChartCreateDto implements Serializable {
      * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IMA}
      */
     @Value
-    public static class IMAFastDto implements Serializable {
+    public static class IMaFastDto implements Serializable {
 
       short period;
       short shift;
@@ -105,7 +97,7 @@ public class ChartCreateDto implements Serializable {
      * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IMA}
      */
     @Value
-    public static class IMASlowDto implements Serializable {
+    public static class IMaSlowDto implements Serializable {
 
       short period;
       short shift;
@@ -162,5 +154,17 @@ public class ChartCreateDto implements Serializable {
       @NotNull
       PriceField priceField;
     }
+  }
+
+  /**
+   * DTO for {@link br.allandemiranda.fx.robot.model.Dashboard}
+   */
+  @Value
+  public static class DashboardCreateDto implements Serializable {
+
+    int garchInputsHorizon;
+    int garchInputsPriceSize;
+    double garchInputsKTP;
+    double garchInputsKSL;
   }
 }

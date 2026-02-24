@@ -27,30 +27,30 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ChartService {
 
-  private final ChartRepository repository;
-  private final ChartMapper mapper;
-  private final ChartCreateMapper createMapper;
+  private final ChartRepository chartRepository;
+  private final ChartMapper chartMapper;
+  private final ChartCreateMapper chartCreateMapper;
   private final CandlestickChartMapper candlestickChartMapper;
   private final TickChartMapper tickChartMapper;
 
   public ChartDto create(ChartCreateDto chartCreateDto) {
-    Chart entity = this.getCreateMapper().toEntity(chartCreateDto);
-    Chart chart = this.getRepository().save(entity);
-    return this.getMapper().toDto(chart);
+    Chart entity = this.getChartCreateMapper().toEntity(chartCreateDto);
+    Chart chart = this.getChartRepository().save(entity);
+    return this.getChartMapper().toDto(chart);
   }
 
   @Transactional(readOnly = true)
   public Optional<ChartDto> getChart(String symbolName, Timeframe period) {
-    return this.getChartEntity(symbolName, period).map(chart -> this.getMapper().toDto(chart));
+    return this.getChartEntity(symbolName, period).map(chart -> this.getChartMapper().toDto(chart));
   }
 
   @Transactional(readOnly = true)
   public Collection<ChartDto> getCharts() {
-    return this.getRepository().findAll().stream().map(chart -> this.getMapper().toDto(chart)).collect(Collectors.toList());
+    return this.getChartRepository().findAll().stream().map(chart -> this.getChartMapper().toDto(chart)).collect(Collectors.toList());
   }
 
   private Optional<Chart> getChartEntity(String symbolName, Timeframe period) {
-    return this.getRepository().findBySymbol_NameAndPeriod(symbolName, period);
+    return this.getChartRepository().findFirstBySymbol_NameAndPeriod(symbolName, period);
   }
 
   @Transactional(readOnly = true)
@@ -64,7 +64,7 @@ public class ChartService {
   }
 
   public void deleteChart(@NonNull ChartDto chartDto) {
-    this.getRepository().deleteById(chartDto.getId());
+    this.getChartRepository().deleteById(chartDto.getId());
   }
 
 }
