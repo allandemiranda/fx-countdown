@@ -22,7 +22,7 @@ public class StochasticService {
   private final StochasticMapper mapper;
   private final StochasticCreateMapper createMapper;
 
-  public StochasticDto create(StochasticCreateDto stochasticCreateDto) {
+  public StochasticDto createStochastic(StochasticCreateDto stochasticCreateDto) {
     Stochastic entity = this.getCreateMapper().toEntity(stochasticCreateDto);
     Stochastic stochastic = this.getRepository().save(entity);
     return this.getMapper().toDto(stochastic);

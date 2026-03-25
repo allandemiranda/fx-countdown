@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.dto;
 
 import br.allandemiranda.fx.robot.enums.Timeframe;
+import br.allandemiranda.fx.robot.model.AtrIndicator;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -11,7 +12,7 @@ import java.time.ZonedDateTime;
 import lombok.Value;
 
 /**
- * DTO for {@link br.allandemiranda.fx.robot.model.ATR}
+ * DTO for {@link AtrIndicator}
  */
 @Value
 public class ATRCreateDto implements Serializable {

@@ -22,7 +22,7 @@ public class RSIService {
   private final RSIMapper mapper;
   private final RSICreateMapper createMapper;
 
-  public RSIDto create(RSICreateDto rsiCreateDto) {
+  public RSIDto createRSI(RSICreateDto rsiCreateDto) {
     RSI entity = this.getCreateMapper().toEntity(rsiCreateDto);
     RSI rsi = this.getRepository().save(entity);
     return this.getMapper().toDto(rsi);

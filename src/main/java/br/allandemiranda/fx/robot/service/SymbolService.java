@@ -26,7 +26,7 @@ public class SymbolService {
   private final SymbolMapper symbolMapper;
   private final SymbolCreateMapper symbolCreateMapper;
 
-  public SymbolDto create(SymbolCreateDto symbolCreateDto) {
+  public SymbolDto createSymbol(SymbolCreateDto symbolCreateDto) {
     Symbol entity = this.getSymbolCreateMapper().toEntity(symbolCreateDto);
     Symbol symbol = this.getSymbolRepository().save(entity);
     return this.getSymbolMapper().toDto(symbol);

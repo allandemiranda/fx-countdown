@@ -5,7 +5,7 @@ import java.io.Serializable;
 import lombok.Value;
 
 @Value
-public class LMBuildRequirementsDTO implements Serializable {
+public class LMBuildRequirementsDto implements Serializable {
 
   @Positive
   int garchSize;

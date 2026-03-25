@@ -33,7 +33,7 @@ public class ChartService {
   private final CandlestickChartMapper candlestickChartMapper;
   private final TickChartMapper tickChartMapper;
 
-  public ChartDto create(ChartCreateDto chartCreateDto) {
+  public ChartDto createChart(ChartCreateDto chartCreateDto) {
     Chart entity = this.getChartCreateMapper().toEntity(chartCreateDto);
     Chart chart = this.getChartRepository().save(entity);
     return this.getChartMapper().toDto(chart);

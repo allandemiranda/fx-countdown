@@ -4,6 +4,7 @@ import br.allandemiranda.fx.robot.dto.DashboardDto;
 import br.allandemiranda.fx.robot.enums.DashboardStatus;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.mapper.DashboardMapper;
+import br.allandemiranda.fx.robot.model.Dashboard;
 import br.allandemiranda.fx.robot.repository.DashboardRepository;
 import java.util.Collection;
 import java.util.Optional;
@@ -40,6 +41,12 @@ public class DashboardService {
           cb.equal(root.get("chart").get("period"), period)
       );
     });
+  }
+
+  public DashboardDto createDashboard(DashboardDto dashboardDto) {
+    Dashboard entity = this.dashboardMapper.toEntity(dashboardDto);
+    Dashboard dashboard = this.getDashboardRepository().save(entity);
+    return this.getDashboardMapper().toDto(dashboard);
   }
 
 }

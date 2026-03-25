@@ -22,7 +22,7 @@ public class TickService {
   private final TickMapper mapper;
   private final TickCreateMapper createMapper;
 
-  public TickDto create(TickCreateDto tickCreateDto) {
+  public TickDto createTick(TickCreateDto tickCreateDto) {
     Tick entity = this.getCreateMapper().toEntity(tickCreateDto);
     Tick tick = this.getRepository().save(entity);
     return this.getMapper().toDto(tick);

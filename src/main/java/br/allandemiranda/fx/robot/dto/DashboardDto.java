@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.dto;
 
 import br.allandemiranda.fx.robot.enums.DashboardStatus;
+import br.allandemiranda.fx.robot.model.GarchInput;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -24,7 +25,7 @@ public class DashboardDto implements Serializable {
   DashboardDto.GarchInputsDto garchInputs;
 
   /**
-   * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.GarchInputs}
+   * DTO for {@link GarchInput}
    */
   @Value
   public static class GarchInputsDto implements Serializable {

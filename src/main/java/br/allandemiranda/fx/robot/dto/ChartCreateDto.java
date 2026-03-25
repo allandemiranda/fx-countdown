@@ -4,6 +4,13 @@ import br.allandemiranda.fx.robot.enums.AppliedPrice;
 import br.allandemiranda.fx.robot.enums.PriceField;
 import br.allandemiranda.fx.robot.enums.SmoothingMethod;
 import br.allandemiranda.fx.robot.enums.Timeframe;
+import br.allandemiranda.fx.robot.model.IADX;
+import br.allandemiranda.fx.robot.model.IATR;
+import br.allandemiranda.fx.robot.model.IBands;
+import br.allandemiranda.fx.robot.model.IMA;
+import br.allandemiranda.fx.robot.model.IMACD;
+import br.allandemiranda.fx.robot.model.IRSI;
+import br.allandemiranda.fx.robot.model.IStochastic;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -57,7 +64,7 @@ public class ChartCreateDto implements Serializable {
     ChartCreateDto.ScriptInfoDto.IStochasticDto iStochastic;
 
     /**
-     * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IADX}
+     * DTO for {@link IADX}
      */
     @Value
     public static class IADXDto implements Serializable {
@@ -66,7 +73,7 @@ public class ChartCreateDto implements Serializable {
     }
 
     /**
-     * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IBands}
+     * DTO for {@link IBands}
      */
     @Value
     public static class IBandsDto implements Serializable {
@@ -80,7 +87,7 @@ public class ChartCreateDto implements Serializable {
     }
 
     /**
-     * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IMA}
+     * DTO for {@link IMA}
      */
     @Value
     public static class IMaFastDto implements Serializable {
@@ -94,7 +101,7 @@ public class ChartCreateDto implements Serializable {
     }
 
     /**
-     * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IMA}
+     * DTO for {@link IMA}
      */
     @Value
     public static class IMaSlowDto implements Serializable {
@@ -108,7 +115,7 @@ public class ChartCreateDto implements Serializable {
     }
 
     /**
-     * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IATR}
+     * DTO for {@link IATR}
      */
     @Value
     public static class IATRDto implements Serializable {
@@ -117,7 +124,7 @@ public class ChartCreateDto implements Serializable {
     }
 
     /**
-     * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IMACD}
+     * DTO for {@link IMACD}
      */
     @Value
     public static class IMACDDto implements Serializable {
@@ -130,7 +137,7 @@ public class ChartCreateDto implements Serializable {
     }
 
     /**
-     * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IRSI}
+     * DTO for {@link IRSI}
      */
     @Value
     public static class IRSIDto implements Serializable {
@@ -141,7 +148,7 @@ public class ChartCreateDto implements Serializable {
     }
 
     /**
-     * DTO for {@link br.allandemiranda.fx.robot.model.embeddable.IStochastic}
+     * DTO for {@link IStochastic}
      */
     @Value
     public static class IStochasticDto implements Serializable {

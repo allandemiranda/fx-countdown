@@ -4,7 +4,7 @@ import br.allandemiranda.fx.robot.dto.ATRCreateDto;
 import br.allandemiranda.fx.robot.dto.ATRDto;
 import br.allandemiranda.fx.robot.mapper.ATRCreateMapper;
 import br.allandemiranda.fx.robot.mapper.ATRMapper;
-import br.allandemiranda.fx.robot.model.ATR;
+import br.allandemiranda.fx.robot.model.AtrIndicator;
 import br.allandemiranda.fx.robot.repository.ATRRepository;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -22,9 +22,9 @@ public class ATRService {
   private final ATRMapper mapper;
   private final ATRCreateMapper createMapper;
 
-  public ATRDto create(ATRCreateDto atrCreateDto) {
-    ATR entity = this.getCreateMapper().toEntity(atrCreateDto);
-    ATR atr = this.getRepository().save(entity);
+  public ATRDto createATR(ATRCreateDto atrCreateDto) {
+    AtrIndicator entity = this.getCreateMapper().toEntity(atrCreateDto);
+    AtrIndicator atr = this.getRepository().save(entity);
     return this.getMapper().toDto(atr);
   }
 

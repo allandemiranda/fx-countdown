@@ -18,5 +18,5 @@ public enum SmoothingMethod {
   MODE_LWMA("Linear Weighted");
 
   @NotNull
-  private final String textValue;
+  private final String description;
 }

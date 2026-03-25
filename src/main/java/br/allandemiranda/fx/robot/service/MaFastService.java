@@ -22,7 +22,7 @@ public class MaFastService {
   private final MaFastMapper mapper;
   private final MaFastCreateMapper createMapper;
 
-  public MaFastDto create(MaFastCreateDto maFastCreateDto) {
+  public MaFastDto createMaFast(MaFastCreateDto maFastCreateDto) {
     MaFast entity = this.getCreateMapper().toEntity(maFastCreateDto);
     MaFast maFast = this.getRepository().save(entity);
     return this.getMapper().toDto(maFast);

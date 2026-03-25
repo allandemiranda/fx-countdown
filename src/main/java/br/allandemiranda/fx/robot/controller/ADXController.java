@@ -25,6 +25,6 @@ public class ADXController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public ADXDto createADX(@RequestBody @Valid ADXCreateDto adxCreateDto) {
-    return this.getAdxService().create(adxCreateDto);
+    return this.getAdxService().createADX(adxCreateDto);
   }
 }

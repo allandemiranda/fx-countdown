@@ -22,7 +22,7 @@ public class BandsService {
   private final BandsMapper mapper;
   private final BandsCreateMapper createMapper;
 
-  public BandsDto create(BandsCreateDto bandsCreateDto) {
+  public BandsDto createBands(BandsCreateDto bandsCreateDto) {
     Bands entity = this.getCreateMapper().toEntity(bandsCreateDto);
     Bands bands = this.getRepository().save(entity);
     return this.getMapper().toDto(bands);

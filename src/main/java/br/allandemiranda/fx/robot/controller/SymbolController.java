@@ -47,7 +47,7 @@ public class SymbolController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public SymbolDto createSymbol(@RequestBody @Valid SymbolCreateDto symbolCreateDto) {
-    return this.getSymbolService().create(symbolCreateDto);
+    return this.getSymbolService().createSymbol(symbolCreateDto);
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)

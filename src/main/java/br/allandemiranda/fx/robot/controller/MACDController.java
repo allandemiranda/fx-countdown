@@ -25,6 +25,6 @@ public class MACDController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public MACDDto createMACD(@RequestBody @Valid MACDCreateDto macdCreateDto) {
-    return this.getMacdService().create(macdCreateDto);
+    return this.getMacdService().createMACD(macdCreateDto);
   }
 }

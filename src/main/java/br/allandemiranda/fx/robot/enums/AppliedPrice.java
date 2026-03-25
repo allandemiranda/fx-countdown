@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.enums;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Description;
 
@@ -20,6 +20,6 @@ public enum AppliedPrice {
   PRICE_TYPICAL("Typical Price (HLC/2)"),
   PRICE_WEIGHTED("Weighted Close (HLCC/4)");
 
-  @NotNull
-  private final String textValue;
+  @NonNull
+  private final String description;
 }

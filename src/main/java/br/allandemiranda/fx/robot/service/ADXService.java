@@ -22,7 +22,7 @@ public class ADXService {
   private final ADXMapper mapper;
   private final ADXCreateMapper createMapper;
 
-  public ADXDto create(ADXCreateDto adxCreateDto) {
+  public ADXDto createADX(ADXCreateDto adxCreateDto) {
     ADX entity = this.getCreateMapper().toEntity(adxCreateDto);
     ADX adx = this.getRepository().save(entity);
     return this.getMapper().toDto(adx);

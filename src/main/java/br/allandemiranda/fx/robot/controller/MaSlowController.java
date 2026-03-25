@@ -25,6 +25,6 @@ public class MaSlowController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public MaSlowDto createMaSlow(@RequestBody @Valid MaSlowCreateDto maSlowCreateDto) {
-    return this.getMaSlowService().create(maSlowCreateDto);
+    return this.getMaSlowService().createMaSlow(maSlowCreateDto);
   }
 }

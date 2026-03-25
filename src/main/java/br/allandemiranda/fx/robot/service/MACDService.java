@@ -22,7 +22,7 @@ public class MACDService {
   private final MACDMapper mapper;
   private final MACDCreateMapper createMapper;
 
-  public MACDDto create(MACDCreateDto macdCreateDto) {
+  public MACDDto createMACD(MACDCreateDto macdCreateDto) {
     MACD entity = this.getCreateMapper().toEntity(macdCreateDto);
     MACD macd = this.getRepository().save(entity);
     return this.getMapper().toDto(macd);

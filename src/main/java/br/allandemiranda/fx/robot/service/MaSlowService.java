@@ -22,7 +22,7 @@ public class MaSlowService {
   private final MaSlowMapper mapper;
   private final MaSlowCreateMapper createMapper;
 
-  public MaSlowDto create(MaSlowCreateDto maSlowCreateDto) {
+  public MaSlowDto createMaSlow(MaSlowCreateDto maSlowCreateDto) {
     MaSlow entity = this.getCreateMapper().toEntity(maSlowCreateDto);
     MaSlow maSlow = this.getRepository().save(entity);
     return this.getMapper().toDto(maSlow);

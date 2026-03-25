@@ -25,6 +25,6 @@ public class ATRController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public ATRDto createATR(@RequestBody @Valid ATRCreateDto atrCreateDto) {
-    return this.getAtrService().create(atrCreateDto);
+    return this.getAtrService().createATR(atrCreateDto);
   }
 }

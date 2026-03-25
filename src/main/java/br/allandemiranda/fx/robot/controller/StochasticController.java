@@ -25,6 +25,6 @@ public class StochasticController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public StochasticDto createStochastic(@RequestBody @Valid StochasticCreateDto stochasticCreateDto) {
-    return this.getStochasticService().create(stochasticCreateDto);
+    return this.getStochasticService().createStochastic(stochasticCreateDto);
   }
 }

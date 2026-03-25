@@ -25,6 +25,6 @@ public class MaFastController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public MaFastDto createMaFast(@RequestBody @Valid MaFastCreateDto maFastCreateDto) {
-    return this.getMaFastService().create(maFastCreateDto);
+    return this.getMaFastService().createMaFast(maFastCreateDto);
   }
 }

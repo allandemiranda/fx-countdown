@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.ATRCreateDto;
-import br.allandemiranda.fx.robot.model.ATR;
+import br.allandemiranda.fx.robot.model.AtrIndicator;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.InheritConfiguration;
 import org.mapstruct.InheritInverseConfiguration;
@@ -17,12 +17,12 @@ public interface ATRCreateMapper {
 
   @Mapping(source = "chartPeriod", target = "chart.period")
   @Mapping(source = "chartSymbolName", target = "chart.symbol.name")
-  ATR toEntity(ATRCreateDto ATRCreateDto);
+  AtrIndicator toEntity(ATRCreateDto ATRCreateDto);
 
   @InheritInverseConfiguration(name = "toEntity")
-  ATRCreateDto toDto(ATR ATR);
+  ATRCreateDto toDto(AtrIndicator ATR);
 
   @InheritConfiguration(name = "toEntity")
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  ATR partialUpdate(ATRCreateDto ATRCreateDto, @MappingTarget ATR ATR);
+  AtrIndicator partialUpdate(ATRCreateDto ATRCreateDto, @MappingTarget AtrIndicator ATR);
 }

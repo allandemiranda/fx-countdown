@@ -1,5 +1,6 @@
 package br.allandemiranda.fx.robot.dto;
 
+import br.allandemiranda.fx.robot.model.ADX;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.ZonedDateTime;
@@ -7,7 +8,7 @@ import java.util.UUID;
 import lombok.Value;
 
 /**
- * DTO for {@link br.allandemiranda.fx.robot.model.ADX}
+ * DTO for {@link ADX}
  */
 @Value
 public class ADXDto implements Serializable {

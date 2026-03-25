@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.ATRDto;
-import br.allandemiranda.fx.robot.model.ATR;
+import br.allandemiranda.fx.robot.model.AtrIndicator;
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants.ComponentModel;
@@ -12,10 +12,10 @@ import org.mapstruct.ReportingPolicy;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = ComponentModel.SPRING)
 public interface ATRMapper {
 
-  ATR toEntity(ATRDto ATRDto);
+  AtrIndicator toEntity(ATRDto ATRDto);
 
-  ATRDto toDto(ATR ATR);
+  ATRDto toDto(AtrIndicator ATR);
 
   @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-  ATR partialUpdate(ATRDto ATRDto, @MappingTarget ATR ATR);
+  AtrIndicator partialUpdate(ATRDto ATRDto, @MappingTarget AtrIndicator ATR);
 }

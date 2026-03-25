@@ -1,9 +1,6 @@
 package br.allandemiranda.fx.robot.model;
 
 import br.allandemiranda.fx.robot.model.type.ChartObject;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.data.relational.core.mapping.Column;
@@ -11,13 +8,19 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Table("indicator_rsi")
-public class RSI extends ChartObject {
+@Table("garch_forecast")
+public class GarchForecast extends ChartObject {
 
-  @NotNull
-  @Max(100)
-  @Min(0)
-  @Column("rsi")
-  private double rsi;
+  @Column("omega")
+  private double omega;
+
+  @Column("alpha")
+  private double alpha;
+
+  @Column("beta")
+  private double beta;
+
+  @Column("sigma_agg")
+  private double sigmaAgg; // sqrt(sum sigmaNext^2)
 
 }

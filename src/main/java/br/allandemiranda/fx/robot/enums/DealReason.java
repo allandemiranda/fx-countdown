@@ -11,7 +11,7 @@ public enum DealReason {
   DEAL_REASON_CLIENT,           // The deal was executed as a result of activation of an order placed from a desktop terminal
   DEAL_REASON_MOBILE,           // The deal was executed as a result of activation of an order placed from a mobile application
   DEAL_REASON_WEB,              // The deal was executed as a result of activation of an order placed from the web platform
-  DEAL_REASON_EXPERT,           //  The deal was executed as a result of activation of an order placed from an MQL5 program, i.e. an Expert Advisor or a script
+  DEAL_REASON_EXPERT,           // The deal was executed as a result of activation of an order placed from an MQL5 program, i.e. an Expert Advisor or a script
   DEAL_REASON_SL,               // The deal was executed as a result of Stop Loss activation
   DEAL_REASON_TP,               // The deal was executed as a result of Take Profit activation
   DEAL_REASON_SO,               // The deal was executed as a result of the Stop Out event

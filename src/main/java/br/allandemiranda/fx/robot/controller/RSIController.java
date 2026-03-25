@@ -25,6 +25,6 @@ public class RSIController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public RSIDto createRSI(@RequestBody @Valid RSICreateDto rsiCreateDto) {
-    return this.getRsiService().create(rsiCreateDto);
+    return this.getRsiService().createRSI(rsiCreateDto);
   }
 }

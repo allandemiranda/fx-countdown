@@ -25,6 +25,6 @@ public class CandlestickController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public CandlestickDto createCandlestick(@RequestBody @Valid CandlestickCreateDto candlestickCreateDto) {
-    return this.getCandlestickService().create(candlestickCreateDto);
+    return this.getCandlestickService().createCandlestick(candlestickCreateDto);
   }
 }

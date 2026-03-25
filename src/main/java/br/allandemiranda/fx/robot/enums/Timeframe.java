@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.enums;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Description;
 
@@ -34,6 +34,7 @@ public enum Timeframe {
   PERIOD_W1("W1"),
   PERIOD_MN1("NM1");
 
-  @NotNull
-  private final String textValue;
+  @NonNull
+  private final String code;
+
 }

@@ -22,7 +22,7 @@ public class CandlestickService {
   private final CandlestickMapper mapper;
   private final CandlestickCreateMapper createMapper;
 
-  public CandlestickDto create(CandlestickCreateDto candlestickCreateDto) {
+  public CandlestickDto createCandlestick(CandlestickCreateDto candlestickCreateDto) {
     Candlestick entity = this.getCreateMapper().toEntity(candlestickCreateDto);
     Candlestick candlestick = this.getRepository().save(entity);
     return this.getMapper().toDto(candlestick);

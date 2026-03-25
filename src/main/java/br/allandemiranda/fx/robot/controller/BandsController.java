@@ -25,6 +25,6 @@ public class BandsController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public BandsDto createBands(@RequestBody @Valid BandsCreateDto bandsCreateDto) {
-    return this.getBandsService().create(bandsCreateDto);
+    return this.getBandsService().createBands(bandsCreateDto);
   }
 }

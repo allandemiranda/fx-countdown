@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.LMBuildRequirementsDTO;
+import br.allandemiranda.fx.robot.dto.LMBuildRequirementsDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.service.LMDataBuildService;
 import jakarta.validation.Valid;
@@ -28,7 +28,7 @@ public class LMDataBuildController {
 
   @ResponseStatus(HttpStatus.ACCEPTED)
   @PostMapping(path = "/symbols/{name}/timeframes/{period}", produces = "application/json")
-  public void runBuild(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period, @RequestBody @Valid LMBuildRequirementsDTO lmBuildRequirementsDTO) {
+  public void runBuild(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period, @RequestBody @Valid LMBuildRequirementsDto lmBuildRequirementsDTO) {
 
   }
 

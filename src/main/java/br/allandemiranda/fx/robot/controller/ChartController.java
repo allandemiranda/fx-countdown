@@ -60,7 +60,7 @@ public class ChartController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public ChartDto createChart(@RequestBody @Valid ChartCreateDto chartCreateDto) {
-    return this.getChartService().create(chartCreateDto);
+    return this.getChartService().createChart(chartCreateDto);
   }
 
   @ResponseStatus(HttpStatus.OK)
