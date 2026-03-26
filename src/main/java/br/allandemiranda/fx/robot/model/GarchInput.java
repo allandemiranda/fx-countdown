@@ -1,17 +1,26 @@
 package br.allandemiranda.fx.robot.model;
 
-import br.allandemiranda.fx.robot.model.type.ChartIdentifier;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import java.util.UUID;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
 @Table("garch_input")
-public class GarchInput extends ChartIdentifier {
+public class GarchInput {
+
+  @Id
+  @NotNull
+  @Column("id")
+  private UUID id;
+
+  @NotNull
+  @Column("chart_id")
+  private UUID chartId;
 
   @Positive
   @Column("horizon")

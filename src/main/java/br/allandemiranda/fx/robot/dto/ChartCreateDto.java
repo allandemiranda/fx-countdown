@@ -7,7 +7,7 @@ import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.model.IADX;
 import br.allandemiranda.fx.robot.model.IATR;
 import br.allandemiranda.fx.robot.model.IBands;
-import br.allandemiranda.fx.robot.model.IMA;
+import br.allandemiranda.fx.robot.model.IMAFast;
 import br.allandemiranda.fx.robot.model.IMACD;
 import br.allandemiranda.fx.robot.model.IRSI;
 import br.allandemiranda.fx.robot.model.IStochastic;
@@ -87,7 +87,7 @@ public class ChartCreateDto implements Serializable {
     }
 
     /**
-     * DTO for {@link IMA}
+     * DTO for {@link IMAFast}
      */
     @Value
     public static class IMaFastDto implements Serializable {
@@ -101,7 +101,7 @@ public class ChartCreateDto implements Serializable {
     }
 
     /**
-     * DTO for {@link IMA}
+     * DTO for {@link IMAFast}
      */
     @Value
     public static class IMaSlowDto implements Serializable {

@@ -6,7 +6,7 @@ import br.allandemiranda.fx.robot.enums.SmoothingMethod;
 import br.allandemiranda.fx.robot.model.IADX;
 import br.allandemiranda.fx.robot.model.IATR;
 import br.allandemiranda.fx.robot.model.IBands;
-import br.allandemiranda.fx.robot.model.IMA;
+import br.allandemiranda.fx.robot.model.IMAFast;
 import br.allandemiranda.fx.robot.model.IMACD;
 import br.allandemiranda.fx.robot.model.IRSI;
 import br.allandemiranda.fx.robot.model.IStochastic;
@@ -77,7 +77,7 @@ public class ScriptInfoDto implements Serializable {
   }
 
   /**
-   * DTO for {@link IMA}
+   * DTO for {@link IMAFast}
    */
   @Value
   public static class IMAFastDto implements Serializable {
@@ -91,7 +91,7 @@ public class ScriptInfoDto implements Serializable {
   }
 
   /**
-   * DTO for {@link IMA}
+   * DTO for {@link IMAFast}
    */
   @Value
   public static class IMASlowDto implements Serializable {

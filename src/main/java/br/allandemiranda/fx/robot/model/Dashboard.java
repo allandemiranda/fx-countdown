@@ -1,19 +1,29 @@
 package br.allandemiranda.fx.robot.model;
 
 import br.allandemiranda.fx.robot.enums.DashboardStatus;
-import br.allandemiranda.fx.robot.model.type.ChartIdentifier;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class Dashboard extends ChartIdentifier {
+@Table("dashboard")
+public class Dashboard {
+
+  @Id
+  @NotNull
+  @Column("id")
+  private UUID id;
+
+  @NotNull
+  @Column("chart_id")
+  private UUID chartId;
 
   @NotNull
   @Column("status")

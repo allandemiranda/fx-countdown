@@ -1,16 +1,33 @@
 package br.allandemiranda.fx.robot.model;
 
 import br.allandemiranda.fx.robot.enums.AppliedPrice;
-import br.allandemiranda.fx.robot.model.type.TechnicalIndicator;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
+import java.time.OffsetDateTime;
+import java.util.UUID;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class IMACD extends TechnicalIndicator {
+@Table("i_macd")
+public class IMACD {
+
+  @Id
+  @NotNull
+  @Column("id")
+  private UUID id;
+
+  @NotNull
+  @Column("chart_id")
+  private UUID chartId;
+
+  @NotNull
+  @PastOrPresent
+  @Column("timestamp")
+  private OffsetDateTime timestamp;
 
   @Positive
   @Column("fast_ema_period")
