@@ -1,10 +1,11 @@
 package br.allandemiranda.fx.robot.model;
 
-import br.allandemiranda.fx.robot.enums.PriceField;
+import br.allandemiranda.fx.robot.enums.AppliedPrice;
 import br.allandemiranda.fx.robot.enums.SmoothingMethod;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.Data;
@@ -13,8 +14,8 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Data
-@Table("i_stochastic")
-public class IStochastic {
+@Table("i_ma_slow")
+public class IMASlow {
 
   @Id
   @NotNull
@@ -31,21 +32,19 @@ public class IStochastic {
   private OffsetDateTime timestamp;
 
   @Positive
-  @Column("k_period")
-  private short kPeriod;          // K-period (number of bars for calculations)
+  @Column("ma_period")
+  private short period;           // averaging period
 
-  @Positive
-  @Column("d_period")
-  private short dPeriod;          // D-period (period of first smoothing)
+  @PositiveOrZero
+  @Column("ma_shift")
+  private short shift;            // horizontal shift
 
-  @Positive
-  @Column("slowing")
-  private short slowing;          // final smoothing
-
+  @NotNull
   @Column("ma_method")
-  private SmoothingMethod method; // type of smoothing
+  private SmoothingMethod method; // smoothing type
 
-  @Column("price_field")
-  private PriceField priceField;  // stochastic calculation method
+  @NotNull
+  @Column("applied_price")
+  private AppliedPrice applyTo;   // type of price or handle
 
 }
