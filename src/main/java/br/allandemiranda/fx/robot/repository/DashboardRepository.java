@@ -1,13 +1,9 @@
 package br.allandemiranda.fx.robot.repository;
 
-import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.model.Dashboard;
-import java.util.Optional;
 import java.util.UUID;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-public interface DashboardRepository extends JpaRepository<Dashboard, UUID>, JpaSpecificationExecutor<Dashboard> {
+public interface DashboardRepository extends ReactiveCrudRepository<Dashboard, UUID> {
 
-  Optional<Dashboard> findFirstByChart_Symbol_NameAndChart_Period(String name, Timeframe period);
 }

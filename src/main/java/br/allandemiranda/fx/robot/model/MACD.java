@@ -5,35 +5,11 @@ import jakarta.validation.constraints.PastOrPresent;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Data
 @Table("indicator_macd")
-public class MACD {
-
-  @Id
-  @NotNull
-  @Column("id")
-  private UUID id;
-
-  @NotNull
-  @Column("chart_id")
-  private UUID chartId;
-
-  @NotNull
-  @PastOrPresent
-  @Column("timestamp")
-  private OffsetDateTime timestamp;
-
-  @NotNull
-  @Column("main_line")
-  private BigDecimal mainLine;
-
-  @NotNull
-  @Column("signal_line")
-  private BigDecimal signalLine;
+public record MACD(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("timestamp") @NotNull @PastOrPresent OffsetDateTime timestamp, @Column("main_line") @NotNull BigDecimal mainLine, @Column("signal_line") @NotNull BigDecimal signalLine) {
 
 }

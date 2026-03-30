@@ -5,47 +5,12 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Data
 @Table("candlestick")
-public class Candlestick {
-
-  @Id
-  @NotNull
-  @Column("id")
-  private UUID id;
-
-  @NotNull
-  @Column("chart_id")
-  private UUID chartId;
-
-  @NotNull
-  @PastOrPresent
-  @Column("timestamp")
-  private OffsetDateTime timestamp;
-
-  @NotNull
-  @Positive
-  @Column("open")
-  private double open;
-
-  @NotNull
-  @Positive
-  @Column("high")
-  private double high;
-
-  @NotNull
-  @Positive
-  @Column("low")
-  private double low;
-
-  @NotNull
-  @Positive
-  @Column("close")
-  private double close;
+public record Candlestick(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("timestamp") @NotNull @PastOrPresent OffsetDateTime timestamp, @Column("open") @NotNull @Positive double open, @Column("high") @NotNull @Positive double high,
+                          @Column("low") @NotNull @Positive double low, @Column("close") @NotNull @Positive double close) {
 
 }

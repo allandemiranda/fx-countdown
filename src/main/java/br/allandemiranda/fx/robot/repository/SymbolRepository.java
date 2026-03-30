@@ -1,11 +1,8 @@
 package br.allandemiranda.fx.robot.repository;
 
 import br.allandemiranda.fx.robot.model.Symbol;
-import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-public interface SymbolRepository extends JpaRepository<Symbol, String>, JpaSpecificationExecutor<Symbol> {
+public interface SymbolRepository extends ReactiveCrudRepository<Symbol, String> {
 
-  Optional<Symbol> findFirstByName(String name);
 }

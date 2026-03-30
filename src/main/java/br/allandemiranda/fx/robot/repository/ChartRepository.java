@@ -1,13 +1,9 @@
 package br.allandemiranda.fx.robot.repository;
 
-import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.model.Chart;
-import java.util.Optional;
 import java.util.UUID;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-public interface ChartRepository extends JpaRepository<Chart, UUID>, JpaSpecificationExecutor<Chart> {
+public interface ChartRepository extends ReactiveCrudRepository<Chart, UUID> {
 
-  Optional<Chart> findFirstBySymbol_NameAndPeriod(String name, Timeframe period);
 }

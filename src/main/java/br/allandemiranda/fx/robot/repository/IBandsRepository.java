@@ -1,9 +1,9 @@
 package br.allandemiranda.fx.robot.repository;
 
-import br.allandemiranda.fx.robot.model.Tick;
+import br.allandemiranda.fx.robot.model.IBands;
 import java.util.UUID;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 
-public interface TickRepository extends ReactiveCrudRepository<Tick, UUID> {
+public interface IBandsRepository extends ReactiveCrudRepository<IBands, UUID> {
 
 }
