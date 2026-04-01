@@ -4,21 +4,10 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.Value;
 
-/**
- * DTO for {@link br.allandemiranda.fx.robot.model.RSI}
- */
-@Value
-public class RSIDto implements Serializable {
+public record RSIDto(@NotNull UUID id, @NotNull ChartDto chartDto, @NotNull OffsetDateTime timestamp, @NotNull @Min(0) @Max(100) BigDecimal rsi) implements Serializable {
 
-  @NotNull
-  UUID id;
-  @NotNull
-  ZonedDateTime timestamp;
-  @Min(0)
-  @Max(100)
-  double value;
 }

@@ -1,21 +1,11 @@
 package br.allandemiranda.fx.robot.dto;
 
-import br.allandemiranda.fx.robot.model.AtrIndicator;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.Value;
 
-/**
- * DTO for {@link AtrIndicator}
- */
-@Value
-public class ATRDto implements Serializable {
+public record ATRDto(@NotNull UUID id, @NotNull ChartDto chartDto, @NotNull OffsetDateTime timestamp, @NotNull BigDecimal atr) implements Serializable {
 
-  @NotNull
-  UUID id;
-  @NotNull
-  ZonedDateTime timestamp;
-  double value;
 }

@@ -13,6 +13,6 @@ import org.springframework.data.relational.core.mapping.Table;
  * @param applyTo type of price or handle
  */
 @Table("i_rsi")
-public record IRSI(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("ma_period") @Positive short period, @Column("applied_price") AppliedPrice applyTo) {
+public record IRSI(@Id @Column("chart_id") @NotNull UUID chartId, @Column("ma_period") @Positive short period, @Column("applied_price") AppliedPrice applyTo) {
 
 }

@@ -2,21 +2,10 @@ package br.allandemiranda.fx.robot.dto;
 
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.Value;
 
-/**
- * DTO for {@link br.allandemiranda.fx.robot.model.Bands}
- */
-@Value
-public class BandsDto implements Serializable {
+public record BandsDto(@NotNull UUID id, @NotNull ChartDto chartDto, @NotNull OffsetDateTime timestamp, @NotNull BigDecimal baseLine, @NotNull BigDecimal upperBand, @NotNull BigDecimal lowerBand) implements Serializable {
 
-  @NotNull
-  UUID id;
-  @NotNull
-  ZonedDateTime timestamp;
-  double baseLine;
-  double upperBand;
-  double lowerBand;
 }

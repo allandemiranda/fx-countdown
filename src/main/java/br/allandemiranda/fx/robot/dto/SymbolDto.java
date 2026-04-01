@@ -7,22 +7,8 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
-import lombok.Value;
+import java.math.BigDecimal;
 
-/**
- * DTO for {@link br.allandemiranda.fx.robot.model.Symbol}
- */
-@Value
-public class SymbolDto implements Serializable {
+public record SymbolDto(@NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank String name, @NotNull @Positive BigDecimal point, @NotNull BigDecimal swapLong, @NotNull BigDecimal swapShort) implements Serializable {
 
-  @NotNull
-  @Size(min = 6, max = 6)
-  @Pattern(regexp = "^[A-Z]{6}$")
-  @NotEmpty
-  @NotBlank
-  String name;
-  @Positive
-  double point;
-  double swapLong;
-  double swapShort;
 }

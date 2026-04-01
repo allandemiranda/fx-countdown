@@ -10,7 +10,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("dashboard")
-public record Dashboard(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("status") @NotNull DashboardStatus dashboardStatus, @Column("update_time") @NotNull @PastOrPresent OffsetDateTime updateTime,
-                        @Column("scope_start_time") @NotNull @PastOrPresent OffsetDateTime startScope, @Column("scope_end_time") @NotNull @PastOrPresent OffsetDateTime endScope) {
+public record Dashboard(@Id @Column("chart_id") @NotNull UUID chartId, @Column("status") @NotNull DashboardStatus status, @Column("update_time") @NotNull @PastOrPresent OffsetDateTime updateTime, @Column("scope_start_time") @NotNull @PastOrPresent OffsetDateTime startScope,
+                        @Column("scope_end_time") @NotNull @PastOrPresent OffsetDateTime endScope) {
 
 }

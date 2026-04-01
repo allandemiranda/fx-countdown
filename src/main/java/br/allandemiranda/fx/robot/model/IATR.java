@@ -11,6 +11,6 @@ import org.springframework.data.relational.core.mapping.Table;
  * @param period averaging period
  */
 @Table("i_atr")
-public record IATR(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("ma_period") @Positive short period) {
+public record IATR(@Id @Column("chart_id") @NotNull UUID chartId, @Column("ma_period") @Positive short period) {
 
 }

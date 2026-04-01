@@ -1,18 +1,18 @@
 package br.allandemiranda.fx.robot.service;
 
+import br.allandemiranda.fx.robot.dto.ChartDto;
+import br.allandemiranda.fx.robot.dto.DashboardCreateDto;
 import br.allandemiranda.fx.robot.dto.DashboardDto;
-import br.allandemiranda.fx.robot.enums.DashboardStatus;
-import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.mapper.DashboardMapper;
 import br.allandemiranda.fx.robot.model.Dashboard;
 import br.allandemiranda.fx.robot.repository.DashboardRepository;
-import java.util.Collection;
-import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PRIVATE)
@@ -20,33 +20,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class DashboardService {
 
-  private final DashboardRepository dashboardRepository;
-  private final DashboardMapper dashboardMapper;
+  private final DashboardRepository repository;
 
   @Transactional(readOnly = true)
-  public Collection<DashboardDto> getDashboard() {
-    return this.getDashboardRepository().findAll().stream().map(dashboard -> this.getDashboardMapper().toDto(dashboard)).toList();
+  public Mono<DashboardDto> getDashboard(@NonNull ChartDto chartDto) {
+    return this.getRepository().findDashboard(chartDto.id()).map(dashboard -> DashboardMapper.toDashboardDto(chartDto, dashboard));
   }
 
-  @Transactional(readOnly = true)
-  public Optional<DashboardDto> getDashboard(String symbolName, Timeframe period) {
-    return this.getDashboardRepository().findFirstByChart_Symbol_NameAndChart_Period(symbolName, period).map(dashboard -> this.getDashboardMapper().toDto(dashboard));
+  public Mono<DashboardDto> createDashboard(@NonNull ChartDto chartDto, @NonNull DashboardCreateDto dashboardCreateDto) {
+    Dashboard model = DashboardMapper.toDashboard(chartDto, dashboardCreateDto);
+    return this.getRepository().save(model).map(dashboard -> DashboardMapper.toDashboardDto(chartDto, dashboard));
   }
 
-  public long updateStatus(String symbolName, Timeframe period, DashboardStatus status) {
-    return dashboardRepository.update((root, query, cb) -> {
-      query.set(root.get("status"), status);
-      return cb.and(
-          cb.equal(root.get("chart").get("symbol").get("name"), symbolName),
-          cb.equal(root.get("chart").get("period"), period)
-      );
-    });
-  }
-
-  public DashboardDto createDashboard(DashboardDto dashboardDto) {
-    Dashboard entity = this.dashboardMapper.toEntity(dashboardDto);
-    Dashboard dashboard = this.getDashboardRepository().save(entity);
-    return this.getDashboardMapper().toDto(dashboard);
+  public Mono<Void> deleteDashboard(@NonNull ChartDto chartDto) {
+    return this.getRepository().deleteDashboard(chartDto.id());
   }
 
 }

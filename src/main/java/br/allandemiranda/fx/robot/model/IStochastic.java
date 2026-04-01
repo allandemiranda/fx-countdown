@@ -17,7 +17,6 @@ import org.springframework.data.relational.core.mapping.Table;
  * @param priceField stochastic calculation method
  */
 @Table("i_stochastic")
-public record IStochastic(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("k_period") @Positive short kPeriod, @Column("d_period") @Positive short dPeriod, @Column("slowing") @Positive short slowing, @Column("ma_method") SmoothingMethod method,
-                          @Column("price_field") PriceField priceField) {
+public record IStochastic(@Id @Column("chart_id") @NotNull UUID chartId, @Column("k_period") @Positive short kPeriod, @Column("d_period") @Positive short dPeriod, @Column("slowing") @Positive short slowing, @Column("ma_method") SmoothingMethod method, @Column("price_field") PriceField priceField) {
 
 }

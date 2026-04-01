@@ -78,8 +78,7 @@ public final class Garch11Module {
     return sigma;
   }
 
-  private static double[] forecastSigma(double omega, double alpha, double beta,
-      double lastR, double lastSigma, int horizon) {
+  private static double[] forecastSigma(double omega, double alpha, double beta, double lastR, double lastSigma, int horizon) {
     double[] out = new double[horizon];
     double lastSigma2 = lastSigma * lastSigma;
 

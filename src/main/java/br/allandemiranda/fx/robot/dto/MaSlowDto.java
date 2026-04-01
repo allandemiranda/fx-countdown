@@ -2,19 +2,10 @@ package br.allandemiranda.fx.robot.dto;
 
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.Value;
 
-/**
- * DTO for {@link br.allandemiranda.fx.robot.model.MaSlow}
- */
-@Value
-public class MaSlowDto implements Serializable {
+public record MaSlowDto(@NotNull UUID id, @NotNull ChartDto chartDto, @NotNull OffsetDateTime timestamp, @NotNull BigDecimal ma) implements Serializable {
 
-  @NotNull
-  UUID id;
-  @NotNull
-  ZonedDateTime timestamp;
-  double ma;
 }

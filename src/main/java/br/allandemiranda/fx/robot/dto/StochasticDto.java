@@ -4,24 +4,10 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.Value;
 
-/**
- * DTO for {@link br.allandemiranda.fx.robot.model.Stochastic}
- */
-@Value
-public class StochasticDto implements Serializable {
+public record StochasticDto(@NotNull UUID id, @NotNull ChartDto chartDto, @NotNull OffsetDateTime timestamp, @NotNull @Min(0) @Max(100) BigDecimal mainLine, @NotNull @Min(0) @Max(100) BigDecimal signalLine) implements Serializable {
 
-  @NotNull
-  UUID id;
-  @NotNull
-  ZonedDateTime timestamp;
-  @Min(0)
-  @Max(100)
-  double mainLine;
-  @Min(0)
-  @Max(100)
-  double signalLine;
 }

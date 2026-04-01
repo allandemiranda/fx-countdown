@@ -15,7 +15,6 @@ import org.springframework.data.relational.core.mapping.Table;
  * @param applyTo type of price or handle
  */
 @Table("i_macd")
-public record IMACD(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("fast_ema_period") @Positive short fastEma, @Column("slow_ema_period") @Positive short slowEma,
-                    @Column("signal_period") @Positive short macdSma, @Column("applied_price") @NotNull AppliedPrice applyTo) {
+public record IMACD(@Id @Column("chart_id") @NotNull UUID chartId, @Column("fast_ema_period") @Positive short fastEma, @Column("slow_ema_period") @Positive short slowEma, @Column("signal_period") @Positive short macdSma, @Column("applied_price") @NotNull AppliedPrice applyTo) {
 
 }

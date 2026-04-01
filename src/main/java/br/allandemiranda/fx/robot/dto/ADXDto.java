@@ -1,23 +1,11 @@
 package br.allandemiranda.fx.robot.dto;
 
-import br.allandemiranda.fx.robot.model.ADX;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.math.BigDecimal;
+import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.Value;
 
-/**
- * DTO for {@link ADX}
- */
-@Value
-public class ADXDto implements Serializable {
+public record ADXDto(@NotNull UUID id, @NotNull ChartDto chartDto, @NotNull OffsetDateTime timestamp, @NotNull BigDecimal mainLine, @NotNull BigDecimal plusDiLine, @NotNull BigDecimal minusDiLine) implements Serializable {
 
-  @NotNull
-  UUID id;
-  @NotNull
-  ZonedDateTime timestamp;
-  double mainLine;
-  double plusDiLine;
-  double minusDiLine;
 }

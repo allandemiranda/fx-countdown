@@ -1,42 +1,11 @@
 package br.allandemiranda.fx.robot.dto;
 
 import br.allandemiranda.fx.robot.enums.DashboardStatus;
-import br.allandemiranda.fx.robot.model.GarchInput;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PastOrPresent;
 import java.io.Serializable;
-import java.util.UUID;
-import lombok.Value;
+import java.time.OffsetDateTime;
 
-/**
- * DTO for {@link br.allandemiranda.fx.robot.model.Dashboard}
- */
-@Value
-public class DashboardDto implements Serializable {
+public record DashboardDto(@NotNull ChartDto chartDto, @NotNull DashboardStatus status, @NotNull @PastOrPresent OffsetDateTime updateTime, @NotNull @PastOrPresent OffsetDateTime startScope, @NotNull @PastOrPresent OffsetDateTime endScope) implements Serializable {
 
-  @NotNull
-  UUID id;
-  @NotNull
-  ChartDto chart;
-  @NotNull
-  DashboardStatus dashboardStatus;
-  @NotNull
-  DashboardDto.GarchInputsDto garchInputs;
-
-  /**
-   * DTO for {@link GarchInput}
-   */
-  @Value
-  public static class GarchInputsDto implements Serializable {
-
-    @Positive
-    int horizon;
-    @Min(50)
-    int priceSize;
-    @Positive
-    double kTP;
-    @Positive
-    double kSL;
-  }
 }
