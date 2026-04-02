@@ -13,7 +13,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -30,7 +29,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
-@Getter(AccessLevel.PRIVATE)
+@Getter
 @RestController
 @Validated
 @RequestMapping("symbols/{name}")

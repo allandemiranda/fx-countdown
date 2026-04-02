@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.IMACDCreateDto;
 import br.allandemiranda.fx.robot.dto.base.IMACDDto;
+import br.allandemiranda.fx.robot.dto.create.IMACDCreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IMACD;
 import org.springframework.stereotype.Component;

@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.MLInputCreateDto;
 import br.allandemiranda.fx.robot.dto.base.MLInputDto;
+import br.allandemiranda.fx.robot.dto.create.MLInputCreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.MLInput;
 import org.springframework.stereotype.Component;

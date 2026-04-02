@@ -1,14 +1,13 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.create.ChartCreateDto;
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.create.ChartCreateDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.mapper.ChartMapper;
 import br.allandemiranda.fx.robot.model.Chart;
 import br.allandemiranda.fx.robot.repository.ChartRepository;
 import java.util.UUID;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
-@Getter(AccessLevel.PRIVATE)
+@Getter
 @Service
 public final class ChartService {
 

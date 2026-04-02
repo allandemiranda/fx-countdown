@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.IRSICreateDto;
 import br.allandemiranda.fx.robot.dto.base.IRSIDto;
+import br.allandemiranda.fx.robot.dto.create.IRSICreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IRSI;
 import org.springframework.stereotype.Component;

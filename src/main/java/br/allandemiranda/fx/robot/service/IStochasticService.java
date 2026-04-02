@@ -1,18 +1,17 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.create.IStochasticCreateDto;
 import br.allandemiranda.fx.robot.dto.base.IStochasticDto;
+import br.allandemiranda.fx.robot.dto.create.IStochasticCreateDto;
 import br.allandemiranda.fx.robot.mapper.IStochasticMapper;
 import br.allandemiranda.fx.robot.model.IStochastic;
 import br.allandemiranda.fx.robot.repository.IStochasticRepository;
 import br.allandemiranda.fx.robot.service.contract.InputObjectService;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.stereotype.Service;
 
 @Service
-@Getter(AccessLevel.PRIVATE)
+@Getter
 @AllArgsConstructor
 public final class IStochasticService implements InputObjectService<IStochastic, IStochasticDto, IStochasticCreateDto, IStochasticRepository> {
 

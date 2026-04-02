@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.MaSlowCreateDto;
 import br.allandemiranda.fx.robot.dto.base.MaSlowDto;
+import br.allandemiranda.fx.robot.dto.create.MaSlowCreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.MaSlow;
 import java.util.UUID;

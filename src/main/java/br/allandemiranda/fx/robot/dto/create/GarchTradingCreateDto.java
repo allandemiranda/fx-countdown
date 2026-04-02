@@ -8,6 +8,6 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
 public record GarchTradingCreateDto(@NotNull OffsetDateTime timestamp, @NotNull @Positive BigDecimal buyOpenPrice, @NotNull @Positive BigDecimal buyTpPrice, @NotNull @Positive BigDecimal buySlPrice, @NotNull @Positive BigDecimal sellOpenPrice, @NotNull @Positive BigDecimal sellTpPrice,
-                                       @NotNull @Positive BigDecimal sellSlPrice) implements Serializable, CreateChartObjectDto {
+                                    @NotNull @Positive BigDecimal sellSlPrice) implements Serializable, CreateChartObjectDto {
 
 }

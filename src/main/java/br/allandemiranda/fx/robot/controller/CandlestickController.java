@@ -8,7 +8,6 @@ import br.allandemiranda.fx.robot.repository.CandlestickRepository;
 import br.allandemiranda.fx.robot.service.CandlestickService;
 import br.allandemiranda.fx.robot.service.ChartService;
 import br.allandemiranda.fx.robot.service.SymbolService;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.validation.annotation.Validated;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
-@Getter(AccessLevel.PRIVATE)
+@Getter
 @RestController
 @Validated
 @RequestMapping("symbols/{name}/timeframes/{period}/candlesticks")

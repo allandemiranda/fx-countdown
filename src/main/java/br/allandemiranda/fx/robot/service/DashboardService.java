@@ -1,22 +1,20 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.DashboardCreateDto;
 import br.allandemiranda.fx.robot.dto.base.DashboardDto;
+import br.allandemiranda.fx.robot.dto.create.DashboardCreateDto;
 import br.allandemiranda.fx.robot.enums.DashboardStatus;
 import br.allandemiranda.fx.robot.mapper.DashboardMapper;
 import br.allandemiranda.fx.robot.model.Dashboard;
 import br.allandemiranda.fx.robot.repository.DashboardRepository;
 import java.time.OffsetDateTime;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
-@Getter(AccessLevel.PRIVATE)
+@Getter
 @Service
 public final class DashboardService {
 

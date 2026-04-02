@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.create.ChartCreateDto;
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.create.ChartCreateDto;
 import br.allandemiranda.fx.robot.model.Chart;
 import java.util.UUID;
 import org.springframework.stereotype.Component;

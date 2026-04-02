@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.create.SymbolCreateDto;
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.create.SymbolCreateDto;
 import br.allandemiranda.fx.robot.exception.SymbolNotFoundException;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import jakarta.validation.Valid;
@@ -10,7 +10,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jspecify.annotations.NonNull;
@@ -28,7 +27,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
-@Getter(AccessLevel.PRIVATE)
+@Getter
 @Validated
 @RestController
 @RequestMapping("symbols")

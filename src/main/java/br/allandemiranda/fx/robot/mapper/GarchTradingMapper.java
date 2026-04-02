@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.GarchTradingCreateDto;
 import br.allandemiranda.fx.robot.dto.base.GarchTradingDto;
+import br.allandemiranda.fx.robot.dto.create.GarchTradingCreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.GarchTrading;
 import java.util.UUID;

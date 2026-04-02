@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.IMAFastCreateDto;
 import br.allandemiranda.fx.robot.dto.base.IMAFastDto;
+import br.allandemiranda.fx.robot.dto.create.IMAFastCreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IMAFast;
 import org.springframework.stereotype.Component;

@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.create.SymbolCreateDto;
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.create.SymbolCreateDto;
 import br.allandemiranda.fx.robot.model.Symbol;
 import org.springframework.stereotype.Component;
 

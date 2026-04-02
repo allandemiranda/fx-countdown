@@ -1,6 +1,5 @@
 package br.allandemiranda.fx.robot.dto.create;
 
-import br.allandemiranda.fx.robot.dto.definition.CreateDto;
 import br.allandemiranda.fx.robot.dto.definition.CreateInputObjectDto;
 import br.allandemiranda.fx.robot.enums.AppliedPrice;
 import br.allandemiranda.fx.robot.enums.SmoothingMethod;

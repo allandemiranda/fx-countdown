@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.controller;
 
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
-import br.allandemiranda.fx.robot.dto.create.TickCreateDto;
 import br.allandemiranda.fx.robot.dto.base.TickDto;
+import br.allandemiranda.fx.robot.dto.create.TickCreateDto;
 import br.allandemiranda.fx.robot.exception.TickNotFoundException;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import br.allandemiranda.fx.robot.service.TickService;
@@ -14,7 +14,6 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import java.time.OffsetDateTime;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -31,7 +30,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
-@Getter(AccessLevel.PRIVATE)
+@Getter
 @Validated
 @RestController
 @RequestMapping("symbols/{name}/ticks")

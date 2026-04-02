@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.create.ATRCreateDto;
 import br.allandemiranda.fx.robot.dto.base.ATRDto;
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.ATRCreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.ATR;
 import java.util.UUID;

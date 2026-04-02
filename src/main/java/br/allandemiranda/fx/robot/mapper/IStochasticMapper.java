@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.IStochasticCreateDto;
 import br.allandemiranda.fx.robot.dto.base.IStochasticDto;
+import br.allandemiranda.fx.robot.dto.create.IStochasticCreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IStochastic;
 import org.springframework.stereotype.Component;

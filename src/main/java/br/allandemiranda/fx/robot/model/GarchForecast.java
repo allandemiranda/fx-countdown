@@ -14,7 +14,8 @@ import org.springframework.data.relational.core.mapping.Table;
  * @param sigmaAgg sqrt(sum sigmaNext^2)
  */
 @Table("garch_forecast")
-public record GarchForecast(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("timestamp") @NotNull @PastOrPresent OffsetDateTime timestamp, @Column("omega") @NotNull BigDecimal omega, @Column("alpha") @NotNull BigDecimal alpha, @Column("beta") @NotNull BigDecimal beta,
+public record GarchForecast(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("timestamp") @NotNull @PastOrPresent OffsetDateTime timestamp, @Column("omega") @NotNull BigDecimal omega, @Column("alpha") @NotNull BigDecimal alpha,
+                            @Column("beta") @NotNull BigDecimal beta,
                             @Column("sigma_agg") @NotNull BigDecimal sigmaAgg) implements ChartObjectModel {
 
 }

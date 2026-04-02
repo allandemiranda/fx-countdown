@@ -1,23 +1,21 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
-import br.allandemiranda.fx.robot.dto.create.TickCreateDto;
 import br.allandemiranda.fx.robot.dto.base.TickDto;
+import br.allandemiranda.fx.robot.dto.create.TickCreateDto;
 import br.allandemiranda.fx.robot.mapper.TickMapper;
 import br.allandemiranda.fx.robot.model.Tick;
 import br.allandemiranda.fx.robot.repository.TickRepository;
 import java.time.OffsetDateTime;
 import java.util.UUID;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
-@Getter(AccessLevel.PRIVATE)
+@Getter
 @Service
 public final class TickService {
 

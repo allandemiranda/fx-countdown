@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.create.CandlestickCreateDto;
 import br.allandemiranda.fx.robot.dto.base.CandlestickDto;
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.CandlestickCreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.Candlestick;
 import java.util.UUID;

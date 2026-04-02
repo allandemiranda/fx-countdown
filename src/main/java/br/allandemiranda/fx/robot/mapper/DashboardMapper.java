@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.DashboardCreateDto;
 import br.allandemiranda.fx.robot.dto.base.DashboardDto;
+import br.allandemiranda.fx.robot.dto.create.DashboardCreateDto;
 import br.allandemiranda.fx.robot.enums.DashboardStatus;
 import br.allandemiranda.fx.robot.model.Dashboard;
 import java.time.OffsetDateTime;

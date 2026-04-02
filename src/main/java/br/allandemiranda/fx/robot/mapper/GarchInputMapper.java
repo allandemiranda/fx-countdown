@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.create.GarchInputCreateDto;
 import br.allandemiranda.fx.robot.dto.base.GarchInputDto;
+import br.allandemiranda.fx.robot.dto.create.GarchInputCreateDto;
 import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.GarchInput;
 import org.springframework.stereotype.Component;
