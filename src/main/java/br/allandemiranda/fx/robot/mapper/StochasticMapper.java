@@ -1,21 +1,23 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.StochasticCreateDto;
-import br.allandemiranda.fx.robot.dto.StochasticDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.StochasticCreateDto;
+import br.allandemiranda.fx.robot.dto.base.StochasticDto;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.Stochastic;
 import java.util.UUID;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
-public class StochasticMapper {
+@Component
+public final class StochasticMapper implements ChartObjectMapper<Stochastic, StochasticDto, StochasticCreateDto> {
 
-  public static @NonNull StochasticDto toStochasticDto(@NonNull ChartDto chartDto, @NonNull Stochastic stochastic) {
+  @Override
+  public StochasticDto toDto(ChartDto chartDto, Stochastic stochastic) {
     return new StochasticDto(stochastic.id(), chartDto, stochastic.timestamp(), stochastic.mainLine(), stochastic.signalLine());
   }
 
-  public static @NonNull Stochastic toStochastic(UUID id, @NonNull ChartDto chartDto, @NonNull StochasticCreateDto stochasticCreateDto) {
+  @Override
+  public Stochastic toModel(UUID id, ChartDto chartDto, StochasticCreateDto stochasticCreateDto) {
     return new Stochastic(id, chartDto.id(), stochasticCreateDto.timestamp(), stochasticCreateDto.mainLine(), stochasticCreateDto.signalLine());
   }
 

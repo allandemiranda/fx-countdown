@@ -1,5 +1,6 @@
 package br.allandemiranda.fx.robot.model;
 
+import br.allandemiranda.fx.robot.model.definition.ChartObjectModel;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +14,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Table("indicator_stochastic")
 public record Stochastic(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("timestamp") @NotNull @PastOrPresent OffsetDateTime timestamp, @Column("main_line") @NotNull @Max(100) @Min(0) BigDecimal mainLine,
-                         @Column("signal_line") @NotNull @Max(100) @Min(0) BigDecimal signalLine) {
+                         @Column("signal_line") @NotNull @Max(100) @Min(0) BigDecimal signalLine) implements ChartObjectModel {
 
 }

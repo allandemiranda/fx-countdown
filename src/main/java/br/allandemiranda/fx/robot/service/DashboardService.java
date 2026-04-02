@@ -1,39 +1,39 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.DashboardCreateDto;
-import br.allandemiranda.fx.robot.dto.DashboardDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.DashboardCreateDto;
+import br.allandemiranda.fx.robot.dto.base.DashboardDto;
+import br.allandemiranda.fx.robot.enums.DashboardStatus;
 import br.allandemiranda.fx.robot.mapper.DashboardMapper;
 import br.allandemiranda.fx.robot.model.Dashboard;
 import br.allandemiranda.fx.robot.repository.DashboardRepository;
+import java.time.OffsetDateTime;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import reactor.core.publisher.Mono;
 
 @AllArgsConstructor
 @Getter(AccessLevel.PRIVATE)
-@Transactional
 @Service
-public class DashboardService {
+public final class DashboardService {
 
   private final DashboardRepository repository;
+  private final DashboardMapper mapper;
 
-  @Transactional(readOnly = true)
-  public Mono<DashboardDto> getDashboard(@NonNull ChartDto chartDto) {
-    return this.getRepository().findDashboard(chartDto.id()).map(dashboard -> DashboardMapper.toDashboardDto(chartDto, dashboard));
+  public Mono<DashboardDto> getDashboard(ChartDto chartDto) {
+    return this.getRepository().findByChartId(chartDto.id()).map(dashboard -> this.getMapper().toDto(chartDto, dashboard));
   }
 
-  public Mono<DashboardDto> createDashboard(@NonNull ChartDto chartDto, @NonNull DashboardCreateDto dashboardCreateDto) {
-    Dashboard model = DashboardMapper.toDashboard(chartDto, dashboardCreateDto);
-    return this.getRepository().save(model).map(dashboard -> DashboardMapper.toDashboardDto(chartDto, dashboard));
+  public Mono<DashboardDto> createDashboard(ChartDto chartDto, DashboardCreateDto dashboardCreateDto) {
+    Dashboard model = this.getMapper().toModel(chartDto, dashboardCreateDto, DashboardStatus.CREATED, OffsetDateTime.now());
+    return this.getRepository().save(model).map(dashboard -> this.getMapper().toDto(chartDto, dashboard));
   }
 
-  public Mono<Void> deleteDashboard(@NonNull ChartDto chartDto) {
-    return this.getRepository().deleteDashboard(chartDto.id());
+  public Mono<Void> deleteDashboard(ChartDto chartDto) {
+    return this.getRepository().deleteByChartId(chartDto.id());
   }
 
 }

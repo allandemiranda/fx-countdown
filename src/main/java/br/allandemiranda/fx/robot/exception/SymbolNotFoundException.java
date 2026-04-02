@@ -9,6 +9,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class SymbolNotFoundException extends RuntimeException {
 
   public SymbolNotFoundException(String name) {
-    super("Symbol not found: " + name);
+    super("Symbol not found: [" + name + "]");
   }
 }

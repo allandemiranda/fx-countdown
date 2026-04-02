@@ -1,20 +1,20 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.IBandsCreateDto;
-import br.allandemiranda.fx.robot.dto.IBandsDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.IBandsCreateDto;
+import br.allandemiranda.fx.robot.dto.base.IBandsDto;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IBands;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
-public final class IBandsMapper {
+@Component
+public final class IBandsMapper implements InputObjectMapper<IBands, IBandsDto, IBandsCreateDto> {
 
-  public static @NonNull IBandsDto toIBandsDto(@NonNull ChartDto chartDto, @NonNull IBands iBands) {
+  public IBandsDto toDto(ChartDto chartDto, IBands iBands) {
     return new IBandsDto(chartDto, iBands.period(), iBands.shift(), iBands.deviations(), iBands.applyTo());
   }
 
-  public static @NonNull IBands toIBands(@NonNull ChartDto chartDto, @NonNull IBandsCreateDto iBandsCreateDto) {
+  public IBands toModel(ChartDto chartDto, IBandsCreateDto iBandsCreateDto) {
     return new IBands(chartDto.id(), iBandsCreateDto.period(), iBandsCreateDto.shift(), iBandsCreateDto.deviations(), iBandsCreateDto.applyTo());
   }
 }

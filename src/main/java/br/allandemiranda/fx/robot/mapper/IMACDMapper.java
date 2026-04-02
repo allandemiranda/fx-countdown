@@ -1,20 +1,20 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.IMACDCreateDto;
-import br.allandemiranda.fx.robot.dto.IMACDDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.IMACDCreateDto;
+import br.allandemiranda.fx.robot.dto.base.IMACDDto;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IMACD;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
-public final class IMACDMapper {
+@Component
+public final class IMACDMapper implements InputObjectMapper<IMACD, IMACDDto, IMACDCreateDto> {
 
-  public static @NonNull IMACDDto toIMACDDto(@NonNull ChartDto chartDto, @NonNull IMACD iMACD) {
+  public IMACDDto toDto(ChartDto chartDto, IMACD iMACD) {
     return new IMACDDto(chartDto, iMACD.fastEma(), iMACD.slowEma(), iMACD.macdSma(), iMACD.applyTo());
   }
 
-  public static @NonNull IMACD toIMACD(@NonNull ChartDto chartDto, @NonNull IMACDCreateDto iMACDCreateDto) {
+  public IMACD toModel(ChartDto chartDto, IMACDCreateDto iMACDCreateDto) {
     return new IMACD(chartDto.id(), iMACDCreateDto.fastEma(), iMACDCreateDto.slowEma(), iMACDCreateDto.macdSma(), iMACDCreateDto.applyTo());
   }
 }

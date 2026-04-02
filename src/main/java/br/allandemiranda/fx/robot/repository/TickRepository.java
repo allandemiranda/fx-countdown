@@ -3,20 +3,18 @@ package br.allandemiranda.fx.robot.repository;
 import br.allandemiranda.fx.robot.model.Tick;
 import java.time.OffsetDateTime;
 import java.util.UUID;
-import org.springframework.data.r2dbc.repository.Query;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
+import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Repository
 public interface TickRepository extends ReactiveCrudRepository<Tick, UUID> {
 
-  @Query("SELECT * FROM tick WHERE chart_id = :chartId AND timestamp = :timestamp LIMIT 1")
-  Mono<Tick> findTick(UUID chartId, OffsetDateTime timestamp);
+  Mono<Tick> findBySymbolNameAndTimestamp(String symbolName, OffsetDateTime timestamp);
 
-  @Query("SELECT * FROM tick WHERE chart_id = :chartId")
-  Flux<Tick> findTicks(UUID chartId);
+  Flux<Tick> findAllBySymbolName(String symbolName);
 
-  @Query("DELETE FROM tick WHERE chart_id = :chartId")
-  Mono<Void> deleteChart(UUID chartId);
+  Mono<Void> deleteAllBySymbolName(String symbolName);
 
 }

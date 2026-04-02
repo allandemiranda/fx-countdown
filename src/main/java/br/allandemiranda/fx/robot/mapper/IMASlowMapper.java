@@ -1,20 +1,22 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.IMASlowCreateDto;
-import br.allandemiranda.fx.robot.dto.IMASlowDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.IMASlowCreateDto;
+import br.allandemiranda.fx.robot.dto.base.IMASlowDto;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IMASlow;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
-public final class IMASlowMapper {
+@Component
+public final class IMASlowMapper implements InputObjectMapper<IMASlow, IMASlowDto, IMASlowCreateDto> {
 
-  public static @NonNull IMASlowDto toIMASlowDto(@NonNull ChartDto chartDto, @NonNull IMASlow iMASlow) {
+  @Override
+  public IMASlowDto toDto(ChartDto chartDto, IMASlow iMASlow) {
     return new IMASlowDto(chartDto, iMASlow.period(), iMASlow.shift(), iMASlow.method(), iMASlow.applyTo());
   }
 
-  public static @NonNull IMASlow toIMASlow(@NonNull ChartDto chartDto, @NonNull IMASlowCreateDto iMASlowCreateDto) {
+  @Override
+  public IMASlow toModel(ChartDto chartDto, IMASlowCreateDto iMASlowCreateDto) {
     return new IMASlow(chartDto.id(), iMASlowCreateDto.period(), iMASlowCreateDto.shift(), iMASlowCreateDto.method(), iMASlowCreateDto.applyTo());
   }
 }

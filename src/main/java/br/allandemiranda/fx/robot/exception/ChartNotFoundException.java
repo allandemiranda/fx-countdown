@@ -1,6 +1,8 @@
 package br.allandemiranda.fx.robot.exception;
 
+import br.allandemiranda.fx.robot.enums.Timeframe;
 import lombok.experimental.StandardException;
+import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @StandardException
 public class ChartNotFoundException extends RuntimeException {
 
-  public ChartNotFoundException(String name) {
-    super("Chart not found: " + name);
+  public ChartNotFoundException(String symbolName, @NonNull Timeframe period) {
+    super("Chart not found: [" + symbolName + ", " + period.getCode() + "]");
   }
 }

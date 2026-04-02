@@ -1,5 +1,6 @@
 package br.allandemiranda.fx.robot.model;
 
+import br.allandemiranda.fx.robot.model.definition.ChartObjectModel;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import java.math.BigDecimal;
@@ -11,6 +12,6 @@ import org.springframework.data.relational.core.mapping.Table;
 
 @Table("indicator_bands")
 public record Bands(@Id @Column("id") @NotNull UUID id, @Column("chart_id") @NotNull UUID chartId, @Column("timestamp") @NotNull @PastOrPresent OffsetDateTime timestamp, @Column("base_line") @NotNull BigDecimal baseLine, @Column("upper_band") @NotNull BigDecimal upperBand,
-                    @Column("lower_band") @NotNull BigDecimal lowerBand) {
+                    @Column("lower_band") @NotNull BigDecimal lowerBand) implements ChartObjectModel {
 
 }

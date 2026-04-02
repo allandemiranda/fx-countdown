@@ -2,6 +2,7 @@ package br.allandemiranda.fx.robot.model;
 
 import br.allandemiranda.fx.robot.enums.AppliedPrice;
 import br.allandemiranda.fx.robot.enums.SmoothingMethod;
+import br.allandemiranda.fx.robot.model.definition.InputObjectModel;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -17,6 +18,7 @@ import org.springframework.data.relational.core.mapping.Table;
  * @param applyTo type of price or handle
  */
 @Table("i_ma_slow")
-public record IMASlow(@Id @Column("chart_id") @NotNull UUID chartId, @Column("ma_period") @Positive short period, @Column("ma_shift") @PositiveOrZero short shift, @Column("ma_method") @NotNull SmoothingMethod method, @Column("applied_price") @NotNull AppliedPrice applyTo) {
+public record IMASlow(@Id @Column("chart_id") @NotNull UUID chartId, @Column("ma_period") @Positive short period, @Column("ma_shift") @PositiveOrZero short shift, @Column("ma_method") @NotNull SmoothingMethod method, @Column("applied_price") @NotNull AppliedPrice applyTo) implements
+    InputObjectModel {
 
 }

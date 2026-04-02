@@ -1,22 +1,24 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ADXCreateDto;
-import br.allandemiranda.fx.robot.dto.ADXDto;
-import br.allandemiranda.fx.robot.dto.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
+import br.allandemiranda.fx.robot.dto.base.ADXDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.ADX;
 import java.util.UUID;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
-public class ADXMapper {
+@Component
+public final class ADXMapper implements ChartObjectMapper<ADX, ADXDto, ADXCreateDto> {
 
-  public static @NonNull ADXDto toADXDto(@NonNull ChartDto chartDto, @NonNull ADX adx) {
-    return new ADXDto(adx.id(), chartDto, adx.timestamp(), adx.mainLine(), adx.plusDiLine(), adx.minusDiLine());
+  @Override
+  public ADXDto toDto(ChartDto chartDto, ADX model) {
+    return new ADXDto(model.id(), chartDto, model.timestamp(), model.mainLine(), model.plusDiLine(), model.minusDiLine());
   }
 
-  public static @NonNull ADX toADX(UUID id, @NonNull ChartDto chartDto, @NonNull ADXCreateDto adxCreateDto) {
-    return new ADX(id, chartDto.id(), adxCreateDto.timestamp(), adxCreateDto.mainLine(), adxCreateDto.plusDiLine(), adxCreateDto.minusDiLine());
+  @Override
+  public ADX toModel(UUID id, ChartDto chartDto, ADXCreateDto createDto) {
+    return new ADX(id, chartDto.id(), createDto.timestamp(), createDto.mainLine(), createDto.plusDiLine(), createDto.minusDiLine());
   }
 
 }

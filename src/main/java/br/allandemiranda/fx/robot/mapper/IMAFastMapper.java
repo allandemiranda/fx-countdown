@@ -1,20 +1,22 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.IMAFastCreateDto;
-import br.allandemiranda.fx.robot.dto.IMAFastDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.IMAFastCreateDto;
+import br.allandemiranda.fx.robot.dto.base.IMAFastDto;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IMAFast;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
-public final class IMAFastMapper {
+@Component
+public final class IMAFastMapper implements InputObjectMapper<IMAFast, IMAFastDto, IMAFastCreateDto> {
 
-  public static @NonNull IMAFastDto toIMAFastDto(@NonNull ChartDto chartDto, @NonNull IMAFast iMAFast) {
+  @Override
+  public IMAFastDto toDto(ChartDto chartDto, IMAFast iMAFast) {
     return new IMAFastDto(chartDto, iMAFast.period(), iMAFast.shift(), iMAFast.method(), iMAFast.applyTo());
   }
 
-  public static @NonNull IMAFast toIMAFast(@NonNull ChartDto chartDto, @NonNull IMAFastCreateDto iMAFastCreateDto) {
+  @Override
+  public IMAFast toModel(ChartDto chartDto, IMAFastCreateDto iMAFastCreateDto) {
     return new IMAFast(chartDto.id(), iMAFastCreateDto.period(), iMAFastCreateDto.shift(), iMAFastCreateDto.method(), iMAFastCreateDto.applyTo());
   }
 }

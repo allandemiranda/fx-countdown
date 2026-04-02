@@ -1,22 +1,21 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.TickCreateDto;
-import br.allandemiranda.fx.robot.dto.TickDto;
+import br.allandemiranda.fx.robot.dto.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.create.TickCreateDto;
+import br.allandemiranda.fx.robot.dto.base.TickDto;
 import br.allandemiranda.fx.robot.model.Tick;
 import java.util.UUID;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
+@Component
 public final class TickMapper {
 
-  public static @NonNull TickDto toTickDto(@NonNull ChartDto chartDto, @NonNull Tick tick) {
-    return new TickDto(tick.id(), chartDto, tick.timestamp(), tick.ask(), tick.bid());
+  public TickDto toDto(SymbolDto symbolDto, Tick tick) {
+    return new TickDto(tick.id(), symbolDto, tick.timestamp(), tick.ask(), tick.bid());
   }
 
-  public static @NonNull Tick toTick(UUID id, @NonNull ChartDto chartDto, @NonNull TickCreateDto tickCreateDto) {
-    return new Tick(id, chartDto.id(), tickCreateDto.timestamp(), tickCreateDto.ask(), tickCreateDto.bid());
+  public Tick toModel(UUID id, SymbolDto symbolDto, TickCreateDto tickCreateDto) {
+    return new Tick(id, symbolDto.name(), tickCreateDto.timestamp(), tickCreateDto.ask(), tickCreateDto.bid());
   }
 
 }

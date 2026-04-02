@@ -1,18 +1,22 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.GarchInputCreateDto;
-import br.allandemiranda.fx.robot.dto.GarchInputDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.GarchInputCreateDto;
+import br.allandemiranda.fx.robot.dto.base.GarchInputDto;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.GarchInput;
-import lombok.NonNull;
+import org.springframework.stereotype.Component;
 
-public class GarchInputMapper {
+@Component
+public final class GarchInputMapper implements InputObjectMapper<GarchInput, GarchInputDto, GarchInputCreateDto> {
 
-  public static @NonNull GarchInputDto toGarchInputDto(@NonNull ChartDto chartDto, @NonNull GarchInput garchInput) {
+  @Override
+  public GarchInputDto toDto(ChartDto chartDto, GarchInput garchInput) {
     return new GarchInputDto(chartDto, garchInput.horizon(), garchInput.priceSize(), garchInput.kTP(), garchInput.kSL());
   }
 
-  public static @NonNull GarchInput toGarchInput(@NonNull ChartDto chartDto, @NonNull GarchInputCreateDto garchInputCreateDto) {
+  @Override
+  public GarchInput toModel(ChartDto chartDto, GarchInputCreateDto garchInputCreateDto) {
     return new GarchInput(chartDto.id(), garchInputCreateDto.horizon(), garchInputCreateDto.priceSize(), garchInputCreateDto.kTP(), garchInputCreateDto.kSL());
   }
 }

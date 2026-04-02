@@ -1,39 +1,23 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.IMACDCreateDto;
-import br.allandemiranda.fx.robot.dto.IMACDDto;
-import br.allandemiranda.fx.robot.mapper.IMACDMapper;
-import br.allandemiranda.fx.robot.model.IMACD;
-import br.allandemiranda.fx.robot.repository.IMACDRepository;
+import br.allandemiranda.fx.robot.dto.create.IBandsCreateDto;
+import br.allandemiranda.fx.robot.dto.base.IBandsDto;
+import br.allandemiranda.fx.robot.mapper.IBandsMapper;
+import br.allandemiranda.fx.robot.model.IBands;
+import br.allandemiranda.fx.robot.repository.IBandsRepository;
+import br.allandemiranda.fx.robot.service.contract.InputObjectService;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import reactor.core.publisher.Mono;
 
-@AllArgsConstructor
-@Getter(AccessLevel.PRIVATE)
-@Transactional
 @Service
-public class IMACDService {
+@Getter(AccessLevel.PRIVATE)
+@AllArgsConstructor
+public final class IMACDService implements InputObjectService<IBands, IBandsDto, IBandsCreateDto, IBandsRepository> {
 
-  private final IMACDRepository repository;
+  private final IBandsRepository repository;
 
-  @Transactional(readOnly = true)
-  public Mono<IMACDDto> getIMACD(@NonNull ChartDto chartDto) {
-    return this.getRepository().findIMACD(chartDto.id()).map(iMACD -> IMACDMapper.toIMACDDto(chartDto, iMACD));
-  }
-
-  public Mono<IMACDDto> createIMACD(@NonNull ChartDto chartDto, @NonNull IMACDCreateDto iMACDCreateDto) {
-    IMACD model = IMACDMapper.toIMACD(chartDto, iMACDCreateDto);
-    return this.getRepository().save(model).map(iMACD -> IMACDMapper.toIMACDDto(chartDto, iMACD));
-  }
-
-  public Mono<Void> deleteIMACD(@NonNull ChartDto chartDto) {
-    return this.getRepository().deleteIMACD(chartDto.id());
-  }
+  private final IBandsMapper mapper;
 
 }

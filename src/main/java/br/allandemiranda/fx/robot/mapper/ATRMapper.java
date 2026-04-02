@@ -1,21 +1,23 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ATRCreateDto;
-import br.allandemiranda.fx.robot.dto.ATRDto;
-import br.allandemiranda.fx.robot.dto.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.ATRCreateDto;
+import br.allandemiranda.fx.robot.dto.base.ATRDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.ATR;
 import java.util.UUID;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
-public class ATRMapper {
+@Component
+public final class ATRMapper implements ChartObjectMapper<ATR, ATRDto, ATRCreateDto> {
 
-  public static @NonNull ATRDto toATRDto(@NonNull ChartDto chartDto, @NonNull ATR atr) {
+  @Override
+  public ATRDto toDto(ChartDto chartDto, ATR atr) {
     return new ATRDto(atr.id(), chartDto, atr.timestamp(), atr.atr());
   }
 
-  public static @NonNull ATR toATR(UUID id, @NonNull ChartDto chartDto, @NonNull ATRCreateDto atrCreateDto) {
+  @Override
+  public ATR toModel(UUID id, ChartDto chartDto, ATRCreateDto atrCreateDto) {
     return new ATR(id, chartDto.id(), atrCreateDto.timestamp(), atrCreateDto.atr());
   }
 

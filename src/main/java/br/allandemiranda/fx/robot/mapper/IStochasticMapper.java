@@ -1,20 +1,20 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.IStochasticCreateDto;
-import br.allandemiranda.fx.robot.dto.IStochasticDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.IStochasticCreateDto;
+import br.allandemiranda.fx.robot.dto.base.IStochasticDto;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IStochastic;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
-public final class IStochasticMapper {
+@Component
+public final class IStochasticMapper implements InputObjectMapper<IStochastic, IStochasticDto, IStochasticCreateDto> {
 
-  public static @NonNull IStochasticDto toIStochasticDto(@NonNull ChartDto chartDto, @NonNull IStochastic iStochastic) {
+  public IStochasticDto toDto(ChartDto chartDto, IStochastic iStochastic) {
     return new IStochasticDto(chartDto, iStochastic.kPeriod(), iStochastic.dPeriod(), iStochastic.slowing(), iStochastic.method(), iStochastic.priceField());
   }
 
-  public static @NonNull IStochastic toIStochastic(@NonNull ChartDto chartDto, @NonNull IStochasticCreateDto iStochasticCreateDto) {
+  public IStochastic toModel(ChartDto chartDto, IStochasticCreateDto iStochasticCreateDto) {
     return new IStochastic(chartDto.id(), iStochasticCreateDto.kPeriod(), iStochasticCreateDto.dPeriod(), iStochasticCreateDto.slowing(), iStochasticCreateDto.method(), iStochasticCreateDto.priceField());
   }
 }

@@ -1,20 +1,22 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.ChartDto;
-import br.allandemiranda.fx.robot.dto.IATRCreateDto;
-import br.allandemiranda.fx.robot.dto.IATRDto;
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.create.IATRCreateDto;
+import br.allandemiranda.fx.robot.dto.base.IATRDto;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapper;
 import br.allandemiranda.fx.robot.model.IATR;
-import lombok.NonNull;
-import lombok.experimental.UtilityClass;
+import org.springframework.stereotype.Component;
 
-@UtilityClass
-public final class IATRMapper {
+@Component
+public final class IATRMapper implements InputObjectMapper<IATR, IATRDto, IATRCreateDto> {
 
-  public static @NonNull IATRDto toIATRDto(@NonNull ChartDto chartDto, @NonNull IATR iATR) {
+  @Override
+  public IATRDto toDto(ChartDto chartDto, IATR iATR) {
     return new IATRDto(chartDto, iATR.period());
   }
 
-  public static @NonNull IATR toIATR(@NonNull ChartDto chartDto, @NonNull IATRCreateDto iATRCreateDto) {
+  @Override
+  public IATR toModel(ChartDto chartDto, IATRCreateDto iATRCreateDto) {
     return new IATR(chartDto.id(), iATRCreateDto.period());
   }
 }
