@@ -26,7 +26,7 @@ public class MaSlowController implements ChartObjectController<MaSlow, MaSlowDto
 
   @Override
   public String getChartObjectName() {
-    return "ma slow";
+    return "MA slow";
   }
 
 }

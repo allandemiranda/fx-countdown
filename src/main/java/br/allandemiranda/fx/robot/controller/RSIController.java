@@ -26,7 +26,7 @@ public class RSIController implements ChartObjectController<MACD, MACDDto, MACDC
 
   @Override
   public String getChartObjectName() {
-    return "rsi";
+    return "RSI";
   }
 
 }

@@ -26,7 +26,7 @@ public class ADXController implements ChartObjectController<ADX, ADXDto, ADXCrea
 
   @Override
   public String getChartObjectName() {
-    return "adx";
+    return "ADX";
   }
 
 }

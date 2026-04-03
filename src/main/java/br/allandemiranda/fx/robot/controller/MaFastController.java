@@ -26,7 +26,7 @@ public class MaFastController implements ChartObjectController<MaFast, MaFastDto
 
   @Override
   public String getChartObjectName() {
-    return "ma fast";
+    return "MA fast";
   }
 
 }

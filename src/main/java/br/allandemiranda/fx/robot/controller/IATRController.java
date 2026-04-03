@@ -1,11 +1,11 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.controller.contract.ChartObjectController;
-import br.allandemiranda.fx.robot.dto.base.MACDDto;
-import br.allandemiranda.fx.robot.dto.create.MACDCreateDto;
-import br.allandemiranda.fx.robot.model.MACD;
+import br.allandemiranda.fx.robot.controller.contract.InputObjectController;
+import br.allandemiranda.fx.robot.dto.base.IATRDto;
+import br.allandemiranda.fx.robot.dto.create.IATRCreateDto;
+import br.allandemiranda.fx.robot.model.IATR;
 import br.allandemiranda.fx.robot.service.ChartService;
-import br.allandemiranda.fx.robot.service.MACDService;
+import br.allandemiranda.fx.robot.service.IATRService;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,18 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @Getter
-@RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/macds")
-public class MACDController implements ChartObjectController<MACD, MACDDto, MACDCreateDto> {
+@RestController
+@RequestMapping("symbols/{name}/timeframes/{period}/iatrs")
+public class IATRController implements InputObjectController<IATR, IATRDto, IATRCreateDto> {
 
   private final SymbolService symbolService;
   private final ChartService chartService;
-  private final MACDService service;
+  private final IATRService service;
 
   @Override
   public String getChartObjectName() {
-    return "MACD";
+    return "iATR";
   }
 
 }

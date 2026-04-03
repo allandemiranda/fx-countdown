@@ -26,7 +26,7 @@ public class StochasticController implements ChartObjectController<Stochastic, S
 
   @Override
   public String getChartObjectName() {
-    return "stochastic";
+    return "Stochastic";
   }
 
 }

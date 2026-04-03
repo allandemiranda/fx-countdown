@@ -26,7 +26,7 @@ public class ATRController implements ChartObjectController<ATR, ATRDto, ATRCrea
 
   @Override
   public String getChartObjectName() {
-    return "atr";
+    return "ATR";
   }
 
 }

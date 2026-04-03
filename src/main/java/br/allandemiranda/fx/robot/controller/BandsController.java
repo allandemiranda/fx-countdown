@@ -26,7 +26,7 @@ public class BandsController implements ChartObjectController<Bands, BandsDto, B
 
   @Override
   public String getChartObjectName() {
-    return "bands";
+    return "Bands";
   }
 
 }

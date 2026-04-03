@@ -1,10 +1,10 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.base.IBandsDto;
-import br.allandemiranda.fx.robot.dto.create.IBandsCreateDto;
-import br.allandemiranda.fx.robot.mapper.IBandsMapper;
-import br.allandemiranda.fx.robot.model.IBands;
-import br.allandemiranda.fx.robot.repository.IBandsRepository;
+import br.allandemiranda.fx.robot.dto.base.IMACDDto;
+import br.allandemiranda.fx.robot.dto.create.IMACDCreateDto;
+import br.allandemiranda.fx.robot.mapper.IMACDMapper;
+import br.allandemiranda.fx.robot.model.IMACD;
+import br.allandemiranda.fx.robot.repository.IMACDRepository;
 import br.allandemiranda.fx.robot.service.contract.InputObjectService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public class IMACDService implements InputObjectService<IBands, IBandsDto, IBandsCreateDto> {
+public class IMACDService implements InputObjectService<IMACD, IMACDDto, IMACDCreateDto> {
 
-  private final IBandsRepository repository;
+  private final IMACDRepository repository;
 
-  private final IBandsMapper mapper;
+  private final IMACDMapper mapper;
 
 }
