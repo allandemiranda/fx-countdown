@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class IADXService implements InputObjectService<IADX, IADXDto, IADXCreateDto, IADXRepository> {
+public class IADXService implements InputObjectService<IADX, IADXDto, IADXCreateDto> {
 
   private final IADXRepository repository;
 

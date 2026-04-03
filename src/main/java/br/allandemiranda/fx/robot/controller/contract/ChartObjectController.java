@@ -27,13 +27,13 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Validated
-public interface ChartObjectController<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto, R extends ChartObjectRepository<M>, S extends ChartObjectService<M, D, C, R>> {
+public interface ChartObjectController<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto> {
 
   SymbolService getSymbolService();
 
   ChartService getChartService();
 
-  S getService();
+  ChartObjectService<M, D, C> getService();
 
   String getChartObjectName();
 

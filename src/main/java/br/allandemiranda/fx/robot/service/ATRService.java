@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class ATRService implements ChartObjectService<ATR, ATRDto, ATRCreateDto, ATRRepository> {
+public class ATRService implements ChartObjectService<ATR, ATRDto, ATRCreateDto> {
 
   private final ATRRepository repository;
 

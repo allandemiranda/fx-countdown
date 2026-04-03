@@ -33,7 +33,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @Validated
 @RequestMapping("symbols/{name}")
-public final class ChartController {
+public class ChartController {
 
   private final SymbolService symbolService;
   private final ChartService chartService;

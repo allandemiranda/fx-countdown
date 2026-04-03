@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class IMACDService implements InputObjectService<IBands, IBandsDto, IBandsCreateDto, IBandsRepository> {
+public class IMACDService implements InputObjectService<IBands, IBandsDto, IBandsCreateDto> {
 
   private final IBandsRepository repository;
 

@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 @Getter
 @Service
-public final class ChartService {
+public class ChartService {
 
   private final ChartRepository repository;
   private final ChartMapper mapper;

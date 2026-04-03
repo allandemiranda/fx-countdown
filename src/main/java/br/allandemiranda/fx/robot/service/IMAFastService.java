@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class IMAFastService implements InputObjectService<IMAFast, IMAFastDto, IMAFastCreateDto, IMAFastRepository> {
+public class IMAFastService implements InputObjectService<IMAFast, IMAFastDto, IMAFastCreateDto> {
 
   private final IMAFastRepository repository;
 

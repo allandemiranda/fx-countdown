@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class IATRService implements InputObjectService<IATR, IATRDto, IATRCreateDto, IATRRepository> {
+public class IATRService implements InputObjectService<IATR, IATRDto, IATRCreateDto> {
 
   private final IATRRepository repository;
 

@@ -8,9 +8,9 @@ import br.allandemiranda.fx.robot.model.definition.InputObjectModel;
 import br.allandemiranda.fx.robot.repository.contract.InputObjectRepository;
 import reactor.core.publisher.Mono;
 
-public interface InputObjectService<M extends InputObjectModel, D extends InputObjectDto, C extends CreateInputObjectDto, R extends InputObjectRepository<M>> {
+public interface InputObjectService<M extends InputObjectModel, D extends InputObjectDto, C extends CreateInputObjectDto> {
 
-  R getRepository();
+  InputObjectRepository<M> getRepository();
 
   InputObjectMapper<M, D, C> getMapper();
 

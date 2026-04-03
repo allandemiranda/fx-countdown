@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class GarchInputService implements InputObjectService<GarchInput, GarchInputDto, GarchInputCreateDto, GarchInputRepository> {
+public class GarchInputService implements InputObjectService<GarchInput, GarchInputDto, GarchInputCreateDto> {
 
   private final GarchInputRepository repository;
 

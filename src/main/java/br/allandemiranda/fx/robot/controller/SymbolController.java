@@ -31,7 +31,7 @@ import reactor.core.publisher.Mono;
 @Validated
 @RestController
 @RequestMapping("symbols")
-public final class SymbolController {
+public class SymbolController {
 
   private final SymbolService symbolService;
 

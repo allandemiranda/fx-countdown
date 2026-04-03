@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class BandsService implements ChartObjectService<Bands, BandsDto, BandsCreateDto, BandsRepository> {
+public class BandsService implements ChartObjectService<Bands, BandsDto, BandsCreateDto> {
 
   private final BandsRepository repository;
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class GarchTradingService implements ChartObjectService<GarchTrading, GarchTradingDto, GarchTradingCreateDto, GarchTradingRepository> {
+public class GarchTradingService implements ChartObjectService<GarchTrading, GarchTradingDto, GarchTradingCreateDto> {
 
   private final GarchTradingRepository repository;
 

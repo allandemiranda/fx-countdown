@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 @Getter
 @Service
-public final class SymbolService {
+public class SymbolService {
 
   private final SymbolRepository repository;
   private final SymbolMapper mapper;

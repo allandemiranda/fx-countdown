@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class ADXService implements ChartObjectService<ADX, ADXDto, ADXCreateDto, ADXRepository> {
+public class ADXService implements ChartObjectService<ADX, ADXDto, ADXCreateDto> {
 
   private final ADXRepository repository;
 

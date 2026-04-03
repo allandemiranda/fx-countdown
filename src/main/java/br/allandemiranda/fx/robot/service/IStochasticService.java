@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class IStochasticService implements InputObjectService<IStochastic, IStochasticDto, IStochasticCreateDto, IStochasticRepository> {
+public class IStochasticService implements InputObjectService<IStochastic, IStochasticDto, IStochasticCreateDto> {
 
   private final IStochasticRepository repository;
 

@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 @Getter
 @Service
-public final class DashboardService {
+public class DashboardService {
 
   private final DashboardRepository repository;
   private final DashboardMapper mapper;

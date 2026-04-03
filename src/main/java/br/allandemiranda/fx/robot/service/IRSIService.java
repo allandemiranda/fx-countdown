@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class IRSIService implements InputObjectService<IRSI, IRSIDto, IRSICreateDto, IRSIRepository> {
+public class IRSIService implements InputObjectService<IRSI, IRSIDto, IRSICreateDto> {
 
   private final IRSIRepository repository;
 

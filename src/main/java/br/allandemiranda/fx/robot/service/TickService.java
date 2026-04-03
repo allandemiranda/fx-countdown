@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 @Getter
 @Service
-public final class TickService {
+public class TickService {
 
   private final TickRepository repository;
   private final TickMapper mapper;

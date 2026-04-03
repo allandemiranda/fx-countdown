@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class MaSlowService implements ChartObjectService<MaSlow, MaSlowDto, MaSlowCreateDto, MaSlowRepository> {
+public class MaSlowService implements ChartObjectService<MaSlow, MaSlowDto, MaSlowCreateDto> {
 
   private final MaSlowRepository repository;
 

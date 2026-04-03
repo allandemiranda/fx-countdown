@@ -11,9 +11,9 @@ import java.util.UUID;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-public interface ChartObjectService<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto, R extends ChartObjectRepository<M>> {
+public interface ChartObjectService<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto> {
 
-  R getRepository();
+  ChartObjectRepository<M> getRepository();
 
   ChartObjectMapper<M, D, C> getMapper();
 

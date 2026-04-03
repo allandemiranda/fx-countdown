@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class MACDService implements ChartObjectService<MACD, MACDDto, MACDCreateDto, MACDRepository> {
+public class MACDService implements ChartObjectService<MACD, MACDDto, MACDCreateDto> {
 
   private final MACDRepository repository;
 

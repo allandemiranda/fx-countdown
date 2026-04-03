@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class CandlestickService implements ChartObjectService<Candlestick, CandlestickDto, CandlestickCreateDto, CandlestickRepository> {
+public class CandlestickService implements ChartObjectService<Candlestick, CandlestickDto, CandlestickCreateDto> {
 
   private final CandlestickRepository repository;
 

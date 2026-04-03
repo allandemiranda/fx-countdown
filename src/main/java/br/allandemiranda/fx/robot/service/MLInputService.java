@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class MLInputService implements InputObjectService<MLInput, MLInputDto, MLInputCreateDto, MLInputRepository> {
+public class MLInputService implements InputObjectService<MLInput, MLInputDto, MLInputCreateDto> {
 
   private final MLInputRepository repository;
 

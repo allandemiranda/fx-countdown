@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class MaFastService implements ChartObjectService<MaFast, MaFastDto, MaFastCreateDto, MaFastRepository> {
+public class MaFastService implements ChartObjectService<MaFast, MaFastDto, MaFastCreateDto> {
 
   private final MaFastRepository repository;
 

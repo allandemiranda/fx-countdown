@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class StochasticService implements ChartObjectService<Stochastic, StochasticDto, StochasticCreateDto, StochasticRepository> {
+public class StochasticService implements ChartObjectService<Stochastic, StochasticDto, StochasticCreateDto> {
 
   private final StochasticRepository repository;
 

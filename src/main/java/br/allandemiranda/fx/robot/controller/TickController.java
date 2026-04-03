@@ -34,7 +34,7 @@ import reactor.core.publisher.Mono;
 @Validated
 @RestController
 @RequestMapping("symbols/{name}/ticks")
-public final class TickController {
+public class TickController {
 
   private final SymbolService symbolService;
   private final TickService tickService;

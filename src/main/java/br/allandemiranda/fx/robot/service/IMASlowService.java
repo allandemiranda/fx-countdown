@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class IMASlowService implements InputObjectService<IMASlow, IMASlowDto, IMASlowCreateDto, IMASlowRepository> {
+public class IMASlowService implements InputObjectService<IMASlow, IMASlowDto, IMASlowCreateDto> {
 
   private final IMASlowRepository repository;
 

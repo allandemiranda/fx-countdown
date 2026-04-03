@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Getter
 @AllArgsConstructor
-public final class RSIService implements ChartObjectService<RSI, RSIDto, RSICreateDto, RSIRepository> {
+public class RSIService implements ChartObjectService<RSI, RSIDto, RSICreateDto> {
 
   private final RSIRepository repository;
 
