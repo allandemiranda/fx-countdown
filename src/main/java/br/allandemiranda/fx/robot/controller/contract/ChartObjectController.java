@@ -5,7 +5,6 @@ import br.allandemiranda.fx.robot.dto.definition.CreateChartObjectDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.exception.ChartObjectNotFoundException;
 import br.allandemiranda.fx.robot.model.definition.ChartObjectModel;
-import br.allandemiranda.fx.robot.repository.contract.ChartObjectRepository;
 import br.allandemiranda.fx.robot.service.ChartService;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import br.allandemiranda.fx.robot.service.contract.ChartObjectService;
