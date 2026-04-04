@@ -1,0 +1,10 @@
+spring:
+  profiles:
+    active: test
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath:db/indicators/adx.sql
+  r2dbc:
+    generate-unique-name: true

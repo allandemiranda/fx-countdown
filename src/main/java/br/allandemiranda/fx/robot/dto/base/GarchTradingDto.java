@@ -11,7 +11,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-public record GarchTradingDto(@NotNull UUID id, @NotNull ChartDto chartDto, @NotNull OffsetDateTime timestamp, @NotNull @Positive BigDecimal buyOpenPrice, @NotNull @Positive BigDecimal buyTpPrice, @NotNull @Positive BigDecimal buySlPrice, int buyPoints, @PastOrPresent OffsetDateTime closeBuyTime,
+public record GarchTradingDto(@NotNull UUID id, @NotNull ChartDto chartDto, @NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Positive BigDecimal buyOpenPrice, @NotNull @Positive BigDecimal buyTpPrice, @NotNull @Positive BigDecimal buySlPrice, int buyPoints, @PastOrPresent OffsetDateTime closeBuyTime,
                               DealReason buyDealReason, @NotNull @Positive BigDecimal sellOpenPrice, @NotNull @Positive BigDecimal sellTpPrice, @NotNull @Positive BigDecimal sellSlPrice, int sellPoints, @PastOrPresent OffsetDateTime closeSellTime, DealReason sellDealReason) implements Serializable,
     BaseDto, ChartObjectDto {
 
