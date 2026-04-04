@@ -6,9 +6,6 @@ import br.allandemiranda.fx.robot.mapper.ADXMapper;
 import br.allandemiranda.fx.robot.model.ADX;
 import br.allandemiranda.fx.robot.repository.ADXRepository;
 import br.allandemiranda.fx.robot.service.contract.AbstractChartObjectServiceTest;
-import java.math.BigDecimal;
-import java.time.OffsetDateTime;
-import java.util.UUID;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,6 +18,10 @@ class ADXServiceTest extends AbstractChartObjectServiceTest<ADX, ADXDto, ADXCrea
 
   @Mock
   @Getter
+  private ADX model;
+
+  @Mock
+  @Getter
   private ADXRepository repository;
 
   @Spy
@@ -30,15 +31,5 @@ class ADXServiceTest extends AbstractChartObjectServiceTest<ADX, ADXDto, ADXCrea
   @InjectMocks
   @Getter
   private ADXService service;
-
-  @Override
-  protected ADX createValidAbstractMockModel() {
-    return new ADX(UUID.randomUUID(), this.getChartId(), OffsetDateTime.now(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
-  }
-
-  @Override
-  protected ADX createIdNullAbstractMockModel() {
-    return new ADX(null, this.getChartId(), OffsetDateTime.now(), BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
-  }
 
 }
