@@ -22,6 +22,10 @@ class ATRServiceTest extends AbstractChartObjectServiceTest<ATR, ATRDto, ATRCrea
 
   @Mock
   @Getter
+  private ATRCreateDto createDto;
+
+  @Mock
+  @Getter
   private ATRRepository repository;
 
   @Spy

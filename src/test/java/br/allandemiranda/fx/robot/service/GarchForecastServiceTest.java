@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.GarchForecastDto;
+import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.create.GarchForecastCreateDto;
 import br.allandemiranda.fx.robot.mapper.GarchForecastMapper;
 import br.allandemiranda.fx.robot.model.GarchForecast;
@@ -19,6 +20,10 @@ class GarchForecastServiceTest extends AbstractChartObjectServiceTest<GarchForec
   @Mock
   @Getter
   private GarchForecast model;
+
+  @Mock
+  @Getter
+  private GarchForecastCreateDto createDto;
 
   @Mock
   @Getter

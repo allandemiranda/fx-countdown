@@ -3,6 +3,7 @@ package br.allandemiranda.fx.robot.service.contract;
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
 import br.allandemiranda.fx.robot.dto.definition.ChartObjectDto;
 import br.allandemiranda.fx.robot.dto.definition.CreateChartObjectDto;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.definition.ChartObjectModel;
 import br.allandemiranda.fx.robot.repository.contract.ChartObjectRepository;
 import java.time.OffsetDateTime;
@@ -20,9 +21,13 @@ public abstract class AbstractChartObjectServiceTest<M extends ChartObjectModel,
   @Mock
   private ChartDto chartDto;
 
+  protected abstract C getCreateDto();
+
   protected abstract ChartObjectRepository<M> getRepository();
 
   protected abstract ChartObjectService<M, D, C> getService();
+
+  protected abstract ChartObjectMapper<M, D, C> getMapper();
 
   protected abstract M getModel();
 
@@ -99,6 +104,29 @@ public abstract class AbstractChartObjectServiceTest<M extends ChartObjectModel,
     //then
     StepVerifier.create(this.getService().get(this.chartDto).collectList()).assertNext(dtos -> {
       Assertions.assertEquals(0, dtos.size());
+    }).verifyComplete();
+  }
+
+  @Test
+  void create_ShouldReturnModel() {
+    //given
+    UUID uuid = Mockito.mock(UUID.class);
+    OffsetDateTime timestamp = Mockito.mock(OffsetDateTime.class);
+    //when
+    Mockito.when(this.chartDto.id()).thenReturn(uuid);
+    Mockito.when(this.getCreateDto().timestamp()).thenReturn(timestamp);
+    Mockito.doReturn(this.getCreateDto().timestamp()).when(this.getModel()).timestamp();
+    Mockito.doReturn(this.getModel()).when(this.getMapper()).toModel(Mockito.any(UUID.class), Mockito.eq(this.chartDto), Mockito.eq(this.getCreateDto()));
+    Mockito.when(this.getRepository().save(this.getModel())).thenReturn(Mono.just(this.getModel()));
+    //then
+    StepVerifier.create(this.getService().create(this.chartDto, this.getCreateDto())).assertNext(dto -> {
+      System.out.println(dto);
+
+      Assertions.assertNotNull(dto.chartDto());
+      Assertions.assertEquals(uuid, dto.chartDto().id());
+
+      Assertions.assertNotNull(dto.timestamp());
+      Assertions.assertEquals(this.getModel().timestamp(), dto.timestamp());
     }).verifyComplete();
   }
 

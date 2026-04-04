@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.MaFastDto;
+import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.create.MaFastCreateDto;
 import br.allandemiranda.fx.robot.mapper.MaFastMapper;
 import br.allandemiranda.fx.robot.model.MaFast;
@@ -19,6 +20,10 @@ class MaFastServiceTest extends AbstractChartObjectServiceTest<MaFast, MaFastDto
   @Mock
   @Getter
   private MaFast model;
+
+  @Mock
+  @Getter
+  private MaFastCreateDto createDto;
 
   @Mock
   @Getter

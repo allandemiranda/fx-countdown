@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.RSIDto;
+import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.create.RSICreateDto;
 import br.allandemiranda.fx.robot.mapper.RSIMapper;
 import br.allandemiranda.fx.robot.model.RSI;
@@ -19,6 +20,10 @@ class RSIServiceTest extends AbstractChartObjectServiceTest<RSI, RSIDto, RSICrea
   @Mock
   @Getter
   private RSI model;
+
+  @Mock
+  @Getter
+  private RSICreateDto createDto;
 
   @Mock
   @Getter

@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.BandsDto;
+import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.create.BandsCreateDto;
 import br.allandemiranda.fx.robot.mapper.BandsMapper;
 import br.allandemiranda.fx.robot.model.Bands;
@@ -19,6 +20,10 @@ class BandsServiceTest extends AbstractChartObjectServiceTest<Bands, BandsDto, B
   @Mock
   @Getter
   private Bands model;
+
+  @Mock
+  @Getter
+  private BandsCreateDto createDto;
 
   @Mock
   @Getter

@@ -22,6 +22,10 @@ class ADXServiceTest extends AbstractChartObjectServiceTest<ADX, ADXDto, ADXCrea
 
   @Mock
   @Getter
+  private ADXCreateDto createDto;
+
+  @Mock
+  @Getter
   private ADXRepository repository;
 
   @Spy

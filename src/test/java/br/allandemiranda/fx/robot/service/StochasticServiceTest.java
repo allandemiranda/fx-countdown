@@ -22,6 +22,10 @@ class StochasticServiceTest extends AbstractChartObjectServiceTest<Stochastic, S
 
   @Mock
   @Getter
+  private StochasticCreateDto createDto;
+
+  @Mock
+  @Getter
   private StochasticRepository repository;
 
   @Spy

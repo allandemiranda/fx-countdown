@@ -26,7 +26,8 @@ public interface ChartObjectService<M extends ChartObjectModel, D extends ChartO
   }
 
   default Mono<D> create(ChartDto chartDto, C createDto) {
-    return this.getRepository().save(this.getMapper().toModel(UUID.randomUUID(), chartDto, createDto)).map(model -> this.getMapper().toDto(chartDto, model));
+    M entity = this.getMapper().toModel(UUID.randomUUID(), chartDto, createDto);
+    return this.getRepository().save(entity).map(model -> this.getMapper().toDto(chartDto, model));
   }
 
   default Mono<Void> delete(ChartDto chartDto) {
