@@ -120,8 +120,6 @@ public abstract class AbstractChartObjectServiceTest<M extends ChartObjectModel,
     Mockito.when(this.getRepository().save(this.getModel())).thenReturn(Mono.just(this.getModel()));
     //then
     StepVerifier.create(this.getService().create(this.chartDto, this.getCreateDto())).assertNext(dto -> {
-      System.out.println(dto);
-
       Assertions.assertNotNull(dto.chartDto());
       Assertions.assertEquals(uuid, dto.chartDto().id());
 
