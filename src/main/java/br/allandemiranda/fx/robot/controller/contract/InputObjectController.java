@@ -36,20 +36,20 @@ public interface InputObjectController<M extends InputObjectModel, D extends Inp
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/{timestamp}", produces = "application/json")
   default Mono<D> find(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period) {
-    return this.getSymbolService().getSymbol(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMap(chartDto -> this.getService().get(chartDto))
+    return this.getSymbolService().get(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMap(chartDto -> this.getService().get(chartDto))
         .switchIfEmpty(Mono.error(() -> new InputObjectNotFoundException(name, period, this.getChartObjectName())));
   }
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   default Mono<D> create(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period, @RequestBody @Valid C createInputObjectDto) {
-    return this.getSymbolService().getSymbol(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMap(chartDto -> this.getService().create(chartDto, createInputObjectDto));
+    return this.getSymbolService().get(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMap(chartDto -> this.getService().create(chartDto, createInputObjectDto));
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(produces = "application/json")
   default Mono<Void> deleteAll(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period) {
-    return this.getSymbolService().getSymbol(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMap(chartDto -> this.getService().delete(chartDto));
+    return this.getSymbolService().get(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMap(chartDto -> this.getService().delete(chartDto));
   }
 
 }

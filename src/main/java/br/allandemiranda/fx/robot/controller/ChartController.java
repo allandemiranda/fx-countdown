@@ -39,7 +39,7 @@ public class ChartController {
   private final ChartService chartService;
 
   private Mono<SymbolDto> getSymbol(String name) {
-    return this.getSymbolService().getSymbol(name);
+    return this.getSymbolService().get(name);
   }
 
   @ResponseStatus(HttpStatus.OK)

@@ -106,10 +106,9 @@ class ChartServiceTest {
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(chartCreateDto.period()).thenReturn(period);
-    Mockito.when(chartCreateDto.period()).thenReturn(period);
     Mockito.doReturn(chartCreateDto.period()).when(chart).period();
-    Mockito.doReturn(chart).when(mapper).toModel(Mockito.any(UUID.class), Mockito.eq(symbolDto), Mockito.eq(chartCreateDto));
-    Mockito.when(repository.save(chart)).thenReturn(Mono.just(chart));
+    Mockito.doReturn(chart).when(this.mapper).toModel(Mockito.any(UUID.class), Mockito.eq(symbolDto), Mockito.eq(chartCreateDto));
+    Mockito.when(this.repository.save(chart)).thenReturn(Mono.just(chart));
     //then
     StepVerifier.create(this.service.create(symbolDto, chartCreateDto)).assertNext(dto -> {
       Assertions.assertNotNull(dto);
@@ -128,8 +127,8 @@ class ChartServiceTest {
     Timeframe period = Mockito.mock(Timeframe.class);
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
-    Mockito.when(repository.deleteAllBySymbolNameAndPeriod(symbolDto.name(), period)).thenReturn(Mono.empty());
+    Mockito.when(this.repository.deleteAllBySymbolNameAndPeriod(symbolDto.name(), period)).thenReturn(Mono.empty());
     //then
-    StepVerifier.create(service.delete(symbolDto, period)).expectNextCount(0).verifyComplete();
+    StepVerifier.create(this.service.delete(symbolDto, period)).expectNextCount(0).verifyComplete();
   }
 }

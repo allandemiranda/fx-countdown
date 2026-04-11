@@ -22,20 +22,20 @@ public class TickService {
   private final TickRepository repository;
   private final TickMapper mapper;
 
-  public Mono<TickDto> getTick(SymbolDto symbolDto, OffsetDateTime timestamp) {
+  public Mono<TickDto> get(SymbolDto symbolDto, OffsetDateTime timestamp) {
     return this.getRepository().findBySymbolNameAndTimestamp(symbolDto.name(), timestamp).map(tick -> this.getMapper().toDto(symbolDto, tick));
   }
 
-  public Flux<TickDto> getTick(SymbolDto symbolDto) {
+  public Flux<TickDto> get(SymbolDto symbolDto) {
     return this.getRepository().findAllBySymbolName(symbolDto.name()).map(tick -> this.getMapper().toDto(symbolDto, tick));
   }
 
-  public Mono<TickDto> createTick(SymbolDto symbolDto, TickCreateDto tickCreateDto) {
+  public Mono<TickDto> create(SymbolDto symbolDto, TickCreateDto tickCreateDto) {
     Tick model = this.getMapper().toModel(UUID.randomUUID(), symbolDto, tickCreateDto);
     return this.getRepository().save(model).map(tick -> this.getMapper().toDto(symbolDto, tick));
   }
 
-  public Mono<Void> deleteTick(SymbolDto symbolDto) {
+  public Mono<Void> delete(SymbolDto symbolDto) {
     return this.getRepository().deleteAllBySymbolName(symbolDto.name());
   }
 

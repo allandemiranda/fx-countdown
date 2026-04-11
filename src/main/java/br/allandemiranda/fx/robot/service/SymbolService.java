@@ -19,21 +19,21 @@ public class SymbolService {
   private final SymbolRepository repository;
   private final SymbolMapper mapper;
 
-  public Mono<SymbolDto> getSymbol(String name) {
+  public Mono<SymbolDto> get(String name) {
     return this.getRepository().findById(name).map(symbol -> this.getMapper().toDto(symbol));
   }
 
-  public Flux<SymbolDto> getSymbols() {
+  public Flux<SymbolDto> get() {
     return this.getRepository().findAll().map(symbol -> this.getMapper().toDto(symbol));
   }
 
-  public Mono<SymbolDto> createSymbol(SymbolCreateDto symbolCreateDto) {
+  public Mono<SymbolDto> create(SymbolCreateDto symbolCreateDto) {
     Symbol model = this.getMapper().toModel(symbolCreateDto);
     Mono<Symbol> savedSymbol = this.getRepository().save(model);
     return savedSymbol.map(symbol -> this.getMapper().toDto(symbol));
   }
 
-  public Mono<Void> deleteSymbol(String name) {
+  public Mono<Void> delete(String name) {
     return this.getRepository().deleteById(name);
   }
 

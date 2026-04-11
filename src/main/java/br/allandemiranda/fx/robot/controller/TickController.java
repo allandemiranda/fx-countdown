@@ -40,31 +40,31 @@ public class TickController {
   private final TickService tickService;
 
   private Mono<SymbolDto> getSymbol(String name) {
-    return this.getSymbolService().getSymbol(name);
+    return this.getSymbolService().get(name);
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
   public Flux<TickDto> findAll(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
-    return this.getSymbol(name).flatMapMany(symbolDto -> this.getTickService().getTick(symbolDto));
+    return this.getSymbol(name).flatMapMany(symbolDto -> this.getTickService().get(symbolDto));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/{timestamp}", produces = "application/json")
   public Mono<TickDto> find(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @PastOrPresent @Valid OffsetDateTime timestamp) {
-    return this.getSymbol(name).flatMap(symbolDto -> this.getTickService().getTick(symbolDto, timestamp)).switchIfEmpty(Mono.error(() -> new TickNotFoundException(name, timestamp)));
+    return this.getSymbol(name).flatMap(symbolDto -> this.getTickService().get(symbolDto, timestamp)).switchIfEmpty(Mono.error(() -> new TickNotFoundException(name, timestamp)));
   }
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public Mono<TickDto> create(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name, @RequestBody @Valid TickCreateDto tickCreateDto) {
-    return this.getSymbol(name).flatMap(symbolDto -> this.getTickService().createTick(symbolDto, tickCreateDto));
+    return this.getSymbol(name).flatMap(symbolDto -> this.getTickService().create(symbolDto, tickCreateDto));
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(produces = "application/json")
   public Mono<Void> deleteAll(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
-    return this.getSymbol(name).flatMap(symbolDto -> this.getTickService().deleteTick(symbolDto));
+    return this.getSymbol(name).flatMap(symbolDto -> this.getTickService().delete(symbolDto));
   }
 
 }

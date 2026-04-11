@@ -36,13 +36,13 @@ public class SymbolController {
   private final SymbolService symbolService;
 
   private @NonNull Mono<SymbolDto> getSymbolDto(String name) {
-    return this.getSymbolService().getSymbol(name).switchIfEmpty(Mono.error(() -> new SymbolNotFoundException(name)));
+    return this.getSymbolService().get(name).switchIfEmpty(Mono.error(() -> new SymbolNotFoundException(name)));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
   public Flux<SymbolDto> findAll() {
-    return this.getSymbolService().getSymbols();
+    return this.getSymbolService().get();
   }
 
   @ResponseStatus(HttpStatus.OK)
@@ -54,13 +54,13 @@ public class SymbolController {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public Mono<SymbolDto> create(@RequestBody @Valid SymbolCreateDto symbolCreateDto) {
-    return this.getSymbolService().createSymbol(symbolCreateDto);
+    return this.getSymbolService().create(symbolCreateDto);
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(path = "/{name}", produces = "application/json")
   public Mono<Void> deleteAll(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
-    return this.getSymbolDto(name).flatMap(symbolDto -> this.getSymbolService().deleteSymbol(symbolDto.name()));
+    return this.getSymbolDto(name).flatMap(symbolDto -> this.getSymbolService().delete(symbolDto.name()));
   }
 
 }
