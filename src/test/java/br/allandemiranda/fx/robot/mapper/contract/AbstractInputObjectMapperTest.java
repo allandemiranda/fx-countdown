@@ -7,8 +7,11 @@ import br.allandemiranda.fx.robot.model.definition.InputObjectModel;
 import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public abstract class AbstractInputObjectMapperTest<M extends InputObjectModel, D extends InputObjectDto, C extends CreateInputObjectDto> {
 
   protected abstract InputObjectMapper<M, D, C> getMapper();

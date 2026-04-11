@@ -8,11 +8,14 @@ import br.allandemiranda.fx.robot.repository.contract.InputObjectRepository;
 import java.util.UUID;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+@ExtendWith(MockitoExtension.class)
 public abstract class AbstractInputObjectServiceTest<M extends InputObjectModel, D extends InputObjectDto, C extends CreateInputObjectDto> {
 
   @Mock
