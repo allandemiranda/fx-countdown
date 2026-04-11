@@ -1,0 +1,68 @@
+package br.allandemiranda.fx.robot.mapper;
+
+import br.allandemiranda.fx.robot.dto.base.BandsDto;
+import br.allandemiranda.fx.robot.dto.create.BandsCreateDto;
+import br.allandemiranda.fx.robot.mapper.contract.AbstractChartObjectMapperTest;
+import br.allandemiranda.fx.robot.model.Bands;
+import java.math.BigDecimal;
+import lombok.Getter;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+@ExtendWith(MockitoExtension.class)
+class BandsMapperTest extends AbstractChartObjectMapperTest<Bands, BandsDto, BandsCreateDto> {
+
+  @InjectMocks
+  @Getter
+  private BandsMapper mapper;
+
+  @Mock
+  @Getter
+  private Bands model;
+
+  @Mock
+  @Getter
+  private BandsCreateDto createDto;
+
+  @Mock
+  private BigDecimal baseLine;
+
+  @Mock
+  private BigDecimal upperBand;
+
+  @Mock
+  private BigDecimal lowerBand;
+
+  @Override
+  protected void whenExtraParameters(Bands model) {
+    Mockito.when(model.baseLine()).thenReturn(baseLine);
+    Mockito.when(model.upperBand()).thenReturn(upperBand);
+    Mockito.when(model.lowerBand()).thenReturn(lowerBand);
+  }
+
+  @Override
+  protected void whenExtraParameters(BandsCreateDto createDto) {
+    Mockito.when(createDto.baseLine()).thenReturn(baseLine);
+    Mockito.when(createDto.upperBand()).thenReturn(upperBand);
+    Mockito.when(createDto.lowerBand()).thenReturn(lowerBand);
+  }
+
+  @Override
+  protected void thenExtraParameters(Bands model, BandsDto dto) {
+    Assertions.assertEquals(model.baseLine(), dto.baseLine());
+    Assertions.assertEquals(model.upperBand(), dto.upperBand());
+    Assertions.assertEquals(model.lowerBand(), dto.lowerBand());
+  }
+
+  @Override
+  protected void thenExtraParameters(BandsCreateDto createDto, Bands model) {
+    Assertions.assertEquals(createDto.baseLine(), model.baseLine());
+    Assertions.assertEquals(createDto.upperBand(), model.upperBand());
+    Assertions.assertEquals(createDto.lowerBand(), model.lowerBand());
+  }
+
+}
