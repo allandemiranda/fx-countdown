@@ -47,14 +47,14 @@ class TickMapperTest {
   void toModel_test() {
     //given
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
-    String pair = "EURUSD";
+    String symbolName = "EURUSD";
     TickCreateDto tickCreateDto = Mockito.mock(TickCreateDto.class);
     OffsetDateTime timestamp = Mockito.mock(OffsetDateTime.class);
     BigDecimal ask = Mockito.mock(BigDecimal.class);
     BigDecimal bid = Mockito.mock(BigDecimal.class);
     UUID id = Mockito.mock(UUID.class);
     //when
-    Mockito.when(symbolDto.name()).thenReturn(pair);
+    Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(tickCreateDto.timestamp()).thenReturn(timestamp);
     Mockito.when(tickCreateDto.ask()).thenReturn(ask);
     Mockito.when(tickCreateDto.bid()).thenReturn(bid);
@@ -62,7 +62,7 @@ class TickMapperTest {
     //then
     Assertions.assertNotNull(tick);
     Assertions.assertEquals(id, tick.id());
-    Assertions.assertEquals(pair, tick.symbolName());
+    Assertions.assertEquals(symbolName, tick.symbolName());
     Assertions.assertEquals(timestamp, tick.timestamp());
     Assertions.assertEquals(ask, tick.ask());
     Assertions.assertEquals(bid, tick.bid());
