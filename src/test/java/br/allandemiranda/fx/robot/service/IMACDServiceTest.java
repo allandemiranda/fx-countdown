@@ -31,4 +31,8 @@ public class IMACDServiceTest extends AbstractInputObjectServiceTest<IMACD, IMAC
   @InjectMocks
   @Getter
   private IMACDService service;
+
+  @Mock
+  @Getter
+  private IMACDCreateDto createDto;
 }

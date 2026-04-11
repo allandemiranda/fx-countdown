@@ -31,4 +31,8 @@ public class IStochasticServiceTest extends AbstractInputObjectServiceTest<IStoc
   @InjectMocks
   @Getter
   private IStochasticService service;
+
+  @Mock
+  @Getter
+  private IStochasticCreateDto createDto;
 }

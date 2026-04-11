@@ -31,4 +31,8 @@ public class IBandsServiceTest extends AbstractInputObjectServiceTest<IBands, IB
   @InjectMocks
   @Getter
   private IBandsService service;
+
+  @Mock
+  @Getter
+  private IBandsCreateDto createDto;
 }

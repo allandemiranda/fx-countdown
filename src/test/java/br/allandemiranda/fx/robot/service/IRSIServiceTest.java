@@ -31,4 +31,8 @@ public class IRSIServiceTest extends AbstractInputObjectServiceTest<IRSI, IRSIDt
   @InjectMocks
   @Getter
   private IRSIService service;
+
+  @Mock
+  @Getter
+  private IRSICreateDto createDto;
 }

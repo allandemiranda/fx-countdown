@@ -31,4 +31,8 @@ public class GarchInputServiceTest extends AbstractInputObjectServiceTest<GarchI
   @InjectMocks
   @Getter
   private GarchInputService service;
+
+  @Mock
+  @Getter
+  private GarchInputCreateDto createDto;
 }

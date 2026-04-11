@@ -31,4 +31,8 @@ public class IATRServiceTest extends AbstractInputObjectServiceTest<IATR, IATRDt
   @InjectMocks
   @Getter
   private IATRService service;
+
+  @Mock
+  @Getter
+  private IATRCreateDto createDto;
 }

@@ -31,4 +31,8 @@ public class IADXServiceTest extends AbstractInputObjectServiceTest<IADX, IADXDt
   @InjectMocks
   @Getter
   private IADXService service;
+
+  @Mock
+  @Getter
+  private IADXCreateDto createDto;
 }

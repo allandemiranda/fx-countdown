@@ -31,4 +31,8 @@ public class IMASlowServiceTest extends AbstractInputObjectServiceTest<IMASlow, 
   @InjectMocks
   @Getter
   private IMASlowService service;
+
+  @Mock
+  @Getter
+  private IMASlowCreateDto createDto;
 }

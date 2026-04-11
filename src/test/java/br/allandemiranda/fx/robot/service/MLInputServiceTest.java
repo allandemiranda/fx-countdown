@@ -31,4 +31,8 @@ public class MLInputServiceTest extends AbstractInputObjectServiceTest<MLInput, 
   @InjectMocks
   @Getter
   private MLInputService service;
+
+  @Mock
+  @Getter
+  private MLInputCreateDto createDto;
 }

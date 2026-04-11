@@ -31,4 +31,8 @@ public class IMAFastServiceTest extends AbstractInputObjectServiceTest<IMAFast, 
   @InjectMocks
   @Getter
   private IMAFastService service;
+
+  @Mock
+  @Getter
+  private IMAFastCreateDto createDto;
 }

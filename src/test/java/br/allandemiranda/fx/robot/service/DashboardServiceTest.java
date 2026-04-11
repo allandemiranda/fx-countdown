@@ -31,4 +31,8 @@ public class DashboardServiceTest extends AbstractInputObjectServiceTest<Dashboa
   @InjectMocks
   @Getter
   private DashboardService service;
+
+  @Mock
+  @Getter
+  private DashboardCreateDto createDto;
 }
