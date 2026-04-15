@@ -3,7 +3,7 @@ package br.allandemiranda.fx.robot.controller;
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
 import br.allandemiranda.fx.robot.dto.base.TickDto;
 import br.allandemiranda.fx.robot.dto.create.TickCreateDto;
-import br.allandemiranda.fx.robot.exception.TickNotFoundException;
+import br.allandemiranda.fx.robot.exception.impl.TickNotFoundException;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import br.allandemiranda.fx.robot.service.TickService;
 import jakarta.validation.Valid;

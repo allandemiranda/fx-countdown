@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.controller;
 
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
 import br.allandemiranda.fx.robot.dto.create.SymbolCreateDto;
-import br.allandemiranda.fx.robot.exception.SymbolNotFoundException;
+import br.allandemiranda.fx.robot.exception.impl.SymbolNotFoundException;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

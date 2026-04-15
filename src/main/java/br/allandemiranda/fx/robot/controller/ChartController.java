@@ -4,7 +4,7 @@ import br.allandemiranda.fx.robot.dto.base.ChartDto;
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
 import br.allandemiranda.fx.robot.dto.create.ChartCreateDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
-import br.allandemiranda.fx.robot.exception.ChartNotFoundException;
+import br.allandemiranda.fx.robot.exception.impl.ChartNotFoundException;
 import br.allandemiranda.fx.robot.service.ChartService;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import jakarta.validation.Valid;

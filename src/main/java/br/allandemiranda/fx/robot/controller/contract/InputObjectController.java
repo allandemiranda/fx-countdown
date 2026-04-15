@@ -3,7 +3,7 @@ package br.allandemiranda.fx.robot.controller.contract;
 import br.allandemiranda.fx.robot.dto.definition.CreateInputObjectDto;
 import br.allandemiranda.fx.robot.dto.definition.InputObjectDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
-import br.allandemiranda.fx.robot.exception.InputObjectNotFoundException;
+import br.allandemiranda.fx.robot.exception.impl.InputObjectNotFoundException;
 import br.allandemiranda.fx.robot.model.definition.InputObjectModel;
 import br.allandemiranda.fx.robot.service.ChartService;
 import br.allandemiranda.fx.robot.service.SymbolService;

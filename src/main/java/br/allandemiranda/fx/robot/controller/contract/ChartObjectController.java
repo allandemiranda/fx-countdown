@@ -3,7 +3,7 @@ package br.allandemiranda.fx.robot.controller.contract;
 import br.allandemiranda.fx.robot.dto.definition.ChartObjectDto;
 import br.allandemiranda.fx.robot.dto.definition.CreateChartObjectDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
-import br.allandemiranda.fx.robot.exception.ChartObjectNotFoundException;
+import br.allandemiranda.fx.robot.exception.impl.ChartObjectNotFoundException;
 import br.allandemiranda.fx.robot.model.definition.ChartObjectModel;
 import br.allandemiranda.fx.robot.service.ChartService;
 import br.allandemiranda.fx.robot.service.SymbolService;
