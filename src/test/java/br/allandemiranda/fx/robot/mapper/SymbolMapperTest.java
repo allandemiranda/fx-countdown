@@ -25,12 +25,14 @@ class SymbolMapperTest {
     BigDecimal point = Mockito.mock(BigDecimal.class);
     BigDecimal swapLong = Mockito.mock(BigDecimal.class);
     BigDecimal swapShort = Mockito.mock(BigDecimal.class);
+
     //when
     Mockito.when(symbol.name()).thenReturn(symbolName);
     Mockito.when(symbol.point()).thenReturn(point);
     Mockito.when(symbol.swapLong()).thenReturn(swapLong);
     Mockito.when(symbol.swapShort()).thenReturn(swapShort);
     SymbolDto symbolDto = symbolMapper.toDto(symbol);
+
     //then
     Assertions.assertNotNull(symbolDto);
     Assertions.assertEquals(symbolName, symbolDto.name());
@@ -47,12 +49,14 @@ class SymbolMapperTest {
     BigDecimal point = Mockito.mock(BigDecimal.class);
     BigDecimal swapLong = Mockito.mock(BigDecimal.class);
     BigDecimal swapShort = Mockito.mock(BigDecimal.class);
+
     //when
     Mockito.when(symbolCreateDto.name()).thenReturn(symbolName);
     Mockito.when(symbolCreateDto.point()).thenReturn(point);
     Mockito.when(symbolCreateDto.swapLong()).thenReturn(swapLong);
     Mockito.when(symbolCreateDto.swapShort()).thenReturn(swapShort);
     Symbol symbol = symbolMapper.toModel(symbolCreateDto);
+
     //then
     Assertions.assertNotNull(symbol);
     Assertions.assertEquals(symbolName, symbol.name());

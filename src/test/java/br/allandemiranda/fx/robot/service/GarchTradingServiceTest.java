@@ -1,7 +1,6 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.GarchTradingDto;
-import br.allandemiranda.fx.robot.dto.create.GarchForecastCreateDto;
 import br.allandemiranda.fx.robot.dto.create.GarchTradingCreateDto;
 import br.allandemiranda.fx.robot.mapper.GarchTradingMapper;
 import br.allandemiranda.fx.robot.model.GarchTrading;

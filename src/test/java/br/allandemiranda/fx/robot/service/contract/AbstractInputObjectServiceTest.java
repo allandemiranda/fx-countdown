@@ -36,9 +36,11 @@ public abstract class AbstractInputObjectServiceTest<M extends InputObjectModel,
   void getByChartDto_ShouldReturnDto_WhenModelExists() {
     //given
     UUID uuid = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(uuid);
     Mockito.when(this.getRepository().findByChartId(this.chartDto.id())).thenReturn(Mono.just(this.getModel()));
+
     //then
     StepVerifier.create(this.getService().get(this.chartDto)).assertNext(dto -> {
       Assertions.assertNotNull(dto);
@@ -50,9 +52,11 @@ public abstract class AbstractInputObjectServiceTest<M extends InputObjectModel,
   void getByChartDto_ShouldReturnVoid_WhenModelNotExists() {
     //given
     UUID uuid = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(uuid);
     Mockito.when(this.getRepository().findByChartId(uuid)).thenReturn(Mono.empty());
+
     //then
     StepVerifier.create(this.getService().get(this.chartDto)).expectSubscription().expectComplete().verify();
   }
@@ -61,14 +65,15 @@ public abstract class AbstractInputObjectServiceTest<M extends InputObjectModel,
   void create_ShouldReturnModel() {
     //given
     UUID uuid = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(uuid);
     Mockito.doReturn(this.getModel()).when(this.getMapper()).toModel(Mockito.eq(this.chartDto), Mockito.eq(this.getCreateDto()));
     Mockito.when(this.getRepository().save(this.getModel())).thenReturn(Mono.just(this.getModel()));
+
     //then
     StepVerifier.create(this.getService().create(this.chartDto, this.getCreateDto())).assertNext(dto -> {
       Assertions.assertNotNull(dto);
-
       Assertions.assertNotNull(dto.chartDto());
       Assertions.assertEquals(uuid, dto.chartDto().id());
     }).verifyComplete();
@@ -78,9 +83,11 @@ public abstract class AbstractInputObjectServiceTest<M extends InputObjectModel,
   void delete_ShouldReturnEmptyMono() {
     //given
     UUID uuid = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(uuid);
     Mockito.when(this.getRepository().deleteByChartId(this.chartDto.id())).thenReturn(Mono.empty());
+
     //then
     StepVerifier.create(this.getService().delete(this.chartDto)).verifyComplete();
   }

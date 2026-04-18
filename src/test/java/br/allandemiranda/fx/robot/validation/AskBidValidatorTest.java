@@ -43,10 +43,12 @@ class AskBidValidatorTest {
     //given
     BigDecimal ask = new BigDecimal("1.1005");
     BigDecimal bid = new BigDecimal("1.1000");
+
     //when
     Mockito.when(this.tick.ask()).thenReturn(ask);
     Mockito.when(this.tick.bid()).thenReturn(bid);
     boolean result = this.validator.isValid(this.tick, this.context);
+
     //then
     Assertions.assertTrue(result);
     Mockito.verifyNoInteractions(this.context);
@@ -57,10 +59,12 @@ class AskBidValidatorTest {
     //given
     BigDecimal ask = new BigDecimal("1.1000");
     BigDecimal bid = new BigDecimal("1.1000");
+
     //when
     Mockito.when(this.tick.ask()).thenReturn(ask);
     Mockito.when(this.tick.bid()).thenReturn(bid);
     boolean result = this.validator.isValid(this.tick, this.context);
+
     //then
     Assertions.assertTrue(result);
     Mockito.verifyNoInteractions(context);
@@ -71,10 +75,12 @@ class AskBidValidatorTest {
     //given
     BigDecimal ask = new BigDecimal("1.0990");
     BigDecimal bid = new BigDecimal("1.1000");
+
     //when
     Mockito.when(this.tick.ask()).thenReturn(ask);
     Mockito.when(this.tick.bid()).thenReturn(bid);
     boolean result = this.validator.isValid(this.tick, this.context);
+
     //then
     Assertions.assertFalse(result);
     Mockito.verify(context).disableDefaultConstraintViolation();

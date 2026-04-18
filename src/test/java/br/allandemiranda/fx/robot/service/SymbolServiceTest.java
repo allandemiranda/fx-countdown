@@ -33,9 +33,11 @@ class SymbolServiceTest {
     //given
     String symbolName = "EURUSD";
     Symbol symbol = Mockito.mock(Symbol.class);
+
     //when
     Mockito.when(this.repository.findById(symbolName)).thenReturn(Mono.just(symbol));
     Mockito.when(symbol.name()).thenReturn(symbolName);
+
     //then
     StepVerifier.create(this.service.get(symbolName)).assertNext(dto -> {
       Assertions.assertNotNull(dto);
@@ -47,8 +49,10 @@ class SymbolServiceTest {
   void getById_ShouldReturnVoid_WhenModelNotExists() {
     //given
     String symbolName = "EURUSD";
+
     //when
     Mockito.when(this.repository.findById(symbolName)).thenReturn(Mono.empty());
+
     //then
     StepVerifier.create(this.service.get(symbolName)).expectSubscription().expectNextCount(0).expectComplete().verify();
   }
@@ -58,9 +62,11 @@ class SymbolServiceTest {
     //given
     String symbolName = "EURUSD";
     Symbol symbol = Mockito.mock(Symbol.class);
+
     //when
     Mockito.when(symbol.name()).thenReturn(symbolName);
     Mockito.when(this.repository.findAll()).thenReturn(Flux.just(symbol));
+
     //then
     StepVerifier.create(this.service.get()).assertNext(dto -> {
       Assertions.assertNotNull(dto);
@@ -71,8 +77,10 @@ class SymbolServiceTest {
   @Test
   void getAll_ShouldReturnEmptyFlux_IfNotExistsChartDto() {
     //given
+
     //when
     Mockito.when(this.repository.findAll()).thenReturn(Flux.empty());
+
     //then
     StepVerifier.create(this.service.get().collectList()).assertNext(dtos -> {
       Assertions.assertEquals(0, dtos.size());
@@ -84,9 +92,11 @@ class SymbolServiceTest {
     //given
     SymbolCreateDto symbolCreateDto = Mockito.mock(SymbolCreateDto.class);
     Symbol symbol = Mockito.mock(Symbol.class);
+
     //when
     Mockito.doReturn(symbol).when(mapper).toModel(symbolCreateDto);
     Mockito.when(repository.save(symbol)).thenReturn(Mono.just(symbol));
+
     //then
     StepVerifier.create(this.service.create(symbolCreateDto)).assertNext(Assertions::assertNotNull).verifyComplete();
   }
@@ -95,8 +105,10 @@ class SymbolServiceTest {
   void delete_ShouldReturnEmptyMono() {
     //given
     String symbolName = "EURUSD";
+
     //when
     Mockito.when(this.repository.deleteById(symbolName)).thenReturn(Mono.empty());
+
     //then
     StepVerifier.create(this.service.delete(symbolName)).expectNextCount(0).verifyComplete();
   }

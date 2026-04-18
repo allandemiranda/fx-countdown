@@ -40,11 +40,13 @@ public abstract class AbstractChartObjectServiceTest<M extends ChartObjectModel,
     UUID chartDtoUuid = Mockito.mock(UUID.class);
     UUID modelUuid = Mockito.mock(UUID.class);
     OffsetDateTime timestamp = Mockito.mock(OffsetDateTime.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(chartDtoUuid);
     Mockito.when(this.getModel().id()).thenReturn(modelUuid);
     Mockito.when(this.getModel().timestamp()).thenReturn(timestamp);
     Mockito.when(this.getRepository().findByChartIdAndTimestamp(this.chartDto.id(), this.getModel().timestamp())).thenReturn(Mono.just(this.getModel()));
+
     //then
     StepVerifier.create(this.getService().get(this.chartDto, this.getModel().timestamp())).assertNext(dto -> {
       Assertions.assertNotNull(dto.id());
@@ -63,9 +65,11 @@ public abstract class AbstractChartObjectServiceTest<M extends ChartObjectModel,
     //given
     OffsetDateTime timestamp = Mockito.mock(OffsetDateTime.class);
     UUID uuid = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(uuid);
     Mockito.when(this.getRepository().findByChartIdAndTimestamp(uuid, timestamp)).thenReturn(Mono.empty());
+
     //then
     StepVerifier.create(this.getService().get(this.chartDto, timestamp)).expectSubscription().expectNextCount(0).expectComplete().verify();
   }
@@ -75,10 +79,12 @@ public abstract class AbstractChartObjectServiceTest<M extends ChartObjectModel,
     //given
     UUID chartDtoUuid = Mockito.mock(UUID.class);
     UUID modelUuid = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(chartDtoUuid);
     Mockito.when(this.getModel().id()).thenReturn(modelUuid);
     Mockito.when(this.getRepository().findAllByChartId(this.chartDto.id())).thenReturn(Flux.just(this.getModel()));
+
     //then
     StepVerifier.create(this.getService().get(this.chartDto)).assertNext(dto -> {
       Assertions.assertNotNull(dto);
@@ -93,9 +99,11 @@ public abstract class AbstractChartObjectServiceTest<M extends ChartObjectModel,
   void getAll_ShouldReturnEmptyFlux_IfNotExistsChartDto() {
     //given
     UUID uuid = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(uuid);
     Mockito.when(this.getRepository().findAllByChartId(this.chartDto.id())).thenReturn(Flux.just());
+
     //then
     StepVerifier.create(this.getService().get(this.chartDto).collectList()).assertNext(dtos -> {
       Assertions.assertEquals(0, dtos.size());
@@ -107,12 +115,14 @@ public abstract class AbstractChartObjectServiceTest<M extends ChartObjectModel,
     //given
     UUID uuid = Mockito.mock(UUID.class);
     OffsetDateTime timestamp = Mockito.mock(OffsetDateTime.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(uuid);
     Mockito.when(this.getCreateDto().timestamp()).thenReturn(timestamp);
     Mockito.doReturn(this.getCreateDto().timestamp()).when(this.getModel()).timestamp();
     Mockito.doReturn(this.getModel()).when(this.getMapper()).toModel(Mockito.any(UUID.class), Mockito.eq(this.chartDto), Mockito.eq(this.getCreateDto()));
     Mockito.when(this.getRepository().save(this.getModel())).thenReturn(Mono.just(this.getModel()));
+
     //then
     StepVerifier.create(this.getService().create(this.chartDto, this.getCreateDto())).assertNext(dto -> {
       Assertions.assertNotNull(dto);
@@ -129,9 +139,11 @@ public abstract class AbstractChartObjectServiceTest<M extends ChartObjectModel,
   void delete_ShouldReturnEmptyMono() {
     //given
     UUID uuid = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(this.chartDto.id()).thenReturn(uuid);
     Mockito.when(this.getRepository().deleteAllByChartId(this.chartDto.id())).thenReturn(Mono.empty());
+
     //then
     StepVerifier.create(this.getService().delete(this.chartDto)).expectNextCount(0).verifyComplete();
   }

@@ -1,7 +1,6 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.MaSlowDto;
-import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.create.MaSlowCreateDto;
 import br.allandemiranda.fx.robot.mapper.MaSlowMapper;
 import br.allandemiranda.fx.robot.model.MaSlow;

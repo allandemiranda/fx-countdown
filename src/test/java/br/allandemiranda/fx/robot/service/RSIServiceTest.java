@@ -1,7 +1,6 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.RSIDto;
-import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.create.RSICreateDto;
 import br.allandemiranda.fx.robot.mapper.RSIMapper;
 import br.allandemiranda.fx.robot.model.RSI;

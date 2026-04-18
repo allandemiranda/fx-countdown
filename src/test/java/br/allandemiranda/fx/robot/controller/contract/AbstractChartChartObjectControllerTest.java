@@ -45,7 +45,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     String symbolName = "EURUSD";
     Timeframe period = Mockito.mock(Timeframe.class);
     ChartDto chartDto = Mockito.mock(ChartDto.class);
-    D chartObjectDto = (D) new ChartObjectDto(){
+    D chartObjectDto = (D) new ChartObjectDto() {
 
       @Override
       public UUID id() {

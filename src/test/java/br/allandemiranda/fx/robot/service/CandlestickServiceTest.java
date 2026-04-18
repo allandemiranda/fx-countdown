@@ -1,7 +1,6 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.CandlestickDto;
-import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.create.CandlestickCreateDto;
 import br.allandemiranda.fx.robot.mapper.CandlestickMapper;
 import br.allandemiranda.fx.robot.model.Candlestick;

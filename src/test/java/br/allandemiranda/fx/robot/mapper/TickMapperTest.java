@@ -29,12 +29,14 @@ class TickMapperTest {
     OffsetDateTime timestamp = Mockito.mock(OffsetDateTime.class);
     BigDecimal ask = Mockito.mock(BigDecimal.class);
     BigDecimal bid = Mockito.mock(BigDecimal.class);
+
     //when
     Mockito.when(tick.id()).thenReturn(id);
     Mockito.when(tick.timestamp()).thenReturn(timestamp);
     Mockito.when(tick.ask()).thenReturn(ask);
     Mockito.when(tick.bid()).thenReturn(bid);
     TickDto tickDto = tickMapper.toDto(symbolDto, tick);
+
     //then
     Assertions.assertNotNull(tickDto);
     Assertions.assertEquals(id, tickDto.id());
@@ -53,12 +55,14 @@ class TickMapperTest {
     BigDecimal ask = Mockito.mock(BigDecimal.class);
     BigDecimal bid = Mockito.mock(BigDecimal.class);
     UUID id = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(tickCreateDto.timestamp()).thenReturn(timestamp);
     Mockito.when(tickCreateDto.ask()).thenReturn(ask);
     Mockito.when(tickCreateDto.bid()).thenReturn(bid);
     Tick tick = tickMapper.toModel(id, symbolDto, tickCreateDto);
+
     //then
     Assertions.assertNotNull(tick);
     Assertions.assertEquals(id, tick.id());

@@ -26,10 +26,12 @@ class ChartMapperTest {
     Chart chart = Mockito.mock(Chart.class);
     UUID id = Mockito.mock(UUID.class);
     Timeframe timeframe = Mockito.mock(Timeframe.class);
+
     //when
     Mockito.when(chart.id()).thenReturn(id);
     Mockito.when(chart.period()).thenReturn(timeframe);
     ChartDto chartDto = chartMapper.toDto(symbolDto, chart);
+
     //then
     Assertions.assertNotNull(chartDto);
     Assertions.assertEquals(symbolDto, chartDto.symbol());
@@ -45,10 +47,12 @@ class ChartMapperTest {
     ChartCreateDto chartCreateDto = Mockito.mock(ChartCreateDto.class);
     Timeframe timeframe = Mockito.mock(Timeframe.class);
     UUID id = Mockito.mock(UUID.class);
+
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(chartCreateDto.period()).thenReturn(timeframe);
     Chart chart = chartMapper.toModel(id, symbolDto, chartCreateDto);
+
     //then
     Assertions.assertNotNull(chart);
     Assertions.assertEquals(id, chart.id());

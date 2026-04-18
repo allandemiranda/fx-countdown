@@ -33,9 +33,11 @@ public abstract class AbstractInputObjectMapperTest<M extends InputObjectModel, 
     //given
     ChartDto chartDto = Mockito.mock(ChartDto.class);
     M model = this.getModel();
+
     //when
     this.whenExtraParameters(model);
     D dto = this.getMapper().toDto(chartDto, model);
+
     //then
     Assertions.assertNotNull(dto);
     Assertions.assertEquals(chartDto, dto.chartDto());
@@ -48,10 +50,12 @@ public abstract class AbstractInputObjectMapperTest<M extends InputObjectModel, 
     ChartDto chartDto = Mockito.mock(ChartDto.class);
     UUID chartId = UUID.randomUUID();
     C createDto = this.getCreateDto();
+
     //when
     Mockito.when(chartDto.id()).thenReturn(chartId);
     this.whenExtraParameters(createDto);
     M model = this.getMapper().toModel(chartDto, createDto);
+
     //then
     Assertions.assertNotNull(model);
     Assertions.assertEquals(chartId, model.chartId());

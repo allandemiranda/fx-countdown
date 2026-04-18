@@ -1,7 +1,6 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.base.MACDDto;
-import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.create.MACDCreateDto;
 import br.allandemiranda.fx.robot.mapper.MACDMapper;
 import br.allandemiranda.fx.robot.model.MACD;

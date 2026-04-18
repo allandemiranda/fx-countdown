@@ -38,10 +38,12 @@ class ChartServiceTest {
     String symbolName = "EURUSD";
     Timeframe period = Mockito.mock(Timeframe.class);
     Chart chart = Mockito.mock(Chart.class);
+
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(this.repository.findBySymbolNameAndPeriod(symbolDto.name(), period)).thenReturn(Mono.just(chart));
     Mockito.when(chart.period()).thenReturn(period);
+
     //then
     StepVerifier.create(this.service.get(symbolDto, period)).assertNext(dto -> {
       Assertions.assertNotNull(dto);
@@ -57,9 +59,11 @@ class ChartServiceTest {
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
     String symbolName = "EURUSD";
     Timeframe period = Mockito.mock(Timeframe.class);
+
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(this.repository.findBySymbolNameAndPeriod(symbolDto.name(), period)).thenReturn(Mono.empty());
+
     //then
     StepVerifier.create(this.service.get(symbolDto, period)).expectSubscription().expectNextCount(0).expectComplete().verify();
   }
@@ -70,9 +74,11 @@ class ChartServiceTest {
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
     String symbolName = "EURUSD";
     Chart chart = Mockito.mock(Chart.class);
+
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(this.repository.findBySymbolName(symbolDto.name())).thenReturn(Flux.just(chart));
+
     //then
     StepVerifier.create(this.service.get(symbolDto)).assertNext(dto -> {
       Assertions.assertNotNull(dto);
@@ -86,9 +92,11 @@ class ChartServiceTest {
     //given
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
     String symbolName = "EURUSD";
+
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(this.repository.findBySymbolName(symbolName)).thenReturn(Flux.just());
+
     //then
     StepVerifier.create(this.service.get(symbolDto).collectList()).assertNext(dtos -> {
       Assertions.assertEquals(0, dtos.size());
@@ -103,12 +111,14 @@ class ChartServiceTest {
     ChartCreateDto chartCreateDto = Mockito.mock(ChartCreateDto.class);
     Timeframe period = Mockito.mock(Timeframe.class);
     Chart chart = Mockito.mock(Chart.class);
+
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(chartCreateDto.period()).thenReturn(period);
     Mockito.doReturn(chartCreateDto.period()).when(chart).period();
     Mockito.doReturn(chart).when(this.mapper).toModel(Mockito.any(UUID.class), Mockito.eq(symbolDto), Mockito.eq(chartCreateDto));
     Mockito.when(this.repository.save(chart)).thenReturn(Mono.just(chart));
+
     //then
     StepVerifier.create(this.service.create(symbolDto, chartCreateDto)).assertNext(dto -> {
       Assertions.assertNotNull(dto);
@@ -125,9 +135,11 @@ class ChartServiceTest {
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
     String symbolName = "EURUSD";
     Timeframe period = Mockito.mock(Timeframe.class);
+
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(this.repository.deleteAllBySymbolNameAndPeriod(symbolDto.name(), period)).thenReturn(Mono.empty());
+
     //then
     StepVerifier.create(this.service.delete(symbolDto, period)).expectNextCount(0).verifyComplete();
   }

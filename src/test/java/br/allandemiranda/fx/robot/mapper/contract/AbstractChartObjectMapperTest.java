@@ -37,12 +37,14 @@ public abstract class AbstractChartObjectMapperTest<M extends ChartObjectModel, 
     ChartDto chartDto = Mockito.mock(ChartDto.class);
     UUID chartId = Mockito.mock(UUID.class);
     M model = this.getModel();
+
     //when
     Mockito.when(model.id()).thenReturn(id);
     Mockito.when(model.timestamp()).thenReturn(timestamp);
     Mockito.when(chartDto.id()).thenReturn(chartId);
     this.whenExtraParameters(model);
     D dto = this.getMapper().toDto(chartDto, model);
+
     //then
     Assertions.assertNotNull(dto);
     Assertions.assertEquals(model.id(), dto.id());
@@ -60,11 +62,13 @@ public abstract class AbstractChartObjectMapperTest<M extends ChartObjectModel, 
     UUID chartId = Mockito.mock(UUID.class);
     C createDto = this.getCreateDto();
     OffsetDateTime timestamp = Mockito.mock(OffsetDateTime.class);
+
     //when
     Mockito.when(chartDto.id()).thenReturn(chartId);
     Mockito.when(createDto.timestamp()).thenReturn(timestamp);
     this.whenExtraParameters(createDto);
     M model = this.getMapper().toModel(id, chartDto, createDto);
+
     //then
     Assertions.assertNotNull(model);
     Assertions.assertEquals(id, model.id());
