@@ -1,13 +1,15 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.controller.advice.ResponseExceptionHandler;
+import br.allandemiranda.fx.robot.controller.advice.CodeResponseHandler;
 import br.allandemiranda.fx.robot.dto.base.ADXDto;
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.service.ADXService;
 import br.allandemiranda.fx.robot.service.ChartService;
 import br.allandemiranda.fx.robot.service.SymbolService;
+import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.UUID;
@@ -40,7 +42,7 @@ class ADXControllerTest {
   private ADXService service;
 
   @Test
-  void findAll_byNameAndPeriod_valid_returnFluxDto_test() {
+  void findAll_byNameAndPeriod_exist_returnFluxDto_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -66,11 +68,12 @@ class ADXControllerTest {
     Mockito.when(dto.chartDto()).thenReturn(chartDto);
     Mockito.when(this.service.get(chartDto)).thenReturn(Flux.just(dto));
 
-    //then
     this.webTestClient
         .get()
         .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
         .exchange()
+
+        //then
         .expectStatus().isOk()
         .expectBodyList(ADXDto.class)
         .value(response -> {
@@ -91,7 +94,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void findAll_byNameAndPeriod_nameNotValid_returnEmptyFlux_test() {
+  void findAll_byNameAndPeriod_nameAndPeriodNotExist_returnEmptyFlux_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -99,21 +102,47 @@ class ADXControllerTest {
     //when
     Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
 
-    //then
     this.webTestClient
         .get()
         .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
         .exchange()
-        .expectStatus().isOk()
-        .expectBodyList(ADXDto.class)
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
         .value(response -> {
           Assertions.assertNotNull(response);
-          Assertions.assertEquals(0, response.size());
+          Assertions.assertEquals("SymbolNotFoundException", response.type());
+          Assertions.assertEquals("Symbol not found: [" + name + "]", response.message());
         });
   }
 
   @Test
-  void findAll_byNameAndPeriod_periodNotValid_returnEmptyFluxo_test() {
+  void findAll_byNameAndPeriod_nameNotExist_returnEmptyFlux_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+
+    //when
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+
+    this.webTestClient
+        .get()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .exchange()
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("SymbolNotFoundException", response.type());
+          Assertions.assertEquals("Symbol not found: [" + name + "]", response.message());
+        });
+  }
+
+  @Test
+  void findAll_byNameAndPeriod_periodNotExist_returnEmptyFluxo_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -123,21 +152,23 @@ class ADXControllerTest {
     Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
     Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.empty());
 
-    //then
     this.webTestClient
         .get()
         .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
         .exchange()
-        .expectStatus().isOk()
-        .expectBodyList(ADXDto.class)
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
         .value(response -> {
           Assertions.assertNotNull(response);
-          Assertions.assertEquals(0, response.size());
+          Assertions.assertEquals("ChartNotFoundException", response.type());
+          Assertions.assertEquals("Chart not found: [" + name + ", " + period.getCode() + "]", response.message());
         });
   }
 
   @Test
-  void find_byNameAndPeriodAndTimestamp_valid_returnDto_test() {
+  void find_byNameAndPeriodAndTimestamp_exist_returnDto_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -165,11 +196,12 @@ class ADXControllerTest {
     Mockito.when(dto.timestamp()).thenReturn(timestamp);
     Mockito.when(this.service.get(chartDto, timestamp)).thenReturn(Mono.just(dto));
 
-    //then
     this.webTestClient
         .get()
         .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
         .exchange()
+
+        //then
         .expectStatus().isOk()
         .expectBody(ADXDto.class)
         .value(response -> {
@@ -187,7 +219,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void find_byNameAndPeriodAndTimestamp_notValidName_returnEmpty_test() {
+  void find_byNameAndPeriodAndTimestamp_notExistName_returnEmpty_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -196,22 +228,23 @@ class ADXControllerTest {
     //when
     Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
 
-    //then
     this.webTestClient
         .get()
         .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
         .exchange()
+
+        //then
         .expectStatus().isNotFound()
-        .expectBody(ResponseExceptionHandler.class)
+        .expectBody(CodeResponseHandler.class)
         .value(response -> {
           Assertions.assertNotNull(response);
-          Assertions.assertEquals("ChartObjectNotFoundException", response.type());
-          Assertions.assertEquals("Chart object not found: [" + name + ", " + period + ", " + this.controller.getChartObjectName() + ", " + timestamp + "]", response.message());
+          Assertions.assertEquals("SymbolNotFoundException", response.type());
+          Assertions.assertEquals("Symbol not found: [" + name + "]", response.message());
         });
   }
 
   @Test
-  void find_byNameAndPeriodAndTimestamp_notValidPeriod_returnEmpty_test() {
+  void find_byNameAndPeriodAndTimestamp_notExistPeriod_returnEmpty_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -223,22 +256,23 @@ class ADXControllerTest {
     Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
     Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.empty());
 
-    //then
     this.webTestClient
         .get()
         .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
         .exchange()
+
+        //then
         .expectStatus().isNotFound()
-        .expectBody(ResponseExceptionHandler.class)
+        .expectBody(CodeResponseHandler.class)
         .value(response -> {
           Assertions.assertNotNull(response);
-          Assertions.assertEquals("ChartObjectNotFoundException", response.type());
-          Assertions.assertEquals("Chart object not found: [" + name + ", " + period + ", " + this.controller.getChartObjectName() + ", " + timestamp + "]", response.message());
+          Assertions.assertEquals("ChartNotFoundException", response.type());
+          Assertions.assertEquals("Chart not found: [" + name + ", " + period.getCode() + "]", response.message());
         });
   }
 
   @Test
-  void find_byNameAndPeriodAndTimestamp_notValidTimestamp_returnEmpty_test() {
+  void find_byNameAndPeriodAndTimestamp_notExistTimestamp_returnEmpty_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -252,17 +286,135 @@ class ADXControllerTest {
     Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
     Mockito.when(this.service.get(chartDto, timestamp)).thenReturn(Mono.empty());
 
-    //then
     this.webTestClient
         .get()
         .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
         .exchange()
+
+        //then
         .expectStatus().isNotFound()
-        .expectBody(ResponseExceptionHandler.class)
+        .expectBody(CodeResponseHandler.class)
         .value(response -> {
           Assertions.assertNotNull(response);
           Assertions.assertEquals("ChartObjectNotFoundException", response.type());
           Assertions.assertEquals("Chart object not found: [" + name + ", " + period + ", " + this.controller.getChartObjectName() + ", " + timestamp + "]", response.message());
         });
   }
+
+  @Test
+  void find_byNameAndPeriodAndTimestamp_notExistNameAndPeriodAndTimestamp_returnEmpty_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+
+    //when
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+
+    this.webTestClient
+        .get()
+        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .exchange()
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("SymbolNotFoundException", response.type());
+          Assertions.assertEquals("Symbol not found: [" + name + "]", response.message());
+        });
+  }
+
+
+  @Test
+  void create_withValidNameAndPeriod_returnCreated_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+
+    SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
+
+    ChartDto chartDto = Mockito.mock(ChartDto.class);
+    UUID chartId = UUID.randomUUID();
+
+    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    BigDecimal mainLine = BigDecimal.ONE;
+    BigDecimal plusDiLine = BigDecimal.ONE;
+    BigDecimal minusDiLine = BigDecimal.ONE;
+    ADXCreateDto createDto = new ADXCreateDto(timestamp, mainLine, plusDiLine, minusDiLine);
+
+    ADXDto dto = Mockito.mock(ADXDto.class);
+    UUID dtoId = UUID.randomUUID();
+
+    //when
+    Mockito.when(symbolDto.name()).thenReturn(name);
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+
+    Mockito.when(chartDto.id()).thenReturn(chartId);
+    Mockito.when(chartDto.symbol()).thenReturn(symbolDto);
+    Mockito.when(chartDto.period()).thenReturn(period);
+    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+
+    Mockito.when(dto.id()).thenReturn(dtoId);
+    Mockito.when(dto.chartDto()).thenReturn(chartDto);
+    Mockito.when(dto.timestamp()).thenReturn(timestamp);
+    Mockito.when(this.service.create(Mockito.eq(chartDto), Mockito.any())).thenReturn(Mono.just(dto));
+
+    //then
+    this.webTestClient
+        .post()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .bodyValue(createDto)
+        .exchange()
+        .expectStatus().isCreated()
+        .expectBody(ADXDto.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertNotNull(response.id());
+          Assertions.assertEquals(createDto.timestamp(), response.timestamp());
+
+          Assertions.assertNotNull(response.chartDto());
+          Assertions.assertEquals(chartDto.id(), response.chartDto().id());
+          Assertions.assertEquals(chartDto.period(), response.chartDto().period());
+
+          Assertions.assertNotNull(response.chartDto().symbol());
+          Assertions.assertEquals(symbolDto.name(), response.chartDto().symbol().name());
+        });
+  }
+
+  @Test
+  void create_withNameAndPeriod_notValidName_returnError_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+
+    SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
+
+    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    BigDecimal mainLine = BigDecimal.ONE;
+    BigDecimal plusDiLine = BigDecimal.ONE;
+    BigDecimal minusDiLine = BigDecimal.ONE;
+    ADXCreateDto createDto = new ADXCreateDto(timestamp, mainLine, plusDiLine, minusDiLine);
+
+    //when
+    Mockito.when(symbolDto.name()).thenReturn(name);
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+
+    this.webTestClient
+        .post()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .bodyValue(createDto)
+        .exchange()
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("SymbolNotFoundException", response.type());
+          Assertions.assertEquals("Symbol not found: [" + name + "]", response.message());
+        });
+  }
+
 }

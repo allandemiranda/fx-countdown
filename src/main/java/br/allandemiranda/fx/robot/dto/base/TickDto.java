@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.dto.base;
 
 import br.allandemiranda.fx.robot.dto.definition.BaseDto;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
@@ -9,6 +10,6 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-public record TickDto(@NotNull UUID id, @NotNull SymbolDto symbolDto, @NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Positive BigDecimal ask, @NotNull @Positive BigDecimal bid) implements Serializable, BaseDto {
+public record TickDto(@NotNull UUID id, @Valid @NotNull SymbolDto symbolDto, @NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Positive BigDecimal ask, @NotNull @Positive BigDecimal bid) implements Serializable, BaseDto {
 
 }

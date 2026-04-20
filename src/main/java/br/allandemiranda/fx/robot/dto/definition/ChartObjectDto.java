@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.dto.definition;
 
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import java.time.OffsetDateTime;
@@ -11,6 +12,7 @@ public interface ChartObjectDto {
   @NotNull
   UUID id();
 
+  @Valid
   @NotNull
   ChartDto chartDto();
 

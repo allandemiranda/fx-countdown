@@ -14,7 +14,8 @@ public class NotFoundExceptionHandler {
 
   @ExceptionHandler(NotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
-  public <E extends NotFoundException> ResponseExceptionHandler handle(@NonNull E ex) {
-    return new ResponseExceptionHandler(ex.getClass().getSimpleName(), ex.getMessage());
+  public <E extends NotFoundException> CodeResponseHandler handle(@NonNull E ex) {
+    return new CodeResponseHandler(ex.getClass().getSimpleName(), ex.getMessage());
   }
+
 }

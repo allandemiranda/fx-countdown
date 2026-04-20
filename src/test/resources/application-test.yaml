@@ -8,3 +8,6 @@ spring:
         - classpath:db/indicators/adx.sql
   r2dbc:
     generate-unique-name: true
+  webflux:
+    problemdetails:
+      enabled: true

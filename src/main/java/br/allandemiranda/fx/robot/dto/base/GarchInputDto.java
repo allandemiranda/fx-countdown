@@ -2,12 +2,13 @@ package br.allandemiranda.fx.robot.dto.base;
 
 import br.allandemiranda.fx.robot.dto.definition.BaseDto;
 import br.allandemiranda.fx.robot.dto.definition.InputObjectDto;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-public record GarchInputDto(@NotNull ChartDto chartDto, @Positive int horizon, @Min(50) int priceSize, @NotNull @Positive BigDecimal kTP, @NotNull @Positive BigDecimal kSL) implements Serializable, BaseDto, InputObjectDto {
+public record GarchInputDto(@Valid @NotNull ChartDto chartDto, @Positive int horizon, @Min(50) int priceSize, @NotNull @Positive BigDecimal kTP, @NotNull @Positive BigDecimal kSL) implements Serializable, BaseDto, InputObjectDto {
 
 }

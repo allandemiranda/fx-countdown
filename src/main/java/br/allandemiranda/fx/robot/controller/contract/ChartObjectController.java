@@ -1,9 +1,13 @@
 package br.allandemiranda.fx.robot.controller.contract;
 
+import br.allandemiranda.fx.robot.dto.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.base.SymbolDto;
 import br.allandemiranda.fx.robot.dto.definition.ChartObjectDto;
 import br.allandemiranda.fx.robot.dto.definition.CreateChartObjectDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
+import br.allandemiranda.fx.robot.exception.impl.ChartNotFoundException;
 import br.allandemiranda.fx.robot.exception.impl.ChartObjectNotFoundException;
+import br.allandemiranda.fx.robot.exception.impl.SymbolNotFoundException;
 import br.allandemiranda.fx.robot.model.definition.ChartObjectModel;
 import br.allandemiranda.fx.robot.service.ChartService;
 import br.allandemiranda.fx.robot.service.SymbolService;
@@ -14,6 +18,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import java.time.OffsetDateTime;
+import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,29 +41,40 @@ public interface ChartObjectController<M extends ChartObjectModel, D extends Cha
 
   String getChartObjectName();
 
+  private @NonNull Mono<ChartDto> getChartDto(String name, Timeframe period, SymbolDto symbolDto) {
+    return this.getChartService().get(symbolDto, period).switchIfEmpty(Mono.error(() -> new ChartNotFoundException(name, period)));
+  }
+
+  private @NonNull Mono<SymbolDto> getSymbolDto(String name) {
+    return this.getSymbolService().get(name).switchIfEmpty(Mono.error(() -> new SymbolNotFoundException(name)));
+  }
+
+  private @NonNull Mono<D> getChartObjectDto(String name, Timeframe period, OffsetDateTime timestamp, ChartDto chartDto) {
+    return this.getService().get(chartDto, timestamp).switchIfEmpty(Mono.error(() -> new ChartObjectNotFoundException(name, period, this.getChartObjectName(), timestamp)));
+  }
+
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
-  default Flux<D> findAll(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period) {
-    return this.getSymbolService().get(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMapMany(dto -> this.getService().get(dto));
+  default Flux<D> findAll(@PathVariable String name, @PathVariable Timeframe period) {
+    return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMapMany(dto -> this.getService().get(dto));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/{timestamp}", produces = "application/json")
-  default Mono<D> find(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period, @PathVariable @NotNull @PastOrPresent @Valid OffsetDateTime timestamp) {
-    return this.getSymbolService().get(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMap(chartDto -> this.getService().get(chartDto, timestamp))
-        .switchIfEmpty(Mono.error(() -> new ChartObjectNotFoundException(name, period, this.getChartObjectName(), timestamp)));
+  default Mono<D> find(@PathVariable String name, @PathVariable Timeframe period, @PathVariable @NotNull @PastOrPresent @Valid OffsetDateTime timestamp) {
+    return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMap(chartDto -> getChartObjectDto(name, period, timestamp, chartDto));
   }
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
-  default Mono<D> create(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period, @RequestBody @Valid C createChartObjectDto) {
-    return this.getSymbolService().get(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMap(chartDto -> this.getService().create(chartDto, createChartObjectDto));
+  default Mono<D> create(@PathVariable String name, @PathVariable Timeframe period, @RequestBody @Valid C createChartObjectDto) {
+    return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMap(chartDto -> this.getService().create(chartDto, createChartObjectDto));
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(produces = "application/json")
   default Mono<Void> deleteAll(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period) {
-    return this.getSymbolService().get(name).flatMap(symbolDto -> this.getChartService().get(symbolDto, period)).flatMap(chartDto -> this.getService().delete(chartDto));
+    return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMap(chartDto -> this.getService().delete(chartDto));
   }
 
 }
