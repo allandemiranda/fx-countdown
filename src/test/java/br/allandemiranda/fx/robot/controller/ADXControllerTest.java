@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.controller;
 
 import br.allandemiranda.fx.robot.controller.advice.CodeResponseHandler;
+import br.allandemiranda.fx.robot.controller.advice.ViolationResponseHandler;
 import br.allandemiranda.fx.robot.dto.base.ADXDto;
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
@@ -13,11 +14,13 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.UUID;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webflux.test.autoconfigure.WebFluxTest;
+import org.springframework.http.ProblemDetail;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
@@ -94,7 +97,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void findAll_byNameAndPeriod_nameAndPeriodNotExist_returnEmptyFlux_test() {
+  void findAll_byNameAndPeriod_nameAndPeriodNotExist_returnNotFoundSymbol_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -118,7 +121,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void findAll_byNameAndPeriod_nameNotExist_returnEmptyFlux_test() {
+  void findAll_byNameAndPeriod_nameNotExist_returnNotFoundSymbol_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -142,7 +145,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void findAll_byNameAndPeriod_periodNotExist_returnEmptyFluxo_test() {
+  void findAll_byNameAndPeriod_periodNotExist_returnNotFoundChart_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -168,7 +171,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void find_byNameAndPeriodAndTimestamp_exist_returnDto_test() {
+  void find_byNameAndPeriodAndTimestamp_timestampOnPresent_exist_returnDto_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -219,7 +222,58 @@ class ADXControllerTest {
   }
 
   @Test
-  void find_byNameAndPeriodAndTimestamp_notExistName_returnEmpty_test() {
+  void find_byNameAndPeriodAndTimestamp_timestampOnPast_exist_returnDto_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC).minusDays(1);
+
+    SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
+
+    ChartDto chartDto = Mockito.mock(ChartDto.class);
+    UUID chartId = UUID.randomUUID();
+
+    ADXDto dto = Mockito.mock(ADXDto.class);
+    UUID dtoId = UUID.randomUUID();
+
+    //when
+    Mockito.when(symbolDto.name()).thenReturn(name);
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+
+    Mockito.when(chartDto.id()).thenReturn(chartId);
+    Mockito.when(chartDto.symbol()).thenReturn(symbolDto);
+    Mockito.when(chartDto.period()).thenReturn(period);
+    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+
+    Mockito.when(dto.id()).thenReturn(dtoId);
+    Mockito.when(dto.chartDto()).thenReturn(chartDto);
+    Mockito.when(dto.timestamp()).thenReturn(timestamp);
+    Mockito.when(this.service.get(chartDto, timestamp)).thenReturn(Mono.just(dto));
+
+    this.webTestClient
+        .get()
+        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .exchange()
+
+        //then
+        .expectStatus().isOk()
+        .expectBody(ADXDto.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals(dto.id(), response.id());
+          Assertions.assertEquals(dto.timestamp(), response.timestamp());
+
+          Assertions.assertNotNull(response.chartDto());
+          Assertions.assertEquals(dto.chartDto().id(), response.chartDto().id());
+          Assertions.assertEquals(dto.chartDto().period(), response.chartDto().period());
+
+          Assertions.assertNotNull(response.chartDto().symbol());
+          Assertions.assertEquals(dto.chartDto().symbol().name(), response.chartDto().symbol().name());
+        });
+  }
+
+  @Test
+  void find_byNameAndPeriodAndTimestamp_notExistName_returnNotFoundSymbol_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -244,7 +298,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void find_byNameAndPeriodAndTimestamp_notExistPeriod_returnEmpty_test() {
+  void find_byNameAndPeriodAndTimestamp_notExistPeriod_returnNotFoundChart_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -272,7 +326,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void find_byNameAndPeriodAndTimestamp_notExistTimestamp_returnEmpty_test() {
+  void find_byNameAndPeriodAndTimestamp_notExistTimestamp_returnNotFoundChartObject_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -302,7 +356,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void find_byNameAndPeriodAndTimestamp_notExistNameAndPeriodAndTimestamp_returnEmpty_test() {
+  void find_byNameAndPeriodAndTimestamp_notExistNameAndPeriodAndTimestamp_returnNotFoundSymbol_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -326,6 +380,54 @@ class ADXControllerTest {
         });
   }
 
+  @Test
+  void find_byNameAndPeriodAndTimestamp_notValidPeriod_returnBadRequest_test() {
+    //given
+    String name = "EURUSD";
+    String period = RandomStringUtils.insecure().nextAlphanumeric(1);
+    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+
+    //when
+    this.webTestClient
+        .get()
+        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .exchange()
+
+        //then
+        .expectStatus().isBadRequest()
+        .expectBody(ProblemDetail.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("Type mismatch.", response.getDetail());
+          Assertions.assertEquals(String.format("/symbols/%s/timeframes/%s/adxs/%s", name, period, timestamp), response.getInstance());
+          Assertions.assertEquals(400, response.getStatus());
+          Assertions.assertEquals("Bad Request", response.getTitle());
+        });
+  }
+
+  @Test
+  void find_byNameAndPeriodAndTimestamp_notValidTimestamp_timestampOnFuture_returnBadRequest_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC)).plusSeconds(1);
+
+    //when
+    this.webTestClient
+        .get()
+        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .exchange()
+
+        //then
+        .expectStatus().isBadRequest()
+        .expectBody(ViolationResponseHandler.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("Constraint violation", response.error());
+          Assertions.assertNotNull(response.message());
+          Assertions.assertFalse(response.message().isEmpty());
+        });
+  }
 
   @Test
   void create_withValidNameAndPeriod_returnCreated_test() {
@@ -384,7 +486,7 @@ class ADXControllerTest {
   }
 
   @Test
-  void create_withNameAndPeriod_notValidName_returnError_test() {
+  void create_withNameAndPeriod_notExistName_returnNotFoundSymbol_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -414,6 +516,41 @@ class ADXControllerTest {
           Assertions.assertNotNull(response);
           Assertions.assertEquals("SymbolNotFoundException", response.type());
           Assertions.assertEquals("Symbol not found: [" + name + "]", response.message());
+        });
+  }
+
+  @Test
+  void create_withNameAndPeriod_notExistPeriod_returnNotFoundChart_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+
+    SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
+
+    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    BigDecimal mainLine = BigDecimal.ONE;
+    BigDecimal plusDiLine = BigDecimal.ONE;
+    BigDecimal minusDiLine = BigDecimal.ONE;
+    ADXCreateDto createDto = new ADXCreateDto(timestamp, mainLine, plusDiLine, minusDiLine);
+
+    //when
+    Mockito.when(symbolDto.name()).thenReturn(name);
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.empty());
+
+    this.webTestClient
+        .post()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .bodyValue(createDto)
+        .exchange()
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("ChartNotFoundException", response.type());
+          Assertions.assertEquals("Chart not found: [" + name + ", " + period.getCode() + "]", response.message());
         });
   }
 
