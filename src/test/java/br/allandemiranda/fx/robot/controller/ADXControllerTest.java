@@ -593,4 +593,159 @@ class ADXControllerTest {
         });
   }
 
+  @Test
+  void deleteAll_byNameAndPeriod_valid_existValues_returnMonoVoid_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+
+    SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
+
+    ChartDto chartDto = Mockito.mock(ChartDto.class);
+    UUID chartId = UUID.randomUUID();
+
+    ADXDto dto = Mockito.mock(ADXDto.class);
+    UUID dtoId = UUID.randomUUID();
+
+    //when
+    Mockito.when(symbolDto.name()).thenReturn(name);
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+
+    Mockito.when(chartDto.id()).thenReturn(chartId);
+    Mockito.when(chartDto.symbol()).thenReturn(symbolDto);
+    Mockito.when(chartDto.period()).thenReturn(period);
+    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+
+    Mockito.when(dto.id()).thenReturn(dtoId);
+    Mockito.when(dto.chartDto()).thenReturn(chartDto);
+    Mockito.when(this.service.delete(chartDto)).thenReturn(Mono.empty());
+
+    this.webTestClient
+        .delete()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .exchange()
+
+        //then
+        .expectStatus().isNoContent()
+        .expectBodyList(Void.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals(0, response.size());
+
+          Mockito.verify(this.service, Mockito.times(1)).delete(chartDto);
+        });
+  }
+
+  @Test
+  void deleteAll_byNameAndPeriod_valid_notExistValues_returnMonoVoid_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+
+    SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
+
+    ChartDto chartDto = Mockito.mock(ChartDto.class);
+    UUID chartId = UUID.randomUUID();
+
+    //when
+    Mockito.when(symbolDto.name()).thenReturn(name);
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+
+    Mockito.when(chartDto.id()).thenReturn(chartId);
+    Mockito.when(chartDto.symbol()).thenReturn(symbolDto);
+    Mockito.when(chartDto.period()).thenReturn(period);
+    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+
+    Mockito.when(this.service.delete(chartDto)).thenReturn(Mono.empty());
+
+    this.webTestClient
+        .delete()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .exchange()
+
+        //then
+        .expectStatus().isNoContent()
+        .expectBodyList(ADXDto.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals(0, response.size());
+
+          Mockito.verify(this.service, Mockito.times(1)).delete(chartDto);
+        });
+  }
+
+  @Test
+  void deleteAll_byNameAndPeriod_nameAndPeriodNotExist_returnNotFoundSymbol_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+
+    //when
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+
+    this.webTestClient
+        .delete()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .exchange()
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("SymbolNotFoundException", response.type());
+          Assertions.assertEquals("Symbol not found: [" + name + "]", response.message());
+        });
+  }
+
+  @Test
+  void deleteAll_byNameAndPeriod_nameNotExist_returnNotFoundSymbol_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+
+    //when
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+
+    this.webTestClient
+        .delete()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .exchange()
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("SymbolNotFoundException", response.type());
+          Assertions.assertEquals("Symbol not found: [" + name + "]", response.message());
+        });
+  }
+
+  @Test
+  void deleteAll_byNameAndPeriod_periodNotExist_returnNotFoundChart_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+    SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
+
+    //when
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.empty());
+
+    this.webTestClient
+        .get()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .exchange()
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("ChartNotFoundException", response.type());
+          Assertions.assertEquals("Chart not found: [" + name + ", " + period.getCode() + "]", response.message());
+        });
+  }
+
 }
