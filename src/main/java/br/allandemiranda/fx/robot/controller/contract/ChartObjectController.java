@@ -62,7 +62,7 @@ public interface ChartObjectController<M extends ChartObjectModel, D extends Cha
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/{timestamp}", produces = "application/json")
   default Mono<D> find(@PathVariable String name, @PathVariable Timeframe period, @PathVariable @NotNull @PastOrPresent @Valid OffsetDateTime timestamp) {
-    return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMap(chartDto -> getChartObjectDto(name, period, timestamp, chartDto));
+    return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMap(chartDto -> this.getChartObjectDto(name, period, timestamp, chartDto));
   }
 
   @ResponseStatus(HttpStatus.CREATED)

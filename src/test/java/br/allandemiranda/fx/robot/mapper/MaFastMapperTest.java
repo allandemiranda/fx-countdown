@@ -34,12 +34,12 @@ class MaFastMapperTest extends AbstractChartObjectMapperTest<MaFast, MaFastDto, 
 
   @Override
   protected void whenExtraParameters(MaFast model) {
-    Mockito.when(model.ma()).thenReturn(ma);
+    Mockito.when(model.ma()).thenReturn(this.ma);
   }
 
   @Override
   protected void whenExtraParameters(MaFastCreateDto createDto) {
-    Mockito.when(createDto.ma()).thenReturn(ma);
+    Mockito.when(createDto.ma()).thenReturn(this.ma);
   }
 
   @Override

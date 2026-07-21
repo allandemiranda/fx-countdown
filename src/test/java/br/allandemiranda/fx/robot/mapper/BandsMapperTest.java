@@ -39,16 +39,16 @@ class BandsMapperTest extends AbstractChartObjectMapperTest<Bands, BandsDto, Ban
 
   @Override
   protected void whenExtraParameters(Bands model) {
-    Mockito.when(model.baseLine()).thenReturn(baseLine);
-    Mockito.when(model.upperBand()).thenReturn(upperBand);
-    Mockito.when(model.lowerBand()).thenReturn(lowerBand);
+    Mockito.when(model.baseLine()).thenReturn(this.baseLine);
+    Mockito.when(model.upperBand()).thenReturn(this.upperBand);
+    Mockito.when(model.lowerBand()).thenReturn(this.lowerBand);
   }
 
   @Override
   protected void whenExtraParameters(BandsCreateDto createDto) {
-    Mockito.when(createDto.baseLine()).thenReturn(baseLine);
-    Mockito.when(createDto.upperBand()).thenReturn(upperBand);
-    Mockito.when(createDto.lowerBand()).thenReturn(lowerBand);
+    Mockito.when(createDto.baseLine()).thenReturn(this.baseLine);
+    Mockito.when(createDto.upperBand()).thenReturn(this.upperBand);
+    Mockito.when(createDto.lowerBand()).thenReturn(this.lowerBand);
   }
 
   @Override

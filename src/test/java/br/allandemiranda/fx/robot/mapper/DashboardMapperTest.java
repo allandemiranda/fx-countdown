@@ -43,16 +43,16 @@ class DashboardMapperTest extends AbstractInputObjectMapperTest<Dashboard, Dashb
 
   @Override
   protected void whenExtraParameters(Dashboard model) {
-    Mockito.when(model.status()).thenReturn(status);
-    Mockito.when(model.updateTime()).thenReturn(updateTime);
-    Mockito.when(model.startScope()).thenReturn(startScope);
-    Mockito.when(model.endScope()).thenReturn(endScope);
+    Mockito.when(model.status()).thenReturn(this.status);
+    Mockito.when(model.updateTime()).thenReturn(this.updateTime);
+    Mockito.when(model.startScope()).thenReturn(this.startScope);
+    Mockito.when(model.endScope()).thenReturn(this.endScope);
   }
 
   @Override
   protected void whenExtraParameters(DashboardCreateDto createDto) {
-    Mockito.when(createDto.startScope()).thenReturn(startScope);
-    Mockito.when(createDto.endScope()).thenReturn(endScope);
+    Mockito.when(createDto.startScope()).thenReturn(this.startScope);
+    Mockito.when(createDto.endScope()).thenReturn(this.endScope);
   }
 
   @Override

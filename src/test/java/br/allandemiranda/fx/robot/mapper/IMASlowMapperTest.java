@@ -40,18 +40,18 @@ class IMASlowMapperTest extends AbstractInputObjectMapperTest<IMASlow, IMASlowDt
 
   @Override
   protected void whenExtraParameters(IMASlow model) {
-    Mockito.when(model.period()).thenReturn(period);
-    Mockito.when(model.shift()).thenReturn(shift);
-    Mockito.when(model.method()).thenReturn(method);
-    Mockito.when(model.applyTo()).thenReturn(applyTo);
+    Mockito.when(model.period()).thenReturn(this.period);
+    Mockito.when(model.shift()).thenReturn(this.shift);
+    Mockito.when(model.method()).thenReturn(this.method);
+    Mockito.when(model.applyTo()).thenReturn(this.applyTo);
   }
 
   @Override
   protected void whenExtraParameters(IMASlowCreateDto createDto) {
-    Mockito.when(createDto.period()).thenReturn(period);
-    Mockito.when(createDto.shift()).thenReturn(shift);
-    Mockito.when(createDto.method()).thenReturn(method);
-    Mockito.when(createDto.applyTo()).thenReturn(applyTo);
+    Mockito.when(createDto.period()).thenReturn(this.period);
+    Mockito.when(createDto.shift()).thenReturn(this.shift);
+    Mockito.when(createDto.method()).thenReturn(this.method);
+    Mockito.when(createDto.applyTo()).thenReturn(this.applyTo);
   }
 
   @Override

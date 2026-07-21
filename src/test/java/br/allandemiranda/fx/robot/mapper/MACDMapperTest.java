@@ -37,14 +37,14 @@ class MACDMapperTest extends AbstractChartObjectMapperTest<MACD, MACDDto, MACDCr
 
   @Override
   protected void whenExtraParameters(MACD model) {
-    Mockito.when(model.mainLine()).thenReturn(mainLine);
-    Mockito.when(model.signalLine()).thenReturn(signalLine);
+    Mockito.when(model.mainLine()).thenReturn(this.mainLine);
+    Mockito.when(model.signalLine()).thenReturn(this.signalLine);
   }
 
   @Override
   protected void whenExtraParameters(MACDCreateDto createDto) {
-    Mockito.when(createDto.mainLine()).thenReturn(mainLine);
-    Mockito.when(createDto.signalLine()).thenReturn(signalLine);
+    Mockito.when(createDto.mainLine()).thenReturn(this.mainLine);
+    Mockito.when(createDto.signalLine()).thenReturn(this.signalLine);
   }
 
   @Override

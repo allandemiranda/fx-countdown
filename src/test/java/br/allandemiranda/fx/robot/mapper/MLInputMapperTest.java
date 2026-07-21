@@ -38,26 +38,26 @@ class MLInputMapperTest extends AbstractInputObjectMapperTest<MLInput, MLInputDt
 
   @Override
   protected void whenExtraParameters(MLInput model) {
-    Mockito.when(model.chartObjectNum()).thenReturn(chartObjectNum);
-    Mockito.when(model.maxDepth()).thenReturn(maxDepth);
-    Mockito.when(model.eta()).thenReturn(eta);
-    Mockito.when(model.subsample()).thenReturn(subsample);
-    Mockito.when(model.colSampleByTree()).thenReturn(colSampleByTree);
-    Mockito.when(model.minChildWeight()).thenReturn(minChildWeight);
-    Mockito.when(model.lambda()).thenReturn(lambda);
-    Mockito.when(model.alpha()).thenReturn(alpha);
+    Mockito.when(model.chartObjectNum()).thenReturn(this.chartObjectNum);
+    Mockito.when(model.maxDepth()).thenReturn(this.maxDepth);
+    Mockito.when(model.eta()).thenReturn(this.eta);
+    Mockito.when(model.subsample()).thenReturn(this.subsample);
+    Mockito.when(model.colSampleByTree()).thenReturn(this.colSampleByTree);
+    Mockito.when(model.minChildWeight()).thenReturn(this.minChildWeight);
+    Mockito.when(model.lambda()).thenReturn(this.lambda);
+    Mockito.when(model.alpha()).thenReturn(this.alpha);
   }
 
   @Override
   protected void whenExtraParameters(MLInputCreateDto createDto) {
-    Mockito.when(createDto.chartObjectNum()).thenReturn(chartObjectNum);
-    Mockito.when(createDto.maxDepth()).thenReturn(maxDepth);
-    Mockito.when(createDto.eta()).thenReturn(eta);
-    Mockito.when(createDto.subsample()).thenReturn(subsample);
-    Mockito.when(createDto.colSampleByTree()).thenReturn(colSampleByTree);
-    Mockito.when(createDto.minChildWeight()).thenReturn(minChildWeight);
-    Mockito.when(createDto.lambda()).thenReturn(lambda);
-    Mockito.when(createDto.alpha()).thenReturn(alpha);
+    Mockito.when(createDto.chartObjectNum()).thenReturn(this.chartObjectNum);
+    Mockito.when(createDto.maxDepth()).thenReturn(this.maxDepth);
+    Mockito.when(createDto.eta()).thenReturn(this.eta);
+    Mockito.when(createDto.subsample()).thenReturn(this.subsample);
+    Mockito.when(createDto.colSampleByTree()).thenReturn(this.colSampleByTree);
+    Mockito.when(createDto.minChildWeight()).thenReturn(this.minChildWeight);
+    Mockito.when(createDto.lambda()).thenReturn(this.lambda);
+    Mockito.when(createDto.alpha()).thenReturn(this.alpha);
   }
 
   @Override

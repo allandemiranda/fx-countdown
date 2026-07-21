@@ -42,18 +42,18 @@ class GarchForecastMapperTest extends AbstractChartObjectMapperTest<GarchForecas
 
   @Override
   protected void whenExtraParameters(GarchForecast model) {
-    Mockito.when(model.omega()).thenReturn(omega);
-    Mockito.when(model.alpha()).thenReturn(alpha);
-    Mockito.when(model.beta()).thenReturn(beta);
-    Mockito.when(model.sigmaAgg()).thenReturn(sigmaAgg);
+    Mockito.when(model.omega()).thenReturn(this.omega);
+    Mockito.when(model.alpha()).thenReturn(this.alpha);
+    Mockito.when(model.beta()).thenReturn(this.beta);
+    Mockito.when(model.sigmaAgg()).thenReturn(this.sigmaAgg);
   }
 
   @Override
   protected void whenExtraParameters(GarchForecastCreateDto createDto) {
-    Mockito.when(createDto.omega()).thenReturn(omega);
-    Mockito.when(createDto.alpha()).thenReturn(alpha);
-    Mockito.when(createDto.beta()).thenReturn(beta);
-    Mockito.when(createDto.sigmaAgg()).thenReturn(sigmaAgg);
+    Mockito.when(createDto.omega()).thenReturn(this.omega);
+    Mockito.when(createDto.alpha()).thenReturn(this.alpha);
+    Mockito.when(createDto.beta()).thenReturn(this.beta);
+    Mockito.when(createDto.sigmaAgg()).thenReturn(this.sigmaAgg);
   }
 
   @Override

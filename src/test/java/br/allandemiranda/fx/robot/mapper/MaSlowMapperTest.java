@@ -33,12 +33,12 @@ class MaSlowMapperTest extends AbstractChartObjectMapperTest<MaSlow, MaSlowDto, 
 
   @Override
   protected void whenExtraParameters(MaSlow model) {
-    Mockito.when(model.ma()).thenReturn(ma);
+    Mockito.when(model.ma()).thenReturn(this.ma);
   }
 
   @Override
   protected void whenExtraParameters(MaSlowCreateDto createDto) {
-    Mockito.when(createDto.ma()).thenReturn(ma);
+    Mockito.when(createDto.ma()).thenReturn(this.ma);
   }
 
   @Override

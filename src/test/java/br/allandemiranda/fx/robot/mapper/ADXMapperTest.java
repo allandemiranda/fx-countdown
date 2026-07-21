@@ -39,16 +39,16 @@ class ADXMapperTest extends AbstractChartObjectMapperTest<ADX, ADXDto, ADXCreate
 
   @Override
   protected void whenExtraParameters(ADX model) {
-    Mockito.when(model.mainLine()).thenReturn(mainLine);
-    Mockito.when(model.plusDiLine()).thenReturn(plusDiLine);
-    Mockito.when(model.minusDiLine()).thenReturn(minusDiLine);
+    Mockito.when(model.mainLine()).thenReturn(this.mainLine);
+    Mockito.when(model.plusDiLine()).thenReturn(this.plusDiLine);
+    Mockito.when(model.minusDiLine()).thenReturn(this.minusDiLine);
   }
 
   @Override
   protected void whenExtraParameters(ADXCreateDto createDto) {
-    Mockito.when(createDto.mainLine()).thenReturn(mainLine);
-    Mockito.when(createDto.plusDiLine()).thenReturn(plusDiLine);
-    Mockito.when(createDto.minusDiLine()).thenReturn(minusDiLine);
+    Mockito.when(createDto.mainLine()).thenReturn(this.mainLine);
+    Mockito.when(createDto.plusDiLine()).thenReturn(this.plusDiLine);
+    Mockito.when(createDto.minusDiLine()).thenReturn(this.minusDiLine);
   }
 
   @Override

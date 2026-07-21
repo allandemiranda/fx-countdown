@@ -38,18 +38,18 @@ class GarchInputMapperTest extends AbstractInputObjectMapperTest<GarchInput, Gar
 
   @Override
   protected void whenExtraParameters(GarchInput model) {
-    Mockito.when(model.horizon()).thenReturn(horizon);
-    Mockito.when(model.priceSize()).thenReturn(priceSize);
-    Mockito.when(model.kTP()).thenReturn(kTP);
-    Mockito.when(model.kSL()).thenReturn(kSL);
+    Mockito.when(model.horizon()).thenReturn(this.horizon);
+    Mockito.when(model.priceSize()).thenReturn(this.priceSize);
+    Mockito.when(model.kTP()).thenReturn(this.kTP);
+    Mockito.when(model.kSL()).thenReturn(this.kSL);
   }
 
   @Override
   protected void whenExtraParameters(GarchInputCreateDto createDto) {
-    Mockito.when(createDto.horizon()).thenReturn(horizon);
-    Mockito.when(createDto.priceSize()).thenReturn(priceSize);
-    Mockito.when(createDto.kTP()).thenReturn(kTP);
-    Mockito.when(createDto.kSL()).thenReturn(kSL);
+    Mockito.when(createDto.horizon()).thenReturn(this.horizon);
+    Mockito.when(createDto.priceSize()).thenReturn(this.priceSize);
+    Mockito.when(createDto.kTP()).thenReturn(this.kTP);
+    Mockito.when(createDto.kSL()).thenReturn(this.kSL);
   }
 
   @Override

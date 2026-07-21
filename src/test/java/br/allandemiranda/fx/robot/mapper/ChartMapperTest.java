@@ -30,7 +30,7 @@ class ChartMapperTest {
     //when
     Mockito.when(chart.id()).thenReturn(id);
     Mockito.when(chart.period()).thenReturn(timeframe);
-    ChartDto chartDto = chartMapper.toDto(symbolDto, chart);
+    ChartDto chartDto = this.chartMapper.toDto(symbolDto, chart);
 
     //then
     Assertions.assertNotNull(chartDto);
@@ -51,7 +51,7 @@ class ChartMapperTest {
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
     Mockito.when(chartCreateDto.period()).thenReturn(timeframe);
-    Chart chart = chartMapper.toModel(id, symbolDto, chartCreateDto);
+    Chart chart = this.chartMapper.toModel(id, symbolDto, chartCreateDto);
 
     //then
     Assertions.assertNotNull(chart);

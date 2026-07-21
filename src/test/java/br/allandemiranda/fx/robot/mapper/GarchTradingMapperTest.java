@@ -48,22 +48,22 @@ class GarchTradingMapperTest extends AbstractChartObjectMapperTest<GarchTrading,
 
   @Override
   protected void whenExtraParameters(GarchTrading model) {
-    Mockito.when(model.buyOpenPrice()).thenReturn(buyOpenPrice);
-    Mockito.when(model.buyTpPrice()).thenReturn(buyTpPrice);
-    Mockito.when(model.buySlPrice()).thenReturn(buySlPrice);
-    Mockito.when(model.buyOpenPrice()).thenReturn(sellOpenPrice);
-    Mockito.when(model.sellTpPrice()).thenReturn(sellTpPrice);
-    Mockito.when(model.sellSlPrice()).thenReturn(sellSlPrice);
+    Mockito.when(model.buyOpenPrice()).thenReturn(this.buyOpenPrice);
+    Mockito.when(model.buyTpPrice()).thenReturn(this.buyTpPrice);
+    Mockito.when(model.buySlPrice()).thenReturn(this.buySlPrice);
+    Mockito.when(model.buyOpenPrice()).thenReturn(this.sellOpenPrice);
+    Mockito.when(model.sellTpPrice()).thenReturn(this.sellTpPrice);
+    Mockito.when(model.sellSlPrice()).thenReturn(this.sellSlPrice);
   }
 
   @Override
   protected void whenExtraParameters(GarchTradingCreateDto createDto) {
-    Mockito.when(createDto.buyOpenPrice()).thenReturn(buyOpenPrice);
-    Mockito.when(createDto.buyTpPrice()).thenReturn(buyTpPrice);
-    Mockito.when(createDto.buySlPrice()).thenReturn(buySlPrice);
-    Mockito.when(createDto.sellOpenPrice()).thenReturn(sellOpenPrice);
-    Mockito.when(createDto.sellTpPrice()).thenReturn(sellTpPrice);
-    Mockito.when(createDto.sellSlPrice()).thenReturn(sellSlPrice);
+    Mockito.when(createDto.buyOpenPrice()).thenReturn(this.buyOpenPrice);
+    Mockito.when(createDto.buyTpPrice()).thenReturn(this.buyTpPrice);
+    Mockito.when(createDto.buySlPrice()).thenReturn(this.buySlPrice);
+    Mockito.when(createDto.sellOpenPrice()).thenReturn(this.sellOpenPrice);
+    Mockito.when(createDto.sellTpPrice()).thenReturn(this.sellTpPrice);
+    Mockito.when(createDto.sellSlPrice()).thenReturn(this.sellSlPrice);
   }
 
   @Override

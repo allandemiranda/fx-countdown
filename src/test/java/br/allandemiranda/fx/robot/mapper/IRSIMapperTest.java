@@ -35,14 +35,14 @@ class IRSIMapperTest extends AbstractInputObjectMapperTest<IRSI, IRSIDto, IRSICr
 
   @Override
   protected void whenExtraParameters(IRSI model) {
-    Mockito.when(model.period()).thenReturn(period);
-    Mockito.when(model.applyTo()).thenReturn(applyTo);
+    Mockito.when(model.period()).thenReturn(this.period);
+    Mockito.when(model.applyTo()).thenReturn(this.applyTo);
   }
 
   @Override
   protected void whenExtraParameters(IRSICreateDto createDto) {
-    Mockito.when(createDto.period()).thenReturn(period);
-    Mockito.when(createDto.applyTo()).thenReturn(applyTo);
+    Mockito.when(createDto.period()).thenReturn(this.period);
+    Mockito.when(createDto.applyTo()).thenReturn(this.applyTo);
   }
 
   @Override

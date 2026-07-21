@@ -95,7 +95,7 @@ class SymbolServiceTest {
 
     //when
     Mockito.doReturn(symbol).when(mapper).toModel(symbolCreateDto);
-    Mockito.when(repository.save(symbol)).thenReturn(Mono.just(symbol));
+    Mockito.when(this.repository.save(symbol)).thenReturn(Mono.just(symbol));
 
     //then
     StepVerifier.create(this.service.create(symbolCreateDto)).assertNext(Assertions::assertNotNull).verifyComplete();

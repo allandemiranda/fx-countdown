@@ -35,7 +35,7 @@ class TickMapperTest {
     Mockito.when(tick.timestamp()).thenReturn(timestamp);
     Mockito.when(tick.ask()).thenReturn(ask);
     Mockito.when(tick.bid()).thenReturn(bid);
-    TickDto tickDto = tickMapper.toDto(symbolDto, tick);
+    TickDto tickDto = this.tickMapper.toDto(symbolDto, tick);
 
     //then
     Assertions.assertNotNull(tickDto);
@@ -61,7 +61,7 @@ class TickMapperTest {
     Mockito.when(tickCreateDto.timestamp()).thenReturn(timestamp);
     Mockito.when(tickCreateDto.ask()).thenReturn(ask);
     Mockito.when(tickCreateDto.bid()).thenReturn(bid);
-    Tick tick = tickMapper.toModel(id, symbolDto, tickCreateDto);
+    Tick tick = this.tickMapper.toModel(id, symbolDto, tickCreateDto);
 
     //then
     Assertions.assertNotNull(tick);

@@ -11,6 +11,7 @@ import br.allandemiranda.fx.robot.service.ADXService;
 import br.allandemiranda.fx.robot.service.ChartService;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import java.math.BigDecimal;
+import java.net.URI;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.UUID;
@@ -45,7 +46,7 @@ class ADXControllerTest {
   private ADXService service;
 
   @Test
-  void findAll_byNameAndPeriod_exist_returnFluxDto_test() {
+  void findAll_byNameAndPeriod_valid_existValues_returnFluxDto_test() {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
@@ -95,6 +96,43 @@ class ADXControllerTest {
           Assertions.assertEquals(dto.chartDto().symbol().name(), reportDto.chartDto().symbol().name());
         });
   }
+
+  @Test
+  void findAll_byNameAndPeriod_valid_notExistValues_returnFluxEmpty_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+
+    SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
+
+    ChartDto chartDto = Mockito.mock(ChartDto.class);
+    UUID chartId = UUID.randomUUID();
+
+    //when
+    Mockito.when(symbolDto.name()).thenReturn(name);
+    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+
+    Mockito.when(chartDto.id()).thenReturn(chartId);
+    Mockito.when(chartDto.symbol()).thenReturn(symbolDto);
+    Mockito.when(chartDto.period()).thenReturn(period);
+    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+
+    Mockito.when(this.service.get(chartDto)).thenReturn(Flux.empty());
+
+    this.webTestClient
+        .get()
+        .uri("/symbols/{name}/timeframes/{period}/adxs", name, period)
+        .exchange()
+
+        //then
+        .expectStatus().isOk()
+        .expectBodyList(ADXDto.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals(0, response.size());
+        });
+  }
+
 
   @Test
   void findAll_byNameAndPeriod_nameAndPeriodNotExist_returnNotFoundSymbol_test() {
@@ -277,7 +315,7 @@ class ADXControllerTest {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
-    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
 
     //when
     Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
@@ -302,7 +340,7 @@ class ADXControllerTest {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
-    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
 
     //when
@@ -330,7 +368,7 @@ class ADXControllerTest {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
-    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
     ChartDto chartDto = Mockito.mock(ChartDto.class);
 
@@ -360,7 +398,7 @@ class ADXControllerTest {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
-    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
 
     //when
     Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
@@ -385,7 +423,7 @@ class ADXControllerTest {
     //given
     String name = "EURUSD";
     String period = RandomStringUtils.insecure().nextAlphanumeric(1);
-    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
 
     //when
     this.webTestClient
@@ -399,7 +437,8 @@ class ADXControllerTest {
         .value(response -> {
           Assertions.assertNotNull(response);
           Assertions.assertEquals("Type mismatch.", response.getDetail());
-          Assertions.assertEquals(String.format("/symbols/%s/timeframes/%s/adxs/%s", name, period, timestamp), response.getInstance());
+          Assertions.assertNotNull(response.getInstance());
+          Assertions.assertEquals(URI.create(String.format("/symbols/%s/timeframes/%s/adxs/%s", name, period, timestamp)).toASCIIString(), response.getInstance().toASCIIString().replace("%3A", ":"));
           Assertions.assertEquals(400, response.getStatus());
           Assertions.assertEquals("Bad Request", response.getTitle());
         });
@@ -410,7 +449,7 @@ class ADXControllerTest {
     //given
     String name = "EURUSD";
     Timeframe period = Timeframe.values()[0];
-    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC)).plusSeconds(1);
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC).plusSeconds(1);
 
     //when
     this.webTestClient
@@ -440,7 +479,7 @@ class ADXControllerTest {
     ChartDto chartDto = Mockito.mock(ChartDto.class);
     UUID chartId = UUID.randomUUID();
 
-    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
     BigDecimal mainLine = BigDecimal.ONE;
     BigDecimal plusDiLine = BigDecimal.ONE;
     BigDecimal minusDiLine = BigDecimal.ONE;
@@ -493,7 +532,7 @@ class ADXControllerTest {
 
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
 
-    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
     BigDecimal mainLine = BigDecimal.ONE;
     BigDecimal plusDiLine = BigDecimal.ONE;
     BigDecimal minusDiLine = BigDecimal.ONE;
@@ -527,7 +566,7 @@ class ADXControllerTest {
 
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
 
-    OffsetDateTime timestamp = OffsetDateTime.now((ZoneOffset.UTC));
+    OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
     BigDecimal mainLine = BigDecimal.ONE;
     BigDecimal plusDiLine = BigDecimal.ONE;
     BigDecimal minusDiLine = BigDecimal.ONE;

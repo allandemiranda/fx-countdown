@@ -34,8 +34,8 @@ class AskBidValidatorTest {
 
   @BeforeEach
   void setUp() {
-    Mockito.lenient().when(context.buildConstraintViolationWithTemplate(Mockito.anyString())).thenReturn(violationBuilder);
-    Mockito.lenient().when(violationBuilder.addPropertyNode(Mockito.anyString())).thenReturn(nodeBuilder);
+    Mockito.lenient().when(this.context.buildConstraintViolationWithTemplate(Mockito.anyString())).thenReturn(this.violationBuilder);
+    Mockito.lenient().when(this.violationBuilder.addPropertyNode(Mockito.anyString())).thenReturn(this.nodeBuilder);
   }
 
   @Test
@@ -67,7 +67,7 @@ class AskBidValidatorTest {
 
     //then
     Assertions.assertTrue(result);
-    Mockito.verifyNoInteractions(context);
+    Mockito.verifyNoInteractions(this.context);
   }
 
   @Test
@@ -83,9 +83,9 @@ class AskBidValidatorTest {
 
     //then
     Assertions.assertFalse(result);
-    Mockito.verify(context).disableDefaultConstraintViolation();
-    Mockito.verify(context).buildConstraintViolationWithTemplate("ask must be greater than or equal to bid");
-    Mockito.verify(violationBuilder).addPropertyNode("ask");
-    Mockito.verify(nodeBuilder).addConstraintViolation();
+    Mockito.verify(this.context).disableDefaultConstraintViolation();
+    Mockito.verify(this.context).buildConstraintViolationWithTemplate("ask must be greater than or equal to bid");
+    Mockito.verify(this.violationBuilder).addPropertyNode("ask");
+    Mockito.verify(this.nodeBuilder).addConstraintViolation();
   }
 }

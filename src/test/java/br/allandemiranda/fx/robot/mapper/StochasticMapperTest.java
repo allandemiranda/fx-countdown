@@ -36,14 +36,14 @@ class StochasticMapperTest extends AbstractChartObjectMapperTest<Stochastic, Sto
 
   @Override
   protected void whenExtraParameters(Stochastic model) {
-    Mockito.when(model.mainLine()).thenReturn(mainLine);
-    Mockito.when(model.signalLine()).thenReturn(signalLine);
+    Mockito.when(model.mainLine()).thenReturn(this.mainLine);
+    Mockito.when(model.signalLine()).thenReturn(this.signalLine);
   }
 
   @Override
   protected void whenExtraParameters(StochasticCreateDto createDto) {
-    Mockito.when(createDto.mainLine()).thenReturn(mainLine);
-    Mockito.when(createDto.signalLine()).thenReturn(signalLine);
+    Mockito.when(createDto.mainLine()).thenReturn(this.mainLine);
+    Mockito.when(createDto.signalLine()).thenReturn(this.signalLine);
   }
 
   @Override

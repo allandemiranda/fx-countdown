@@ -40,18 +40,18 @@ class IBandsMapperTest extends AbstractInputObjectMapperTest<IBands, IBandsDto, 
 
   @Override
   protected void whenExtraParameters(IBands model) {
-    Mockito.when(model.period()).thenReturn(period);
-    Mockito.when(model.shift()).thenReturn(shift);
-    Mockito.when(model.deviations()).thenReturn(deviations);
-    Mockito.when(model.applyTo()).thenReturn(applyTo);
+    Mockito.when(model.period()).thenReturn(this.period);
+    Mockito.when(model.shift()).thenReturn(this.shift);
+    Mockito.when(model.deviations()).thenReturn(this.deviations);
+    Mockito.when(model.applyTo()).thenReturn(this.applyTo);
   }
 
   @Override
   protected void whenExtraParameters(IBandsCreateDto createDto) {
-    Mockito.when(createDto.period()).thenReturn(period);
-    Mockito.when(createDto.shift()).thenReturn(shift);
-    Mockito.when(createDto.deviations()).thenReturn(deviations);
-    Mockito.when(createDto.applyTo()).thenReturn(applyTo);
+    Mockito.when(createDto.period()).thenReturn(this.period);
+    Mockito.when(createDto.shift()).thenReturn(this.shift);
+    Mockito.when(createDto.deviations()).thenReturn(this.deviations);
+    Mockito.when(createDto.applyTo()).thenReturn(this.applyTo);
   }
 
   @Override

@@ -33,12 +33,12 @@ class ATRMapperTest extends AbstractChartObjectMapperTest<ATR, ATRDto, ATRCreate
 
   @Override
   protected void whenExtraParameters(ATR model) {
-    Mockito.when(model.atr()).thenReturn(atr);
+    Mockito.when(model.atr()).thenReturn(this.atr);
   }
 
   @Override
   protected void whenExtraParameters(ATRCreateDto createDto) {
-    Mockito.when(createDto.atr()).thenReturn(atr);
+    Mockito.when(createDto.atr()).thenReturn(this.atr);
   }
 
   @Override

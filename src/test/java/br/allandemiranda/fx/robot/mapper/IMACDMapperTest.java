@@ -37,18 +37,18 @@ class IMACDMapperTest extends AbstractInputObjectMapperTest<IMACD, IMACDDto, IMA
 
   @Override
   protected void whenExtraParameters(IMACD model) {
-    Mockito.when(model.fastEma()).thenReturn(fastEma);
-    Mockito.when(model.slowEma()).thenReturn(slowEma);
-    Mockito.when(model.macdSma()).thenReturn(macdSma);
-    Mockito.when(model.applyTo()).thenReturn(applyTo);
+    Mockito.when(model.fastEma()).thenReturn(this.fastEma);
+    Mockito.when(model.slowEma()).thenReturn(this.slowEma);
+    Mockito.when(model.macdSma()).thenReturn(this.macdSma);
+    Mockito.when(model.applyTo()).thenReturn(this.applyTo);
   }
 
   @Override
   protected void whenExtraParameters(IMACDCreateDto createDto) {
-    Mockito.when(createDto.fastEma()).thenReturn(fastEma);
-    Mockito.when(createDto.slowEma()).thenReturn(slowEma);
-    Mockito.when(createDto.macdSma()).thenReturn(macdSma);
-    Mockito.when(createDto.applyTo()).thenReturn(applyTo);
+    Mockito.when(createDto.fastEma()).thenReturn(this.fastEma);
+    Mockito.when(createDto.slowEma()).thenReturn(this.slowEma);
+    Mockito.when(createDto.macdSma()).thenReturn(this.macdSma);
+    Mockito.when(createDto.applyTo()).thenReturn(this.applyTo);
   }
 
   @Override

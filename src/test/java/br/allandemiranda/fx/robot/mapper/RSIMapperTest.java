@@ -33,12 +33,12 @@ class RSIMapperTest extends AbstractChartObjectMapperTest<RSI, RSIDto, RSICreate
 
   @Override
   protected void whenExtraParameters(RSI model) {
-    Mockito.when(model.rsi()).thenReturn(rsi);
+    Mockito.when(model.rsi()).thenReturn(this.rsi);
   }
 
   @Override
   protected void whenExtraParameters(RSICreateDto createDto) {
-    Mockito.when(createDto.rsi()).thenReturn(rsi);
+    Mockito.when(createDto.rsi()).thenReturn(this.rsi);
   }
 
   @Override

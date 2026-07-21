@@ -31,7 +31,7 @@ class SymbolMapperTest {
     Mockito.when(symbol.point()).thenReturn(point);
     Mockito.when(symbol.swapLong()).thenReturn(swapLong);
     Mockito.when(symbol.swapShort()).thenReturn(swapShort);
-    SymbolDto symbolDto = symbolMapper.toDto(symbol);
+    SymbolDto symbolDto = this.symbolMapper.toDto(symbol);
 
     //then
     Assertions.assertNotNull(symbolDto);
@@ -55,7 +55,7 @@ class SymbolMapperTest {
     Mockito.when(symbolCreateDto.point()).thenReturn(point);
     Mockito.when(symbolCreateDto.swapLong()).thenReturn(swapLong);
     Mockito.when(symbolCreateDto.swapShort()).thenReturn(swapShort);
-    Symbol symbol = symbolMapper.toModel(symbolCreateDto);
+    Symbol symbol = this.symbolMapper.toModel(symbolCreateDto);
 
     //then
     Assertions.assertNotNull(symbol);

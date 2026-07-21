@@ -41,20 +41,20 @@ class IStochasticMapperTest extends AbstractInputObjectMapperTest<IStochastic, I
 
   @Override
   protected void whenExtraParameters(IStochastic model) {
-    Mockito.when(model.kPeriod()).thenReturn(kPeriod);
-    Mockito.when(model.dPeriod()).thenReturn(dPeriod);
-    Mockito.when(model.slowing()).thenReturn(slowing);
-    Mockito.when(model.method()).thenReturn(method);
-    Mockito.when(model.priceField()).thenReturn(priceField);
+    Mockito.when(model.kPeriod()).thenReturn(this.kPeriod);
+    Mockito.when(model.dPeriod()).thenReturn(this.dPeriod);
+    Mockito.when(model.slowing()).thenReturn(this.slowing);
+    Mockito.when(model.method()).thenReturn(this.method);
+    Mockito.when(model.priceField()).thenReturn(this.priceField);
   }
 
   @Override
   protected void whenExtraParameters(IStochasticCreateDto createDto) {
-    Mockito.when(createDto.kPeriod()).thenReturn(kPeriod);
-    Mockito.when(createDto.dPeriod()).thenReturn(dPeriod);
-    Mockito.when(createDto.slowing()).thenReturn(slowing);
-    Mockito.when(createDto.method()).thenReturn(method);
-    Mockito.when(createDto.priceField()).thenReturn(priceField);
+    Mockito.when(createDto.kPeriod()).thenReturn(this.kPeriod);
+    Mockito.when(createDto.dPeriod()).thenReturn(this.dPeriod);
+    Mockito.when(createDto.slowing()).thenReturn(this.slowing);
+    Mockito.when(createDto.method()).thenReturn(this.method);
+    Mockito.when(createDto.priceField()).thenReturn(this.priceField);
   }
 
   @Override

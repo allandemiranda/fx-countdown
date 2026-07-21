@@ -42,18 +42,18 @@ class CandlestickMapperTest extends AbstractChartObjectMapperTest<Candlestick, C
 
   @Override
   protected void whenExtraParameters(Candlestick model) {
-    Mockito.when(model.open()).thenReturn(open);
-    Mockito.when(model.high()).thenReturn(high);
-    Mockito.when(model.low()).thenReturn(low);
-    Mockito.when(model.close()).thenReturn(close);
+    Mockito.when(model.open()).thenReturn(this.open);
+    Mockito.when(model.high()).thenReturn(this.high);
+    Mockito.when(model.low()).thenReturn(this.low);
+    Mockito.when(model.close()).thenReturn(this.close);
   }
 
   @Override
   protected void whenExtraParameters(CandlestickCreateDto createDto) {
-    Mockito.when(createDto.open()).thenReturn(open);
-    Mockito.when(createDto.high()).thenReturn(high);
-    Mockito.when(createDto.low()).thenReturn(low);
-    Mockito.when(createDto.close()).thenReturn(close);
+    Mockito.when(createDto.open()).thenReturn(this.open);
+    Mockito.when(createDto.high()).thenReturn(this.high);
+    Mockito.when(createDto.low()).thenReturn(this.low);
+    Mockito.when(createDto.close()).thenReturn(this.close);
   }
 
   @Override

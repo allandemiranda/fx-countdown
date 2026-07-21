@@ -31,12 +31,12 @@ class IATRMapperTest extends AbstractInputObjectMapperTest<IATR, IATRDto, IATRCr
 
   @Override
   protected void whenExtraParameters(IATR model) {
-    Mockito.when(model.period()).thenReturn(period);
+    Mockito.when(model.period()).thenReturn(this.period);
   }
 
   @Override
   protected void whenExtraParameters(IATRCreateDto createDto) {
-    Mockito.when(createDto.period()).thenReturn(period);
+    Mockito.when(createDto.period()).thenReturn(this.period);
   }
 
   @Override

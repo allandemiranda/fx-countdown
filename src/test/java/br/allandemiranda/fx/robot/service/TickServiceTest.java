@@ -105,9 +105,7 @@ class TickServiceTest {
     Mockito.when(this.repository.findAllBySymbolName(symbolName)).thenReturn(Flux.empty());
 
     //then
-    StepVerifier.create(this.service.get(symbolDto).collectList()).assertNext(dtos -> {
-      Assertions.assertEquals(0, dtos.size());
-    }).verifyComplete();
+    StepVerifier.create(this.service.get(symbolDto).collectList()).assertNext(dtos -> Assertions.assertEquals(0, dtos.size())).verifyComplete();
   }
 
   @Test
@@ -119,7 +117,7 @@ class TickServiceTest {
 
     //when
     Mockito.doReturn(tick).when(mapper).toModel(Mockito.any(UUID.class), Mockito.eq(symbolDto), Mockito.eq(tickCreateDto));
-    Mockito.when(repository.save(tick)).thenReturn(Mono.just(tick));
+    Mockito.when(this.repository.save(tick)).thenReturn(Mono.just(tick));
 
     //then
     StepVerifier.create(this.service.create(symbolDto, tickCreateDto)).assertNext(Assertions::assertNotNull).verifyComplete();

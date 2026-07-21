@@ -31,12 +31,12 @@ class IADXMapperTest extends AbstractInputObjectMapperTest<IADX, IADXDto, IADXCr
 
   @Override
   protected void whenExtraParameters(IADX model) {
-    Mockito.when(model.period()).thenReturn(period);
+    Mockito.when(model.period()).thenReturn(this.period);
   }
 
   @Override
   protected void whenExtraParameters(IADXCreateDto createDto) {
-    Mockito.when(createDto.period()).thenReturn(period);
+    Mockito.when(createDto.period()).thenReturn(this.period);
   }
 
   @Override
