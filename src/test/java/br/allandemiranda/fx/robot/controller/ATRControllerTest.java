@@ -1,10 +1,11 @@
 package br.allandemiranda.fx.robot.controller;
 
+
 import br.allandemiranda.fx.robot.controller.contract.AbstractChartChartObjectControllerTest;
-import br.allandemiranda.fx.robot.dto.base.ADXDto;
-import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
-import br.allandemiranda.fx.robot.model.ADX;
-import br.allandemiranda.fx.robot.service.ADXService;
+import br.allandemiranda.fx.robot.dto.base.ATRDto;
+import br.allandemiranda.fx.robot.dto.create.ATRCreateDto;
+import br.allandemiranda.fx.robot.model.ATR;
+import br.allandemiranda.fx.robot.service.ATRService;
 import java.math.BigDecimal;
 import lombok.Getter;
 import org.mockito.Mock;
@@ -14,8 +15,8 @@ import org.springframework.boot.webflux.test.autoconfigure.WebFluxTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
-@WebFluxTest(controllers = ADXController.class)
-class ADXControllerTest extends AbstractChartChartObjectControllerTest<ADX, ADXDto, ADXCreateDto> {
+@WebFluxTest(controllers = ATRController.class)
+class ATRControllerTest extends AbstractChartChartObjectControllerTest<ATR, ATRDto, ATRCreateDto> {
 
   @Getter
   @Autowired
@@ -23,23 +24,22 @@ class ADXControllerTest extends AbstractChartChartObjectControllerTest<ADX, ADXD
 
   @Getter
   @Autowired
-  private ADXController controller;
+  private ATRController controller;
 
   @Mock
   @Getter
-  private ADXDto dto;
+  private ATRDto dto;
 
   @Mock
   @Getter
-  private ADXCreateDto createDto;
+  private ATRCreateDto createDto;
 
   @Getter
   @MockitoBean
-  private ADXService service;
+  private ATRService service;
 
+  @Override
   protected void setupCreateDto() {
-    Mockito.when(this.createDto.mainLine()).thenReturn(BigDecimal.ONE);
-    Mockito.when(this.createDto.plusDiLine()).thenReturn(BigDecimal.ONE);
-    Mockito.when(this.createDto.minusDiLine()).thenReturn(BigDecimal.ONE);
+    Mockito.when(this.createDto.atr()).thenReturn(BigDecimal.ONE);
   }
 }

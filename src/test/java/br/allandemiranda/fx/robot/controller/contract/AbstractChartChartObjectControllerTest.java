@@ -2,10 +2,8 @@ package br.allandemiranda.fx.robot.controller.contract;
 
 import br.allandemiranda.fx.robot.controller.advice.CodeResponseHandler;
 import br.allandemiranda.fx.robot.controller.advice.ViolationResponseHandler;
-import br.allandemiranda.fx.robot.dto.base.ADXDto;
 import br.allandemiranda.fx.robot.dto.base.ChartDto;
 import br.allandemiranda.fx.robot.dto.base.SymbolDto;
-import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.dto.definition.ChartObjectDto;
 import br.allandemiranda.fx.robot.dto.definition.CreateChartObjectDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
@@ -13,7 +11,6 @@ import br.allandemiranda.fx.robot.model.definition.ChartObjectModel;
 import br.allandemiranda.fx.robot.service.ChartService;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import br.allandemiranda.fx.robot.service.contract.ChartObjectService;
-import java.math.BigDecimal;
 import java.net.URI;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -44,6 +41,10 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
   protected abstract ChartObjectController<M, D, C> getController();
 
   protected abstract D getDto();
+
+  protected abstract C getCreateDto();
+
+  protected abstract void setupCreateDto();
 
   protected abstract ChartObjectService<M, D, C> getService();
 
@@ -76,7 +77,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
@@ -114,12 +115,12 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
         .expectStatus().isOk()
-        .expectBodyList(ADXDto.class)
+        .expectBodyList(this.getDto().getClass())
         .value(response -> {
           Assertions.assertNotNull(response);
           Assertions.assertEquals(0, response.size());
@@ -138,7 +139,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
@@ -162,7 +163,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
@@ -188,7 +189,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
@@ -232,12 +233,12 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
         .expectStatus().isOk()
-        .expectBody(ADXDto.class)
+        .expectBody(this.getDto().getClass())
         .value(response -> {
           Assertions.assertNotNull(response);
           Assertions.assertEquals(dto.id(), response.id());
@@ -283,12 +284,12 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
         .expectStatus().isOk()
-        .expectBody(ADXDto.class)
+        .expectBody(this.getDto().getClass())
         .value(response -> {
           Assertions.assertNotNull(response);
           Assertions.assertEquals(dto.id(), response.id());
@@ -315,7 +316,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -342,7 +343,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -371,7 +372,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -396,7 +397,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/adxs/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -471,10 +472,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     UUID chartId = UUID.randomUUID();
 
     OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
-    BigDecimal mainLine = BigDecimal.ONE;
-    BigDecimal plusDiLine = BigDecimal.ONE;
-    BigDecimal minusDiLine = BigDecimal.ONE;
-    ADXCreateDto createDto = new ADXCreateDto(timestamp, mainLine, plusDiLine, minusDiLine);
+    Mockito.when(this.getCreateDto().timestamp()).thenReturn(timestamp);
+    this.setupCreateDto();
 
     D dto = this.getDto();
     UUID dtoId = UUID.randomUUID();
@@ -496,15 +495,15 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     //then
     this.getWebTestClient()
         .post()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
-        .bodyValue(createDto)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .bodyValue(this.getCreateDto())
         .exchange()
         .expectStatus().isCreated()
-        .expectBody(ADXDto.class)
+        .expectBody(this.getDto().getClass())
         .value(response -> {
           Assertions.assertNotNull(response);
           Assertions.assertNotNull(response.id());
-          Assertions.assertEquals(createDto.timestamp(), response.timestamp());
+          Assertions.assertEquals(this.getCreateDto().timestamp(), response.timestamp());
 
           Assertions.assertNotNull(response.chartDto());
           Assertions.assertEquals(chartDto.id(), response.chartDto().id());
@@ -522,18 +521,16 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     Timeframe period = Timeframe.values()[0];
 
     OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
-    BigDecimal mainLine = BigDecimal.ONE;
-    BigDecimal plusDiLine = BigDecimal.ONE;
-    BigDecimal minusDiLine = BigDecimal.ONE;
-    ADXCreateDto createDto = new ADXCreateDto(timestamp, mainLine, plusDiLine, minusDiLine);
+    Mockito.when(this.getCreateDto().timestamp()).thenReturn(timestamp);
+    this.setupCreateDto();
 
     //when
     Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .post()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
-        .bodyValue(createDto)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .bodyValue(this.getCreateDto())
         .exchange()
 
         //then
@@ -555,10 +552,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
 
     OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
-    BigDecimal mainLine = BigDecimal.ONE;
-    BigDecimal plusDiLine = BigDecimal.ONE;
-    BigDecimal minusDiLine = BigDecimal.ONE;
-    ADXCreateDto createDto = new ADXCreateDto(timestamp, mainLine, plusDiLine, minusDiLine);
+    Mockito.when(this.getCreateDto().timestamp()).thenReturn(timestamp);
+    this.setupCreateDto();
 
     //when
     Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
@@ -566,8 +561,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .post()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
-        .bodyValue(createDto)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .bodyValue(this.getCreateDto())
         .exchange()
 
         //then
@@ -595,7 +590,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
@@ -624,12 +619,12 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
         .expectStatus().isNoContent()
-        .expectBodyList(ADXDto.class)
+        .expectBodyList(this.getDto().getClass())
         .value(response -> {
           Assertions.assertNotNull(response);
           Assertions.assertEquals(0, response.size());
@@ -649,7 +644,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
@@ -673,7 +668,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
@@ -699,7 +694,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/".concat(this.getController().getChartObjectName().toLowerCase().concat("s")), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
         .exchange()
 
         //then
