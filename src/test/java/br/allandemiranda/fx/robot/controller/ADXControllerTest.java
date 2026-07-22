@@ -37,6 +37,7 @@ class ADXControllerTest extends AbstractChartChartObjectControllerTest<ADX, ADXD
   @MockitoBean
   private ADXService service;
 
+  @Override
   protected void setupCreateDto() {
     Mockito.when(this.createDto.mainLine()).thenReturn(BigDecimal.ONE);
     Mockito.when(this.createDto.plusDiLine()).thenReturn(BigDecimal.ONE);
