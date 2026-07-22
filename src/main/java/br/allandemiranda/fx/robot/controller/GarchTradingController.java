@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/garch-tradings")
+@RequestMapping("symbols/{name}/timeframes/{period}/garch_tradings")
 public class GarchTradingController implements ChartObjectController<GarchTrading, GarchTradingDto, GarchTradingCreateDto> {
 
   private final SymbolService symbolService;

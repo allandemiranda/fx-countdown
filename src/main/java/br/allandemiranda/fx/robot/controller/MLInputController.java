@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/ml-inputs")
+@RequestMapping("symbols/{name}/timeframes/{period}/ml_inputs")
 public class MLInputController implements InputObjectController<MLInput, MLInputDto, MLInputCreateDto> {
 
   private final SymbolService symbolService;

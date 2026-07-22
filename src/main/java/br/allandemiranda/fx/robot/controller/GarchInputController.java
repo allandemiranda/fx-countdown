@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/garch-inputs")
+@RequestMapping("symbols/{name}/timeframes/{period}/garch_inputs")
 public class GarchInputController implements InputObjectController<GarchInput, GarchInputDto, GarchInputCreateDto> {
 
   private final SymbolService symbolService;

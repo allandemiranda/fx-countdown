@@ -16,6 +16,7 @@ import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
 import java.util.UUID;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.jspecify.annotations.NonNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -48,6 +49,10 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
   protected abstract ChartObjectService<M, D, C> getService();
 
+  private @NonNull String getObjectUri() {
+    return this.getController().getChartObjectName().toLowerCase().replace(' ', '_').concat("s");
+  }
+
   @Test
   void findAll_byNameAndPeriod_valid_existValues_returnFluxDto_test() {
     //given
@@ -77,7 +82,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -115,7 +120,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -139,7 +144,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -163,7 +168,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -189,7 +194,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -233,7 +238,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -284,7 +289,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -316,7 +321,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -343,7 +348,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -372,7 +377,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -397,7 +402,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -420,7 +425,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     //when
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -430,7 +435,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
           Assertions.assertNotNull(response);
           Assertions.assertEquals("Type mismatch.", response.getDetail());
           Assertions.assertNotNull(response.getInstance());
-          Assertions.assertEquals(URI.create(String.format("/symbols/%s/timeframes/%s/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/%s", name, period, timestamp)).toASCIIString(), response.getInstance().toASCIIString().replace("%3A", ":"));
+          Assertions.assertEquals(URI.create(String.format("/symbols/%s/timeframes/%s/" + this.getObjectUri() + "/%s", name, period, timestamp)).toASCIIString(), response.getInstance().toASCIIString().replace("%3A", ":"));
           Assertions.assertEquals(400, response.getStatus());
           Assertions.assertEquals("Bad Request", response.getTitle());
         });
@@ -446,7 +451,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     //when
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s") + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -495,7 +500,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     //then
     this.getWebTestClient()
         .post()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .bodyValue(this.getCreateDto())
         .exchange()
         .expectStatus().isCreated()
@@ -529,7 +534,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .post()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .bodyValue(this.getCreateDto())
         .exchange()
 
@@ -561,7 +566,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .post()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .bodyValue(this.getCreateDto())
         .exchange()
 
@@ -590,7 +595,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -619,7 +624,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -644,7 +649,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -668,7 +673,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -694,7 +699,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getController().getChartObjectName().toLowerCase().concat("s"), name, period)
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
