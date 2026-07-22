@@ -131,6 +131,34 @@ public abstract class InputObjectControllerTest<M extends InputObjectModel, D ex
   }
 
   @Test
+  void find_byNameAndPeriod_notExistTimestamp_returnNotFoundChartObject_test() {
+    //given
+    String name = "EURUSD";
+    Timeframe period = Timeframe.values()[0];
+    SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
+    ChartDto chartDto = Mockito.mock(ChartDto.class);
+
+    //when
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+    Mockito.when(this.getService().get(chartDto)).thenReturn(Mono.empty());
+
+    this.getWebTestClient()
+        .get()
+        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .exchange()
+
+        //then
+        .expectStatus().isNotFound()
+        .expectBody(CodeResponseHandler.class)
+        .value(response -> {
+          Assertions.assertNotNull(response);
+          Assertions.assertEquals("InputObjectNotFoundException", response.type());
+          Assertions.assertEquals("Input object not found: [" + name + ", " + period + ", " + this.getController().getInputObjectName() + "]", response.message());
+        });
+  }
+
+  @Test
   void find_byNameAndPeriod_notExistName_returnNotFoundSymbol_test() {
     //given
     String name = "EURUSD";
