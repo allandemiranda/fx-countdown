@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/imas_slows")
+@RequestMapping("symbols/{name}/timeframes/{period}/ima_slows")
 public class IMASlowController implements InputObjectController<IMASlow, IMASlowDto, IMASlowCreateDto> {
 
   private final SymbolService symbolService;
