@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.IADXCreateDto;
 import br.allandemiranda.fx.robot.mapper.IADXMapper;
 import br.allandemiranda.fx.robot.model.IADX;
 import br.allandemiranda.fx.robot.repository.IADXRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractInputObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.InputObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class IADXServiceTest extends AbstractInputObjectServiceTest<IADX, IADXDto, IADXCreateDto> {
+public class IADXServiceTest extends InputObjectServiceTest<IADX, IADXDto, IADXCreateDto> {
 
   @Mock
   @Getter

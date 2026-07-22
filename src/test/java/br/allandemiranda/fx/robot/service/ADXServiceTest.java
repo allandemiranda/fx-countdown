@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.mapper.ADXMapper;
 import br.allandemiranda.fx.robot.model.ADX;
 import br.allandemiranda.fx.robot.repository.ADXRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractChartObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.ChartObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class ADXServiceTest extends AbstractChartObjectServiceTest<ADX, ADXDto, ADXCreateDto> {
+class ADXServiceTest extends ChartObjectServiceTest<ADX, ADXDto, ADXCreateDto> {
 
   @Mock
   @Getter

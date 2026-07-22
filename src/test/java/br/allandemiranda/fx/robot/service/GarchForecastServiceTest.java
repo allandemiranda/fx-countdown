@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.GarchForecastCreateDto;
 import br.allandemiranda.fx.robot.mapper.GarchForecastMapper;
 import br.allandemiranda.fx.robot.model.GarchForecast;
 import br.allandemiranda.fx.robot.repository.GarchForecastRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractChartObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.ChartObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class GarchForecastServiceTest extends AbstractChartObjectServiceTest<GarchForecast, GarchForecastDto, GarchForecastCreateDto> {
+class GarchForecastServiceTest extends ChartObjectServiceTest<GarchForecast, GarchForecastDto, GarchForecastCreateDto> {
 
   @Mock
   @Getter

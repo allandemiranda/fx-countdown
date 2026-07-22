@@ -25,7 +25,7 @@ public class IRSIController implements InputObjectController<IRSI, IRSIDto, IRSI
   private final IRSIService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "iRSI";
   }
 

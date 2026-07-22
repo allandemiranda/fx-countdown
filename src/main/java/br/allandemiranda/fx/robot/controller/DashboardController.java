@@ -25,7 +25,7 @@ public class DashboardController implements InputObjectController<Dashboard, Das
   private final DashboardService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "dashboard";
   }
 

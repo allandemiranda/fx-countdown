@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.controller.contract.AbstractChartChartObjectControllerTest;
+import br.allandemiranda.fx.robot.controller.contract.ChartChartObjectControllerTest;
 import br.allandemiranda.fx.robot.dto.base.ADXDto;
 import br.allandemiranda.fx.robot.dto.create.ADXCreateDto;
 import br.allandemiranda.fx.robot.model.ADX;
@@ -15,7 +15,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @WebFluxTest(controllers = ADXController.class)
-class ADXControllerTest extends AbstractChartChartObjectControllerTest<ADX, ADXDto, ADXCreateDto> {
+class ADXControllerTest extends ChartChartObjectControllerTest<ADX, ADXDto, ADXCreateDto> {
 
   @Getter
   @Autowired

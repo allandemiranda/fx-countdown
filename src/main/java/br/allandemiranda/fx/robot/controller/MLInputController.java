@@ -25,7 +25,7 @@ public class MLInputController implements InputObjectController<MLInput, MLInput
   private final MLInputService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "ML input";
   }
 

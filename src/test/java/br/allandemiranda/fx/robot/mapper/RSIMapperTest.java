@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.RSIDto;
 import br.allandemiranda.fx.robot.dto.create.RSICreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractChartObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapperTest;
 import br.allandemiranda.fx.robot.model.RSI;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class RSIMapperTest extends AbstractChartObjectMapperTest<RSI, RSIDto, RSICreateDto> {
+class RSIMapperTest extends ChartObjectMapperTest<RSI, RSIDto, RSICreateDto> {
 
   @InjectMocks
   @Getter

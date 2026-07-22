@@ -3,7 +3,7 @@ package br.allandemiranda.fx.robot.mapper;
 import br.allandemiranda.fx.robot.dto.base.IMACDDto;
 import br.allandemiranda.fx.robot.dto.create.IMACDCreateDto;
 import br.allandemiranda.fx.robot.enums.AppliedPrice;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractInputObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapperTest;
 import br.allandemiranda.fx.robot.model.IMACD;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class IMACDMapperTest extends AbstractInputObjectMapperTest<IMACD, IMACDDto, IMACDCreateDto> {
+class IMACDMapperTest extends InputObjectMapperTest<IMACD, IMACDDto, IMACDCreateDto> {
 
   private final short fastEma = 1;
   private final short slowEma = 2;

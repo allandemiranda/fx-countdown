@@ -9,8 +9,6 @@ import br.allandemiranda.fx.robot.exception.impl.ChartNotFoundException;
 import br.allandemiranda.fx.robot.exception.impl.ChartObjectNotFoundException;
 import br.allandemiranda.fx.robot.exception.impl.SymbolNotFoundException;
 import br.allandemiranda.fx.robot.model.definition.ChartObjectModel;
-import br.allandemiranda.fx.robot.service.ChartService;
-import br.allandemiranda.fx.robot.service.SymbolService;
 import br.allandemiranda.fx.robot.service.contract.ChartObjectService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -31,11 +29,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Validated
-public interface ChartObjectController<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto> {
-
-  SymbolService getSymbolService();
-
-  ChartService getChartService();
+public interface ChartObjectController<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto> extends EssentialServices {
 
   ChartObjectService<M, D, C> getService();
 

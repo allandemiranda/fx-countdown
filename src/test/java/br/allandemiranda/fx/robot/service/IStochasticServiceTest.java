@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.IStochasticCreateDto;
 import br.allandemiranda.fx.robot.mapper.IStochasticMapper;
 import br.allandemiranda.fx.robot.model.IStochastic;
 import br.allandemiranda.fx.robot.repository.IStochasticRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractInputObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.InputObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class IStochasticServiceTest extends AbstractInputObjectServiceTest<IStochastic, IStochasticDto, IStochasticCreateDto> {
+public class IStochasticServiceTest extends InputObjectServiceTest<IStochastic, IStochasticDto, IStochasticCreateDto> {
 
   @Mock
   @Getter

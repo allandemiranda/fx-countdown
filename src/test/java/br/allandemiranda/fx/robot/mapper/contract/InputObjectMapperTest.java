@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public abstract class AbstractInputObjectMapperTest<M extends InputObjectModel, D extends InputObjectDto, C extends CreateInputObjectDto> {
+public abstract class InputObjectMapperTest<M extends InputObjectModel, D extends InputObjectDto, C extends CreateInputObjectDto> {
 
   protected abstract InputObjectMapper<M, D, C> getMapper();
 

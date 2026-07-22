@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.IRSICreateDto;
 import br.allandemiranda.fx.robot.mapper.IRSIMapper;
 import br.allandemiranda.fx.robot.model.IRSI;
 import br.allandemiranda.fx.robot.repository.IRSIRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractInputObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.InputObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class IRSIServiceTest extends AbstractInputObjectServiceTest<IRSI, IRSIDto, IRSICreateDto> {
+public class IRSIServiceTest extends InputObjectServiceTest<IRSI, IRSIDto, IRSICreateDto> {
 
   @Mock
   @Getter

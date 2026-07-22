@@ -3,7 +3,7 @@ package br.allandemiranda.fx.robot.mapper;
 import br.allandemiranda.fx.robot.dto.base.IBandsDto;
 import br.allandemiranda.fx.robot.dto.create.IBandsCreateDto;
 import br.allandemiranda.fx.robot.enums.AppliedPrice;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractInputObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapperTest;
 import br.allandemiranda.fx.robot.model.IBands;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class IBandsMapperTest extends AbstractInputObjectMapperTest<IBands, IBandsDto, IBandsCreateDto> {
+class IBandsMapperTest extends InputObjectMapperTest<IBands, IBandsDto, IBandsCreateDto> {
 
   private final short period = 1;
   private final short shift = 2;

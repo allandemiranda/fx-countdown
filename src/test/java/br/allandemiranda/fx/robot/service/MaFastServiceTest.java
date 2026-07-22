@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.MaFastCreateDto;
 import br.allandemiranda.fx.robot.mapper.MaFastMapper;
 import br.allandemiranda.fx.robot.model.MaFast;
 import br.allandemiranda.fx.robot.repository.MaFastRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractChartObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.ChartObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class MaFastServiceTest extends AbstractChartObjectServiceTest<MaFast, MaFastDto, MaFastCreateDto> {
+class MaFastServiceTest extends ChartObjectServiceTest<MaFast, MaFastDto, MaFastCreateDto> {
 
   @Mock
   @Getter

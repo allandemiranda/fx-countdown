@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.GarchTradingCreateDto;
 import br.allandemiranda.fx.robot.mapper.GarchTradingMapper;
 import br.allandemiranda.fx.robot.model.GarchTrading;
 import br.allandemiranda.fx.robot.repository.GarchTradingRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractChartObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.ChartObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class GarchTradingServiceTest extends AbstractChartObjectServiceTest<GarchTrading, GarchTradingDto, GarchTradingCreateDto> {
+class GarchTradingServiceTest extends ChartObjectServiceTest<GarchTrading, GarchTradingDto, GarchTradingCreateDto> {
 
   @Mock
   @Getter

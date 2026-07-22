@@ -4,7 +4,7 @@ import br.allandemiranda.fx.robot.dto.base.IStochasticDto;
 import br.allandemiranda.fx.robot.dto.create.IStochasticCreateDto;
 import br.allandemiranda.fx.robot.enums.PriceField;
 import br.allandemiranda.fx.robot.enums.SmoothingMethod;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractInputObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapperTest;
 import br.allandemiranda.fx.robot.model.IStochastic;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class IStochasticMapperTest extends AbstractInputObjectMapperTest<IStochastic, IStochasticDto, IStochasticCreateDto> {
+class IStochasticMapperTest extends InputObjectMapperTest<IStochastic, IStochasticDto, IStochasticCreateDto> {
 
   private final short kPeriod = 1;
   private final short dPeriod = 2;

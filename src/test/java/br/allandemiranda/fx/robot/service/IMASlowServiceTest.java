@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.IMASlowCreateDto;
 import br.allandemiranda.fx.robot.mapper.IMASlowMapper;
 import br.allandemiranda.fx.robot.model.IMASlow;
 import br.allandemiranda.fx.robot.repository.IMASlowRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractInputObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.InputObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class IMASlowServiceTest extends AbstractInputObjectServiceTest<IMASlow, IMASlowDto, IMASlowCreateDto> {
+public class IMASlowServiceTest extends InputObjectServiceTest<IMASlow, IMASlowDto, IMASlowCreateDto> {
 
   @Mock
   @Getter

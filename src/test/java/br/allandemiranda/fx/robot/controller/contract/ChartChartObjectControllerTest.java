@@ -8,8 +8,6 @@ import br.allandemiranda.fx.robot.dto.definition.ChartObjectDto;
 import br.allandemiranda.fx.robot.dto.definition.CreateChartObjectDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.model.definition.ChartObjectModel;
-import br.allandemiranda.fx.robot.service.ChartService;
-import br.allandemiranda.fx.robot.service.SymbolService;
 import br.allandemiranda.fx.robot.service.contract.ChartObjectService;
 import java.net.URI;
 import java.time.OffsetDateTime;
@@ -23,19 +21,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ProblemDetail;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @ExtendWith(MockitoExtension.class)
-public abstract class AbstractChartChartObjectControllerTest<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto> {
-
-  @MockitoBean
-  private SymbolService symbolService;
-
-  @MockitoBean
-  private ChartService chartService;
+public abstract class ChartChartObjectControllerTest<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto> extends EssentialServicesTest {
 
   protected abstract WebTestClient getWebTestClient();
 
@@ -69,12 +60,12 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     //when
     Mockito.when(symbolDto.name()).thenReturn(name);
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
 
     Mockito.when(chartDto.id()).thenReturn(chartId);
     Mockito.when(chartDto.symbol()).thenReturn(symbolDto);
     Mockito.when(chartDto.period()).thenReturn(period);
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.just(chartDto));
 
     Mockito.when(dto.id()).thenReturn(dtoId);
     Mockito.when(dto.chartDto()).thenReturn(chartDto);
@@ -114,8 +105,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     ChartDto chartDto = Mockito.mock(ChartDto.class);
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.just(chartDto));
     Mockito.when(this.getService().get(chartDto)).thenReturn(Flux.empty());
 
     this.getWebTestClient()
@@ -140,7 +131,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     Timeframe period = Timeframe.values()[0];
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .get()
@@ -164,7 +155,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     Timeframe period = Timeframe.values()[0];
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .get()
@@ -189,8 +180,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .get()
@@ -224,12 +215,12 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     //when
     Mockito.when(symbolDto.name()).thenReturn(name);
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
 
     Mockito.when(chartDto.id()).thenReturn(chartId);
     Mockito.when(chartDto.symbol()).thenReturn(symbolDto);
     Mockito.when(chartDto.period()).thenReturn(period);
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.just(chartDto));
 
     Mockito.when(dto.id()).thenReturn(dtoId);
     Mockito.when(dto.chartDto()).thenReturn(chartDto);
@@ -275,12 +266,12 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     //when
     Mockito.when(symbolDto.name()).thenReturn(name);
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
 
     Mockito.when(chartDto.id()).thenReturn(chartId);
     Mockito.when(chartDto.symbol()).thenReturn(symbolDto);
     Mockito.when(chartDto.period()).thenReturn(period);
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.just(chartDto));
 
     Mockito.when(dto.id()).thenReturn(dtoId);
     Mockito.when(dto.chartDto()).thenReturn(chartDto);
@@ -317,7 +308,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .get()
@@ -343,8 +334,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .get()
@@ -371,8 +362,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     ChartDto chartDto = Mockito.mock(ChartDto.class);
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.just(chartDto));
     Mockito.when(this.getService().get(chartDto, timestamp)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
@@ -398,7 +389,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     OffsetDateTime timestamp = OffsetDateTime.now(ZoneOffset.UTC);
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .get()
@@ -485,12 +476,12 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
 
     //when
     Mockito.when(symbolDto.name()).thenReturn(name);
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
 
     Mockito.when(chartDto.id()).thenReturn(chartId);
     Mockito.when(chartDto.symbol()).thenReturn(symbolDto);
     Mockito.when(chartDto.period()).thenReturn(period);
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.just(chartDto));
 
     Mockito.when(dto.id()).thenReturn(dtoId);
     Mockito.when(dto.chartDto()).thenReturn(chartDto);
@@ -530,7 +521,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     this.setupCreateDto();
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .post()
@@ -561,8 +552,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     this.setupCreateDto();
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .post()
@@ -589,8 +580,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     ChartDto chartDto = Mockito.mock(ChartDto.class);
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.just(chartDto));
     Mockito.when(this.getService().delete(chartDto)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
@@ -618,8 +609,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     ChartDto chartDto = Mockito.mock(ChartDto.class);
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.just(chartDto));
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.just(chartDto));
     Mockito.when(this.getService().delete(chartDto)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
@@ -645,7 +636,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     Timeframe period = Timeframe.values()[0];
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .delete()
@@ -669,7 +660,7 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     Timeframe period = Timeframe.values()[0];
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .delete()
@@ -694,8 +685,8 @@ public abstract class AbstractChartChartObjectControllerTest<M extends ChartObje
     SymbolDto symbolDto = Mockito.mock(SymbolDto.class);
 
     //when
-    Mockito.when(this.symbolService.get(name)).thenReturn(Mono.just(symbolDto));
-    Mockito.when(this.chartService.get(symbolDto, period)).thenReturn(Mono.empty());
+    Mockito.when(this.getSymbolService().get(name)).thenReturn(Mono.just(symbolDto));
+    Mockito.when(this.getChartService().get(symbolDto, period)).thenReturn(Mono.empty());
 
     this.getWebTestClient()
         .get()

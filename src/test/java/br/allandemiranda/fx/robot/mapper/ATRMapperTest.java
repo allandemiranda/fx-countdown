@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.ATRDto;
 import br.allandemiranda.fx.robot.dto.create.ATRCreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractChartObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapperTest;
 import br.allandemiranda.fx.robot.model.ATR;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class ATRMapperTest extends AbstractChartObjectMapperTest<ATR, ATRDto, ATRCreateDto> {
+class ATRMapperTest extends ChartObjectMapperTest<ATR, ATRDto, ATRCreateDto> {
 
   @InjectMocks
   @Getter

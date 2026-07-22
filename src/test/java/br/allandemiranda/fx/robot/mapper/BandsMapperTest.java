@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.BandsDto;
 import br.allandemiranda.fx.robot.dto.create.BandsCreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractChartObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapperTest;
 import br.allandemiranda.fx.robot.model.Bands;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class BandsMapperTest extends AbstractChartObjectMapperTest<Bands, BandsDto, BandsCreateDto> {
+class BandsMapperTest extends ChartObjectMapperTest<Bands, BandsDto, BandsCreateDto> {
 
   @InjectMocks
   @Getter

@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.GarchInputDto;
 import br.allandemiranda.fx.robot.dto.create.GarchInputCreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractInputObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapperTest;
 import br.allandemiranda.fx.robot.model.GarchInput;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class GarchInputMapperTest extends AbstractInputObjectMapperTest<GarchInput, GarchInputDto, GarchInputCreateDto> {
+class GarchInputMapperTest extends InputObjectMapperTest<GarchInput, GarchInputDto, GarchInputCreateDto> {
 
   private final int horizon = 1;
   private final int priceSize = 2;

@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.CandlestickDto;
 import br.allandemiranda.fx.robot.dto.create.CandlestickCreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractChartObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapperTest;
 import br.allandemiranda.fx.robot.model.Candlestick;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class CandlestickMapperTest extends AbstractChartObjectMapperTest<Candlestick, CandlestickDto, CandlestickCreateDto> {
+class CandlestickMapperTest extends ChartObjectMapperTest<Candlestick, CandlestickDto, CandlestickCreateDto> {
 
   @InjectMocks
   @Getter

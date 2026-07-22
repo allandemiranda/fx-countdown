@@ -25,7 +25,7 @@ public class IMACDController implements InputObjectController<IMACD, IMACDDto, I
   private final IMACDService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "iMACD";
   }
 

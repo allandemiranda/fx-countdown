@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
 @ExtendWith(MockitoExtension.class)
-public abstract class AbstractInputObjectServiceTest<M extends InputObjectModel, D extends InputObjectDto, C extends CreateInputObjectDto> {
+public abstract class InputObjectServiceTest<M extends InputObjectModel, D extends InputObjectDto, C extends CreateInputObjectDto> {
 
   @Mock
   private ChartDto chartDto;

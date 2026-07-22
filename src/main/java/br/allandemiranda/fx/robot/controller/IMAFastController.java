@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/imas_fast")
+@RequestMapping("symbols/{name}/timeframes/{period}/imas_fasts")
 public class IMAFastController implements InputObjectController<IMAFast, IMAFastDto, IMAFastCreateDto> {
 
   private final SymbolService symbolService;
@@ -25,7 +25,7 @@ public class IMAFastController implements InputObjectController<IMAFast, IMAFast
   private final IMAFastService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "iMA fast";
   }
 

@@ -25,7 +25,7 @@ public class GarchInputController implements InputObjectController<GarchInput, G
   private final GarchInputService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "garch input";
   }
 

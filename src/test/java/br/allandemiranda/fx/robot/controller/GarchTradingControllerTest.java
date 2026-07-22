@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.controller.contract.AbstractChartChartObjectControllerTest;
+import br.allandemiranda.fx.robot.controller.contract.ChartChartObjectControllerTest;
 import br.allandemiranda.fx.robot.dto.base.GarchTradingDto;
 import br.allandemiranda.fx.robot.dto.create.GarchTradingCreateDto;
 import br.allandemiranda.fx.robot.model.GarchTrading;
@@ -15,7 +15,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @WebFluxTest(controllers = GarchTradingController.class)
-class GarchTradingControllerTest extends AbstractChartChartObjectControllerTest<GarchTrading, GarchTradingDto, GarchTradingCreateDto> {
+class GarchTradingControllerTest extends ChartChartObjectControllerTest<GarchTrading, GarchTradingDto, GarchTradingCreateDto> {
 
   @Getter
   @Autowired

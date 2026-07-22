@@ -3,7 +3,7 @@ package br.allandemiranda.fx.robot.mapper;
 import br.allandemiranda.fx.robot.dto.base.DashboardDto;
 import br.allandemiranda.fx.robot.dto.create.DashboardCreateDto;
 import br.allandemiranda.fx.robot.enums.DashboardStatus;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractInputObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapperTest;
 import br.allandemiranda.fx.robot.model.Dashboard;
 import java.time.OffsetDateTime;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class DashboardMapperTest extends AbstractInputObjectMapperTest<Dashboard, DashboardDto, DashboardCreateDto> {
+class DashboardMapperTest extends InputObjectMapperTest<Dashboard, DashboardDto, DashboardCreateDto> {
 
   @InjectMocks
   @Getter

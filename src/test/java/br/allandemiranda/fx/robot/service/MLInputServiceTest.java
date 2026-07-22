@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.MLInputCreateDto;
 import br.allandemiranda.fx.robot.mapper.MLInputMapper;
 import br.allandemiranda.fx.robot.model.MLInput;
 import br.allandemiranda.fx.robot.repository.MLInputRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractInputObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.InputObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class MLInputServiceTest extends AbstractInputObjectServiceTest<MLInput, MLInputDto, MLInputCreateDto> {
+public class MLInputServiceTest extends InputObjectServiceTest<MLInput, MLInputDto, MLInputCreateDto> {
 
   @Mock
   @Getter

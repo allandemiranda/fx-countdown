@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.IATRDto;
 import br.allandemiranda.fx.robot.dto.create.IATRCreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractInputObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapperTest;
 import br.allandemiranda.fx.robot.model.IATR;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class IATRMapperTest extends AbstractInputObjectMapperTest<IATR, IATRDto, IATRCreateDto> {
+class IATRMapperTest extends InputObjectMapperTest<IATR, IATRDto, IATRCreateDto> {
 
   private final short period = 1;
 

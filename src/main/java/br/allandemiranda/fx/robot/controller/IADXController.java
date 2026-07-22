@@ -25,7 +25,7 @@ public class IADXController implements InputObjectController<IADX, IADXDto, IADX
   private final IADXService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "iADX";
   }
 

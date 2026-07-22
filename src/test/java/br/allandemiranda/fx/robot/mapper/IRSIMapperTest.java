@@ -3,7 +3,7 @@ package br.allandemiranda.fx.robot.mapper;
 import br.allandemiranda.fx.robot.dto.base.IRSIDto;
 import br.allandemiranda.fx.robot.dto.create.IRSICreateDto;
 import br.allandemiranda.fx.robot.enums.AppliedPrice;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractInputObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapperTest;
 import br.allandemiranda.fx.robot.model.IRSI;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class IRSIMapperTest extends AbstractInputObjectMapperTest<IRSI, IRSIDto, IRSICreateDto> {
+class IRSIMapperTest extends InputObjectMapperTest<IRSI, IRSIDto, IRSICreateDto> {
 
   private final short period = 1;
 

@@ -25,7 +25,7 @@ public class IATRController implements InputObjectController<IATR, IATRDto, IATR
   private final IATRService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "iATR";
   }
 

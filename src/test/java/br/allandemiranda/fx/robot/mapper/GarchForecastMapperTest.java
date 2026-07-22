@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.GarchForecastDto;
 import br.allandemiranda.fx.robot.dto.create.GarchForecastCreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractChartObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapperTest;
 import br.allandemiranda.fx.robot.model.GarchForecast;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class GarchForecastMapperTest extends AbstractChartObjectMapperTest<GarchForecast, GarchForecastDto, GarchForecastCreateDto> {
+class GarchForecastMapperTest extends ChartObjectMapperTest<GarchForecast, GarchForecastDto, GarchForecastCreateDto> {
 
   @InjectMocks
   @Getter

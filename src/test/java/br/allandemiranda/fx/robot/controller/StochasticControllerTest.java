@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.controller.contract.AbstractChartChartObjectControllerTest;
+import br.allandemiranda.fx.robot.controller.contract.ChartChartObjectControllerTest;
 import br.allandemiranda.fx.robot.dto.base.StochasticDto;
 import br.allandemiranda.fx.robot.dto.create.StochasticCreateDto;
 import br.allandemiranda.fx.robot.model.Stochastic;
@@ -15,7 +15,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @WebFluxTest(controllers = StochasticController.class)
-class StochasticControllerTest extends AbstractChartChartObjectControllerTest<Stochastic, StochasticDto, StochasticCreateDto> {
+class StochasticControllerTest extends ChartChartObjectControllerTest<Stochastic, StochasticDto, StochasticCreateDto> {
 
   @Getter
   @Autowired

@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.IMACDCreateDto;
 import br.allandemiranda.fx.robot.mapper.IMACDMapper;
 import br.allandemiranda.fx.robot.model.IMACD;
 import br.allandemiranda.fx.robot.repository.IMACDRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractInputObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.InputObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public class IMACDServiceTest extends AbstractInputObjectServiceTest<IMACD, IMACDDto, IMACDCreateDto> {
+public class IMACDServiceTest extends InputObjectServiceTest<IMACD, IMACDDto, IMACDCreateDto> {
 
   @Mock
   @Getter

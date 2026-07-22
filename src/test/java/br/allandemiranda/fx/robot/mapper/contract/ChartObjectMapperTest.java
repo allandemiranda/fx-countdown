@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-public abstract class AbstractChartObjectMapperTest<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto> {
+public abstract class ChartObjectMapperTest<M extends ChartObjectModel, D extends ChartObjectDto, C extends CreateChartObjectDto> {
 
   protected abstract M getModel();
 

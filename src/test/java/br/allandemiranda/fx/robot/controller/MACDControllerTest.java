@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.controller.contract.AbstractChartChartObjectControllerTest;
+import br.allandemiranda.fx.robot.controller.contract.ChartChartObjectControllerTest;
 import br.allandemiranda.fx.robot.dto.base.MACDDto;
 import br.allandemiranda.fx.robot.dto.create.MACDCreateDto;
 import br.allandemiranda.fx.robot.model.MACD;
@@ -15,7 +15,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @WebFluxTest(controllers = MACDController.class)
-class MACDControllerTest extends AbstractChartChartObjectControllerTest<MACD, MACDDto, MACDCreateDto> {
+class MACDControllerTest extends ChartChartObjectControllerTest<MACD, MACDDto, MACDCreateDto> {
 
   @Getter
   @Autowired

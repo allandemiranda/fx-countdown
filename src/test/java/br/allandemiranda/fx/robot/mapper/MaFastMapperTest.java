@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.MaFastDto;
 import br.allandemiranda.fx.robot.dto.create.MaFastCreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractChartObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapperTest;
 import br.allandemiranda.fx.robot.model.MaFast;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class MaFastMapperTest extends AbstractChartObjectMapperTest<MaFast, MaFastDto, MaFastCreateDto> {
+class MaFastMapperTest extends ChartObjectMapperTest<MaFast, MaFastDto, MaFastCreateDto> {
 
   @InjectMocks
   @Getter

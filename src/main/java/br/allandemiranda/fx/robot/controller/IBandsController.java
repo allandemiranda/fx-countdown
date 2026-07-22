@@ -25,7 +25,7 @@ public class IBandsController implements InputObjectController<IBands, IBandsDto
   private final IBandsService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "iBands";
   }
 

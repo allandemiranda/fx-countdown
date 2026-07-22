@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.StochasticDto;
 import br.allandemiranda.fx.robot.dto.create.StochasticCreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractChartObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.ChartObjectMapperTest;
 import br.allandemiranda.fx.robot.model.Stochastic;
 import java.math.BigDecimal;
 import lombok.Getter;
@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class StochasticMapperTest extends AbstractChartObjectMapperTest<Stochastic, StochasticDto, StochasticCreateDto> {
+class StochasticMapperTest extends ChartObjectMapperTest<Stochastic, StochasticDto, StochasticCreateDto> {
 
   @InjectMocks
   @Getter

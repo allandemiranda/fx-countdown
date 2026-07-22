@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.base.MLInputDto;
 import br.allandemiranda.fx.robot.dto.create.MLInputCreateDto;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractInputObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapperTest;
 import br.allandemiranda.fx.robot.model.MLInput;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
@@ -13,7 +13,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class MLInputMapperTest extends AbstractInputObjectMapperTest<MLInput, MLInputDto, MLInputCreateDto> {
+class MLInputMapperTest extends InputObjectMapperTest<MLInput, MLInputDto, MLInputCreateDto> {
 
   private final int chartObjectNum = 1;
   private final int maxDepth = 2;

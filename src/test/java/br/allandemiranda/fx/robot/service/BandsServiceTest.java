@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.BandsCreateDto;
 import br.allandemiranda.fx.robot.mapper.BandsMapper;
 import br.allandemiranda.fx.robot.model.Bands;
 import br.allandemiranda.fx.robot.repository.BandsRepository;
-import br.allandemiranda.fx.robot.service.contract.AbstractChartObjectServiceTest;
+import br.allandemiranda.fx.robot.service.contract.ChartObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +14,7 @@ import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class BandsServiceTest extends AbstractChartObjectServiceTest<Bands, BandsDto, BandsCreateDto> {
+class BandsServiceTest extends ChartObjectServiceTest<Bands, BandsDto, BandsCreateDto> {
 
   @Mock
   @Getter

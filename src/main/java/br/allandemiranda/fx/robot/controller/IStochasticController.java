@@ -25,7 +25,7 @@ public class IStochasticController implements InputObjectController<IStochastic,
   private final IStochasticService service;
 
   @Override
-  public String getChartObjectName() {
+  public String getInputObjectName() {
     return "iStochastic";
   }
 

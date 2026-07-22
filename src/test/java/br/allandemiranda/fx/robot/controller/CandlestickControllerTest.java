@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.controller.contract.AbstractChartChartObjectControllerTest;
+import br.allandemiranda.fx.robot.controller.contract.ChartChartObjectControllerTest;
 import br.allandemiranda.fx.robot.dto.base.CandlestickDto;
 import br.allandemiranda.fx.robot.dto.create.CandlestickCreateDto;
 import br.allandemiranda.fx.robot.model.Candlestick;
@@ -15,7 +15,7 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 @WebFluxTest(controllers = CandlestickController.class)
-class CandlestickControllerTest extends AbstractChartChartObjectControllerTest<Candlestick, CandlestickDto, CandlestickCreateDto> {
+class CandlestickControllerTest extends ChartChartObjectControllerTest<Candlestick, CandlestickDto, CandlestickCreateDto> {
 
   @Getter
   @Autowired

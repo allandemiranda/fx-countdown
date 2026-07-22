@@ -4,7 +4,7 @@ import br.allandemiranda.fx.robot.dto.base.IMASlowDto;
 import br.allandemiranda.fx.robot.dto.create.IMASlowCreateDto;
 import br.allandemiranda.fx.robot.enums.AppliedPrice;
 import br.allandemiranda.fx.robot.enums.SmoothingMethod;
-import br.allandemiranda.fx.robot.mapper.contract.AbstractInputObjectMapperTest;
+import br.allandemiranda.fx.robot.mapper.contract.InputObjectMapperTest;
 import br.allandemiranda.fx.robot.model.IMASlow;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +15,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class IMASlowMapperTest extends AbstractInputObjectMapperTest<IMASlow, IMASlowDto, IMASlowCreateDto> {
+class IMASlowMapperTest extends InputObjectMapperTest<IMASlow, IMASlowDto, IMASlowCreateDto> {
 
   private final short period = 1;
   private final short shift = 2;
