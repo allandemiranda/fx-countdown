@@ -12,7 +12,6 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,25 +44,25 @@ public class TickController {
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
-  public Flux<TickDto> findAll(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
+  public Flux<TickDto> findAll(@PathVariable @NotNull @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
     return this.getSymbol(name).flatMapMany(symbolDto -> this.getTickService().get(symbolDto));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/{timestamp}", produces = "application/json")
-  public Mono<TickDto> find(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @PastOrPresent @Valid OffsetDateTime timestamp) {
+  public Mono<TickDto> find(@PathVariable @NotNull @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @PastOrPresent @Valid OffsetDateTime timestamp) {
     return this.getSymbol(name).flatMap(symbolDto -> this.getTickService().get(symbolDto, timestamp)).switchIfEmpty(Mono.error(() -> new TickNotFoundException(name, timestamp)));
   }
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
-  public Mono<TickDto> create(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name, @RequestBody @Valid TickCreateDto tickCreateDto) {
+  public Mono<TickDto> create(@PathVariable @NotNull @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name, @RequestBody @Valid TickCreateDto tickCreateDto) {
     return this.getSymbol(name).flatMap(symbolDto -> this.getTickService().create(symbolDto, tickCreateDto));
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(produces = "application/json")
-  public Mono<Void> deleteAll(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
+  public Mono<Void> deleteAll(@PathVariable @NotNull @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
     return this.getSymbol(name).flatMap(symbolDto -> this.getTickService().delete(symbolDto));
   }
 

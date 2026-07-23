@@ -5,11 +5,7 @@ import br.allandemiranda.fx.robot.dto.create.SymbolCreateDto;
 import br.allandemiranda.fx.robot.exception.impl.SymbolNotFoundException;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.jspecify.annotations.NonNull;
@@ -47,19 +43,19 @@ public class SymbolController {
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/{name}", produces = "application/json")
-  public Mono<SymbolDto> find(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
+  public Mono<SymbolDto> find(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
     return this.getSymbolDto(name);
   }
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public Mono<SymbolDto> create(@RequestBody @Valid SymbolCreateDto symbolCreateDto) {
-    return this.getSymbolService().create(symbolCreateDto);
+    return this.getSymbolService().create(symbolCreateDto).switchIfEmpty(Mono.error(IllegalStateException::new));
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(path = "/{name}", produces = "application/json")
-  public Mono<Void> deleteAll(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
+  public Mono<Void> delete(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
     return this.getSymbolDto(name).flatMap(symbolDto -> this.getSymbolService().delete(symbolDto.name()));
   }
 

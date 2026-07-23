@@ -15,6 +15,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 import java.time.OffsetDateTime;
 import org.jspecify.annotations.NonNull;
 import org.springframework.http.HttpStatus;
@@ -49,25 +50,25 @@ public interface ChartObjectController<M extends ChartObjectModel, D extends Cha
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
-  default Flux<D> findAll(@PathVariable String name, @PathVariable Timeframe period) {
+  default Flux<D> findAll(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period) {
     return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMapMany(dto -> this.getService().get(dto));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/{timestamp}", produces = "application/json")
-  default Mono<D> find(@PathVariable String name, @PathVariable Timeframe period, @PathVariable @NotNull @PastOrPresent @Valid OffsetDateTime timestamp) {
+  default Mono<D> find(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period, @PathVariable @PastOrPresent @Valid OffsetDateTime timestamp) {
     return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMap(chartDto -> this.getChartObjectDto(name, period, timestamp, chartDto));
   }
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
-  default Mono<D> create(@PathVariable String name, @PathVariable Timeframe period, @RequestBody @Valid C createChartObjectDto) {
-    return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMap(chartDto -> this.getService().create(chartDto, createChartObjectDto));
+  default Mono<D> create(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period, @RequestBody @Valid C createChartObjectDto) {
+    return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMap(chartDto -> this.getService().create(chartDto, createChartObjectDto)).switchIfEmpty(Mono.error(IllegalStateException::new));
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(produces = "application/json")
-  default Mono<Void> deleteAll(@PathVariable @NotNull @NotEmpty @NotBlank @Valid String name, @PathVariable @NotNull @Valid Timeframe period) {
+  default Mono<Void> deleteAll(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period) {
     return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto)).flatMap(chartDto -> this.getService().delete(chartDto));
   }
 

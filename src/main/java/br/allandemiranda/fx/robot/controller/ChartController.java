@@ -12,7 +12,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -44,7 +43,7 @@ public class ChartController {
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/charts", produces = "application/json")
-  public Flux<ChartDto> findAll(@PathVariable @NotNull @Size(min = 6, max = 6) @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
+  public Flux<ChartDto> findAll(@PathVariable @NotNull @Pattern(regexp = "^[A-Z]{6}$") @NotEmpty @NotBlank @Valid String name) {
     return this.getSymbol(name).flatMapMany(symbolDto -> this.getChartService().get(symbolDto));
   }
 
