@@ -21,6 +21,8 @@ import br.allandemiranda.fx.robot.service.impl.input.IMAFastService;
 import br.allandemiranda.fx.robot.service.impl.input.IMASlowService;
 import br.allandemiranda.fx.robot.service.impl.input.IRSIService;
 import br.allandemiranda.fx.robot.service.impl.input.IStochasticService;
+import br.allandemiranda.fx.robot.service.impl.input.RiskLevelInputService;
+import br.allandemiranda.fx.robot.service.impl.input.ScopeInputService;
 import br.allandemiranda.fx.robot.service.impl.input.XGBoostInputService;
 import jakarta.validation.Valid;
 import java.util.UUID;
@@ -59,6 +61,7 @@ public class DashboardController {
   private final MaSlowService maSlowService;
   private final StochasticService stochasticService;
 
+  private final GarchInputService garchInputService;
   private final IADXService iadxService;
   private final IATRService iatrService;
   private final IBandsService ibandsService;
@@ -67,8 +70,9 @@ public class DashboardController {
   private final IMASlowService imaSlowService;
   private final IRSIService irsiService;
   private final IStochasticService iStochasticService;
+  private final RiskLevelInputService riskLevelService;
+  private final ScopeInputService scopeService;
   private final XGBoostInputService xgBoostInputService;
-  private final GarchInputService garchInputService;
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
@@ -100,6 +104,7 @@ public class DashboardController {
     log.debug("Delete [name={}]", id);
     return DashboardUtils.getDashboard(id, this.getDashboardService())
         .flatMap(dashboardDto -> this.getDashboardService().delete(dashboardDto)
+
             .then(this.getAdxService().delete(dashboardDto))
             .then(this.getAtrService().delete(dashboardDto))
             .then(this.getMacdService().delete(dashboardDto))
@@ -108,6 +113,8 @@ public class DashboardController {
             .then(this.getMaFastService().delete(dashboardDto))
             .then(this.getMaSlowService().delete(dashboardDto))
             .then(this.getStochasticService().delete(dashboardDto))
+
+            .then(this.getGarchInputService().delete(dashboardDto))
             .then(this.getIadxService().delete(dashboardDto))
             .then(this.getIatrService().delete(dashboardDto))
             .then(this.getIbandsService().delete(dashboardDto))
@@ -116,8 +123,9 @@ public class DashboardController {
             .then(this.getImaSlowService().delete(dashboardDto))
             .then(this.getIrsiService().delete(dashboardDto))
             .then(this.getIStochasticService().delete(dashboardDto))
+            .then(this.getRiskLevelService().delete(dashboardDto))
+            .then(this.getScopeService().delete(dashboardDto))
             .then(this.getXgBoostInputService().delete(dashboardDto))
-            .then(this.getGarchInputService().delete(dashboardDto))
         )
         .doOnError(throwable -> log.warn("Trouble for deleting dashboard", throwable));
   }
