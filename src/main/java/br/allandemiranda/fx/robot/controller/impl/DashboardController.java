@@ -21,7 +21,7 @@ import br.allandemiranda.fx.robot.service.TickService;
 import br.allandemiranda.fx.robot.service.impl.ADXService;
 import br.allandemiranda.fx.robot.service.impl.ATRService;
 import br.allandemiranda.fx.robot.service.impl.BandsService;
-import br.allandemiranda.fx.robot.service.impl.CandlestickService;
+import br.allandemiranda.fx.robot.service.CandlestickService;
 import br.allandemiranda.fx.robot.service.impl.DashboardService;
 import br.allandemiranda.fx.robot.service.impl.GarchForecastService;
 import br.allandemiranda.fx.robot.service.impl.GarchInputService;
@@ -69,7 +69,7 @@ import reactor.core.scheduler.Schedulers;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/dashboards")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/dashboards")
 public class DashboardController implements InputObjectController<Dashboard, DashboardDto, DashboardCreateDto> {
 
   private final Executor executor;
@@ -97,7 +97,7 @@ public class DashboardController implements InputObjectController<Dashboard, Das
 
   @Override
   public Mono<DashboardDto> create(String name, Timeframe period, DashboardCreateDto createInputObjectDto) {
-    log.info("Create [name={}, period={}, createInputObjectDto={}]", name, period, createInputObjectDto);
+    log.info("Create [name={}, timeframe={}, createInputObjectDto={}]", name, period, createInputObjectDto);
     return InputObjectController.super.create(name, period, createInputObjectDto);
   }
 
@@ -109,7 +109,7 @@ public class DashboardController implements InputObjectController<Dashboard, Das
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/validate_scope", produces = "application/json")
   public Mono<DashboardDto> validateScope(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period) {
-    log.info("Validate scope [name={}, period={}]", name, period);
+    log.info("Validate scope [name={}, timeframe={}]", name, period);
     return this.getChartDto(name, period).flatMap(chartDto -> this.getService().updateStatus(chartDto, DashboardStatus.VALIDATING_SCOPE)
         .flatMap(this.getRealScopeTimeAndUpdate(this.getAdxService().get(chartDto)))
         .flatMap(this.getRealScopeTimeAndUpdate(this.getAtrService().get(chartDto)))
@@ -123,7 +123,7 @@ public class DashboardController implements InputObjectController<Dashboard, Das
         .flatMap(this.getRealScopeTimeAndUpdate(this.getTickService().get(chartDto.symbol())))
         .then(this.getService().updateStatus(chartDto, DashboardStatus.VALIDATING_SCOPE_COMPLETE))
         .onErrorResume(throwable -> {
-          log.error("Error validating scope [name={}, period={}]: {}", name, period, throwable.getMessage());
+          log.error("Error validating scope [name={}, timeframe={}]: {}", name, period, throwable.getMessage());
           return this.getService().updateStatus(chartDto, DashboardStatus.VALIDATING_SCOPE_ERROR).then(Mono.error(throwable));
         }));
   }
@@ -146,7 +146,7 @@ public class DashboardController implements InputObjectController<Dashboard, Das
           .collectList()
           .flatMap(garchForecastDtos -> garchForecastDtos.isEmpty() ? Mono.error(IllegalStateException::new) : this.getService().updateStatus(chartDto, DashboardStatus.GENERATING_GARCH_FORECASTS_COMPLETE))
           .onErrorResume(throwable -> {
-            log.error("Error generate Garch Forecast [name={}, period={}]: {}", chartDto.symbol().name(), chartDto.period(), throwable.getMessage());
+            log.error("Error generate Garch Forecast [name={}, timeframe={}]: {}", chartDto.symbol().name(), chartDto.period(), throwable.getMessage());
             return this.getService().updateStatus(chartDto, DashboardStatus.GENERATING_GARCH_FORECASTS_ERROR).then(Mono.error(throwable));
           });
     };
@@ -197,7 +197,7 @@ public class DashboardController implements InputObjectController<Dashboard, Das
                 .collectList()
                 .flatMap(garchTradingDtos -> garchTradingDtos.isEmpty() ? Mono.error(IllegalStateException::new) : this.getService().updateStatus(chartDto, DashboardStatus.BUILDING_GARCH_TRADINGS_COMPLETE))
                 .onErrorResume(throwable -> {
-                  log.error("Error generate Garch Tradings [name={}, period={}]: {}", chartDto.symbol().name(), chartDto.period(), throwable.getMessage());
+                  log.error("Error generate Garch Tradings [name={}, timeframe={}]: {}", chartDto.symbol().name(), chartDto.period(), throwable.getMessage());
                   return this.getService().updateStatus(chartDto, DashboardStatus.BUILDING_GARCH_TRADINGS_ERROR).then(Mono.error(throwable));
                 });
           });
@@ -286,7 +286,7 @@ public class DashboardController implements InputObjectController<Dashboard, Das
           .collectList()
           .flatMap(garchTradingDtos -> garchTradingDtos.isEmpty() ? Mono.error(IllegalStateException::new) : this.getService().updateStatus(chartDto, DashboardStatus.GENERATING_GARCH_SCENARIO_COMPLETE))
           .onErrorResume(throwable -> {
-            log.error("Error process Garch Tradings scenarios [name={}, period={}]: {}", chartDto.symbol().name(), chartDto.period(), throwable.getMessage());
+            log.error("Error process Garch Tradings scenarios [name={}, timeframe={}]: {}", chartDto.symbol().name(), chartDto.period(), throwable.getMessage());
             return this.getService().updateStatus(chartDto, DashboardStatus.GENERATING_GARCH_SCENARIO_ERROR).then(Mono.error(throwable));
           });
     };
@@ -474,7 +474,7 @@ public class DashboardController implements InputObjectController<Dashboard, Das
   @ResponseStatus(HttpStatus.ACCEPTED)
   @PostMapping(path = "/generate_ml", produces = "application/json")
   public Mono<Void> generateML(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period) {
-    log.info("Generate ML [name={}, period={}]", name, period);
+    log.info("Generate ML [name={}, timeframe={}]", name, period);
 
     this.getChartDto(name, period).flatMap(chartDto -> this.getService().get(chartDto))
         // starting
@@ -490,8 +490,8 @@ public class DashboardController implements InputObjectController<Dashboard, Das
         // end ML generate
         .subscribeOn(Schedulers.fromExecutor(this.getExecutor()))
         .subscribe(
-            dashboardDto -> log.info("Generated ML [name={}, period={}] done: dashboardDto={}", name, period, dashboardDto),
-            throwable -> log.error("Error to generated ML [name={}, period={}]", name, period, throwable)
+            dashboardDto -> log.info("Generated ML [name={}, timeframe={}] done: dashboardDto={}", name, period, dashboardDto),
+            throwable -> log.error("Error to generated ML [name={}, timeframe={}]", name, period, throwable)
         );
 
     return Mono.empty();

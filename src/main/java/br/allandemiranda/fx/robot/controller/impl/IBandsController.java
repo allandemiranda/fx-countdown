@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/i_bandss")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/i_bandss")
 public class IBandsController implements InputObjectController<IBands, IBandsDto, IBandsCreateDto> {
 
   private final SymbolService symbolService;

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/adxs")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/adxs")
 public class ADXController implements ChartObjectController<ADX, ADXDto, ADXCreateDto> {
 
   private final SymbolService symbolService;

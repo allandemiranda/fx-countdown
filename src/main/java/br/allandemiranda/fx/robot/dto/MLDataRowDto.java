@@ -4,7 +4,7 @@
 //import br.allandemiranda.fx.robot.model.impl.ADX;
 //import br.allandemiranda.fx.robot.model.impl.ATR;
 //import br.allandemiranda.fx.robot.model.impl.Bands;
-//import br.allandemiranda.fx.robot.model.impl.Candlestick;
+//import br.allandemiranda.fx.robot.model.Candlestick;
 //import br.allandemiranda.fx.robot.model.impl.GarchForecast;
 //import br.allandemiranda.fx.robot.model.impl.MACD;
 //import br.allandemiranda.fx.robot.model.impl.MaFast;

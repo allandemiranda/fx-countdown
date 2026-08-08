@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/ma_slows")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/ma_slows")
 public class MaSlowController implements ChartObjectController<MaSlow, MaSlowDto, MaSlowCreateDto> {
 
   private final SymbolService symbolService;

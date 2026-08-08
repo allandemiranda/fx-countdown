@@ -207,7 +207,7 @@ class ChartControllerTest {
           .expectBody(CodeResponseHandler.class)
           .value(response -> {
             Assertions.assertNotNull(response);
-            Assertions.assertEquals("ChartNotFoundException", response.type());
+            Assertions.assertEquals("CandlestickNotFoundException", response.type());
             Assertions.assertEquals("Chart not found: [" + symbolName + ", " + timeframe.getCode() + "]", response.message());
           });
     }
@@ -241,7 +241,7 @@ class ChartControllerTest {
           .expectBody(ChartCreateDto.class)
           .value(response -> {
             Assertions.assertNotNull(response);
-            Assertions.assertEquals(timeframe, response.period());
+            Assertions.assertEquals(timeframe, response.timeframe());
           });
     }
 
@@ -391,7 +391,7 @@ class ChartControllerTest {
           .expectBody(CodeResponseHandler.class)
           .value(response -> {
             Assertions.assertNotNull(response);
-            Assertions.assertEquals("ChartNotFoundException", response.type());
+            Assertions.assertEquals("CandlestickNotFoundException", response.type());
             Assertions.assertEquals("Chart not found: [" + symbolName + ", " + timeframe.getCode() + "]", response.message());
           });
     }

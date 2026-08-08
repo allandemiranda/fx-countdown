@@ -9,7 +9,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 /**
- * @param period averaging period
+ * @param period averaging timeframe
  */
 @Table("i_atr")
 public record IATR(@Id @Column("chart_id") @NotNull UUID chartId, @Column("ma_period") @Positive short period) implements InputObjectModel {

@@ -501,3 +501,8 @@ Some POST metodos developed to create data was an update functionality logic exp
     - Return all indicators in a flux, is possible apply filter for all parameter of Indicator
 - GET api/dashboards/{uuid}/versions
     - Return all version number available in the files from the same uuid, in a flux
+
+##
+
+api/symbols/{name}/charts/{timeframe}/candlesticks/{timestamp}
+api/dashboards/{uuid}/{indicator}s/{timestamp}

@@ -12,7 +12,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 /**
- * @param period     period for average line calculation
+ * @param period     timeframe for average line calculation
  * @param shift      horizontal shift of the indicator
  * @param deviations number of standard deviations
  * @param applyTo    type of price or handle

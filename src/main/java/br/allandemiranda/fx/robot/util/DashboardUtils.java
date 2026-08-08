@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.util;
 
 import br.allandemiranda.fx.robot.dto.TimeLineObjectDto;
-import br.allandemiranda.fx.robot.dto.impl.base.CandlestickDto;
+import br.allandemiranda.fx.robot.dto.CandlestickDto;
 import br.allandemiranda.fx.robot.dto.impl.base.DashboardDto;
 import br.allandemiranda.fx.robot.dto.impl.base.GarchInputDto;
 import br.allandemiranda.fx.robot.dto.impl.create.GarchForecastCreateDto;

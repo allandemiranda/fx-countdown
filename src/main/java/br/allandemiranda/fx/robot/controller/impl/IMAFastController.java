@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/i_ma_fasts")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/i_ma_fasts")
 public class IMAFastController implements InputObjectController<IMAFast, IMAFastDto, IMAFastCreateDto> {
 
   private final SymbolService symbolService;

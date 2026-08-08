@@ -12,7 +12,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 /**
- * @param period  averaging period
+ * @param period  averaging timeframe
  * @param shift   horizontal shift
  * @param method  smoothing type
  * @param applyTo type of price or handle

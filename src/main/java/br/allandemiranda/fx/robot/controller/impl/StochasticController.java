@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/stochastics")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/stochastics")
 public class StochasticController implements ChartObjectController<Stochastic, StochasticDto, StochasticCreateDto> {
 
   private final SymbolService symbolService;

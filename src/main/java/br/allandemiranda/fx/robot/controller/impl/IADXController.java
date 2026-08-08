@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/i_adxs")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/i_adxs")
 public class IADXController implements InputObjectController<IADX, IADXDto, IADXCreateDto> {
 
   private final SymbolService symbolService;

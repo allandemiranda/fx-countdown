@@ -11,8 +11,8 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 /**
- * @param kPeriod    K-period (number of bars for calculations)
- * @param dPeriod    D-period (period of first smoothing)
+ * @param kPeriod    K-timeframe (number of bars for calculations)
+ * @param dPeriod    D-timeframe (timeframe of first smoothing)
  * @param slowing    final smoothing
  * @param method     type of smoothing
  * @param priceField stochastic calculation method

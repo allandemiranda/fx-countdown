@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/i_atrs")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/i_atrs")
 public class IATRController implements InputObjectController<IATR, IATRDto, IATRCreateDto> {
 
   private final SymbolService symbolService;

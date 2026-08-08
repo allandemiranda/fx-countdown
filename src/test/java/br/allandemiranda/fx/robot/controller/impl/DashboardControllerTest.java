@@ -9,7 +9,7 @@ import br.allandemiranda.fx.robot.service.TickService;
 import br.allandemiranda.fx.robot.service.impl.ADXService;
 import br.allandemiranda.fx.robot.service.impl.ATRService;
 import br.allandemiranda.fx.robot.service.impl.BandsService;
-import br.allandemiranda.fx.robot.service.impl.CandlestickService;
+import br.allandemiranda.fx.robot.service.CandlestickService;
 import br.allandemiranda.fx.robot.service.impl.DashboardService;
 import br.allandemiranda.fx.robot.service.impl.GarchForecastService;
 import br.allandemiranda.fx.robot.service.impl.GarchInputService;

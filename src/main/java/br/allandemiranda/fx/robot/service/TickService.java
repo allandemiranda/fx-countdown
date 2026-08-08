@@ -32,10 +32,10 @@ public class TickService {
   public Mono<TickDto> getOrNext(SymbolDto symbolDto, OffsetDateTime timestamp) {
     log.debug("GetOrNext [symbolDto={}, timestamp={}]", symbolDto, timestamp);
     return this.get(symbolDto, timestamp).switchIfEmpty(Mono.defer(() -> {
-      log.trace("GetOrNext [symbolDto={}, timestamp={}], not found timestamp, finding the next tick", symbolDto, timestamp);
+      log.trace("GetOrNext [symbolDto={}, timestamp={}], not found timestamp, finding the next", symbolDto, timestamp);
       return this.getRepository().findAllBySymbolNameOrderByTimestampAsc(symbolDto.name()).filter(tick -> tick.timestamp().isAfter(timestamp)).next().map(tick -> this.getMapper().toDto(symbolDto, tick));
     })).switchIfEmpty(Mono.defer(() -> {
-      log.warn("GetOrNext [symbolDto={}, timestamp={}], not found timestamp and not find the next tick", symbolDto, timestamp);
+      log.warn("GetOrNext [symbolDto={}, timestamp={}], not found timestamp and not find the next", symbolDto, timestamp);
       return Mono.empty();
     }));
   }

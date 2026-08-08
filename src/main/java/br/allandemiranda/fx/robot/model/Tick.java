@@ -12,9 +12,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-@AskBidValidate
 @Table("tick")
-public record Tick(@Id @Column("id") @NotNull UUID id, @Column("symbol_name") @NotNull @Pattern(regexp = "^[A-Z]{6}$") String symbolName, @Column("timestamp") @NotNull @PastOrPresent OffsetDateTime timestamp, @Column("ask") @NotNull @Positive BigDecimal ask,
-                   @Column("bid") @NotNull @Positive BigDecimal bid) {
+@AskBidValidate
+public record Tick(@Id @Column("id") @NotNull UUID id, @Column("symbol_name") @NotNull @Pattern(regexp = "^[A-Z]{6}$") String symbolName, @Column("timestamp") @NotNull @PastOrPresent OffsetDateTime timestamp,
+                   @Column("ask") @NotNull @Positive BigDecimal ask, @Column("bid") @NotNull @Positive BigDecimal bid) {
 
 }

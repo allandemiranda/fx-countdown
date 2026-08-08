@@ -50,7 +50,7 @@ class ChartMapperTest {
 
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
-    Mockito.when(chartCreateDto.period()).thenReturn(timeframe);
+    Mockito.when(chartCreateDto.timeframe()).thenReturn(timeframe);
     Chart chart = this.chartMapper.toModel(id, symbolDto, chartCreateDto);
 
     //then

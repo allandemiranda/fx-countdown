@@ -116,8 +116,8 @@ class ChartServiceTest {
 
     //when
     Mockito.when(symbolDto.name()).thenReturn(symbolName);
-    Mockito.when(chartCreateDto.period()).thenReturn(period);
-    Mockito.doReturn(chartCreateDto.period()).when(chart).period();
+    Mockito.when(chartCreateDto.timeframe()).thenReturn(period);
+    Mockito.doReturn(chartCreateDto.timeframe()).when(chart).period();
     Mockito.doReturn(chart).when(this.mapper).toModel(Mockito.any(UUID.class), Mockito.eq(symbolDto), Mockito.eq(chartCreateDto));
     Mockito.when(this.repository.save(chart)).thenReturn(Mono.just(chart));
     Mockito.doReturn(Mono.empty()).when(this.service).get(symbolDto, period);

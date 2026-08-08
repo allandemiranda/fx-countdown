@@ -1,9 +1,10 @@
 package br.allandemiranda.fx.robot.mapper.impl;
 
-import br.allandemiranda.fx.robot.dto.impl.base.CandlestickDto;
-import br.allandemiranda.fx.robot.dto.impl.create.CandlestickCreateDto;
+import br.allandemiranda.fx.robot.dto.CandlestickDto;
+import br.allandemiranda.fx.robot.dto.CandlestickCreateDto;
+import br.allandemiranda.fx.robot.mapper.CandlestickMapper;
 import br.allandemiranda.fx.robot.mapper.ChartObjectMapperTest;
-import br.allandemiranda.fx.robot.model.impl.Candlestick;
+import br.allandemiranda.fx.robot.model.Candlestick;
 import java.math.BigDecimal;
 import lombok.Getter;
 import org.junit.jupiter.api.Assertions;

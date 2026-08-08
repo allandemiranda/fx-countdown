@@ -10,9 +10,9 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 /**
- * @param fastEma period for Fast average calculation
- * @param slowEma period for Slow average calculation
- * @param macdSma period for their difference averaging
+ * @param fastEma timeframe for Fast average calculation
+ * @param slowEma timeframe for Slow average calculation
+ * @param macdSma timeframe for their difference averaging
  * @param applyTo type of price or handle
  */
 @Table("i_macd")

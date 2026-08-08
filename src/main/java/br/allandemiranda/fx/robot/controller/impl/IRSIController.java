@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/i_rsis")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/i_rsis")
 public class IRSIController implements InputObjectController<IRSI, IRSIDto, IRSICreateDto> {
 
   private final SymbolService symbolService;

@@ -1,10 +1,11 @@
 package br.allandemiranda.fx.robot.service.impl;
 
-import br.allandemiranda.fx.robot.dto.impl.base.CandlestickDto;
-import br.allandemiranda.fx.robot.dto.impl.create.CandlestickCreateDto;
-import br.allandemiranda.fx.robot.mapper.impl.CandlestickMapper;
-import br.allandemiranda.fx.robot.model.impl.Candlestick;
+import br.allandemiranda.fx.robot.dto.CandlestickDto;
+import br.allandemiranda.fx.robot.dto.CandlestickCreateDto;
+import br.allandemiranda.fx.robot.mapper.CandlestickMapper;
+import br.allandemiranda.fx.robot.model.Candlestick;
 import br.allandemiranda.fx.robot.repository.impl.CandlestickRepository;
+import br.allandemiranda.fx.robot.service.CandlestickService;
 import br.allandemiranda.fx.robot.service.ChartObjectServiceTest;
 import lombok.Getter;
 import org.junit.jupiter.api.extension.ExtendWith;

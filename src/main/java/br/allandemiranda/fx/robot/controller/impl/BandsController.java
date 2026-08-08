@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/bandss")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/bandss")
 public class BandsController implements ChartObjectController<Bands, BandsDto, BandsCreateDto> {
 
   private final SymbolService symbolService;

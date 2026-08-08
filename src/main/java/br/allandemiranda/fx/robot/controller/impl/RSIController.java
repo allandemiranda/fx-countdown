@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/rsis")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/rsis")
 public class RSIController implements ChartObjectController<RSI, RSIDto, RSICreateDto> {
 
   private final SymbolService symbolService;

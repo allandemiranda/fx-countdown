@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @Validated
 @RestController
-@RequestMapping("symbols/{name}/timeframes/{period}/i_macds")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/i_macds")
 public class IMACDController implements InputObjectController<IMACD, IMACDDto, IMACDCreateDto> {
 
   private final SymbolService symbolService;

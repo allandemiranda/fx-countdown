@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/atrs")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/atrs")
 public class ATRController implements ChartObjectController<ATR, ATRDto, ATRCreateDto> {
 
   private final SymbolService symbolService;

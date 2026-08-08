@@ -1,9 +1,9 @@
 package br.allandemiranda.fx.robot.validation;
 
 import br.allandemiranda.fx.robot.annotation.CandlestickPriceValidate;
-import br.allandemiranda.fx.robot.dto.impl.base.CandlestickDto;
-import br.allandemiranda.fx.robot.dto.impl.create.CandlestickCreateDto;
-import br.allandemiranda.fx.robot.model.impl.Candlestick;
+import br.allandemiranda.fx.robot.dto.CandlestickDto;
+import br.allandemiranda.fx.robot.dto.CandlestickCreateDto;
+import br.allandemiranda.fx.robot.model.Candlestick;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.math.BigDecimal;

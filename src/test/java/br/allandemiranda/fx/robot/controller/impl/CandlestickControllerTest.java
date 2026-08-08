@@ -1,10 +1,11 @@
 package br.allandemiranda.fx.robot.controller.impl;
 
+import br.allandemiranda.fx.robot.controller.CandlestickController;
 import br.allandemiranda.fx.robot.controller.ChartObjectControllerTest;
-import br.allandemiranda.fx.robot.dto.impl.base.CandlestickDto;
-import br.allandemiranda.fx.robot.dto.impl.create.CandlestickCreateDto;
-import br.allandemiranda.fx.robot.model.impl.Candlestick;
-import br.allandemiranda.fx.robot.service.impl.CandlestickService;
+import br.allandemiranda.fx.robot.dto.CandlestickDto;
+import br.allandemiranda.fx.robot.dto.CandlestickCreateDto;
+import br.allandemiranda.fx.robot.model.Candlestick;
+import br.allandemiranda.fx.robot.service.CandlestickService;
 import java.math.BigDecimal;
 import lombok.Getter;
 import org.mockito.Mock;

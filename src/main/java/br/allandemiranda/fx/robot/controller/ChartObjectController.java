@@ -5,7 +5,7 @@ import br.allandemiranda.fx.robot.dto.CreateChartObjectDto;
 import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
-import br.allandemiranda.fx.robot.exception.impl.ChartNotFoundException;
+import br.allandemiranda.fx.robot.exception.impl.CandlestickNotFoundException;
 import br.allandemiranda.fx.robot.exception.impl.ChartObjectNotFoundException;
 import br.allandemiranda.fx.robot.exception.impl.SymbolNotFoundException;
 import br.allandemiranda.fx.robot.model.ChartObjectModel;
@@ -39,8 +39,8 @@ public interface ChartObjectController<M extends ChartObjectModel, D extends Cha
   }
 
   private Mono<ChartDto> getChartDto(String name, Timeframe period, SymbolDto symbolDto) {
-    this.log().trace("getChartDto(name={}, period={}, symbolDto={}", name, period, symbolDto);
-    return this.getChartService().get(symbolDto, period).switchIfEmpty(Mono.error(() -> new ChartNotFoundException(name, period)));
+    this.log().trace("getChartDto(name={}, timeframe={}, symbolDto={}", name, period, symbolDto);
+    return this.getChartService().get(symbolDto, period).switchIfEmpty(Mono.error(() -> new CandlestickNotFoundException(name, period)));
   }
 
   private Mono<SymbolDto> getSymbolDto(String name) {
@@ -49,33 +49,33 @@ public interface ChartObjectController<M extends ChartObjectModel, D extends Cha
   }
 
   private Mono<D> getChartObjectDto(String name, Timeframe period, OffsetDateTime timestamp, ChartDto chartDto) {
-    this.log().trace("getChartObjectDto(name, period={}, timestamp={}, chartDto={})", name, period, chartDto);
+    this.log().trace("getChartObjectDto(name, timeframe={}, timestamp={}, chartDto={})", name, period, chartDto);
     return this.getService().get(chartDto, timestamp).switchIfEmpty(Mono.error(() -> new ChartObjectNotFoundException(name, period, this.getChartObjectName(), timestamp)));
   }
 
   default Mono<ChartDto> getChartDto(String name, Timeframe period) {
-    this.log().trace("getChartDto(name={}, period={})", name, period);
+    this.log().trace("getChartDto(name={}, timeframe={})", name, period);
     return this.getSymbolDto(name).flatMap(symbolDto -> this.getChartDto(name, period, symbolDto));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
   default Flux<D> findAll(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period) {
-    this.log().debug("Find All [name={}, period={}]", name, period);
+    this.log().debug("Find All [name={}, timeframe={}]", name, period);
     return this.getChartDto(name, period).flatMapMany(chartDto -> this.getService().get(chartDto)).doOnError(throwable -> this.log().warn("Trouble for finding all chart objects", throwable));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/{timestamp}", produces = "application/json")
   default Mono<D> find(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period, @PathVariable @PastOrPresent @Valid OffsetDateTime timestamp) {
-    this.log().debug("Find [name={}, period={}, timestamp={}]", name, period, timestamp);
+    this.log().debug("Find [name={}, timeframe={}, timestamp={}]", name, period, timestamp);
     return this.getChartDto(name, period).flatMap(chartDto -> this.getChartObjectDto(name, period, timestamp, chartDto)).doOnError(throwable -> this.log().warn("Trouble for finding chart object", throwable));
   }
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   default Mono<D> create(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period, @RequestBody @Valid C createChartObjectDto) {
-    this.log().debug("Create [name={}, period={}, createChartObjectDto={}]", name, period, createChartObjectDto);
+    this.log().debug("Create [name={}, timeframe={}, createChartObjectDto={}]", name, period, createChartObjectDto);
     return this.getChartDto(name, period).flatMap(chartDto -> this.getService().create(chartDto, createChartObjectDto)).doOnError(throwable -> log().warn("Trouble for creating Chart Object", throwable)).switchIfEmpty(Mono.defer(() -> {
       log().warn("Error creating Chart Object: create returned empty Chart Object");
       return Mono.error(IllegalStateException::new);
@@ -85,7 +85,7 @@ public interface ChartObjectController<M extends ChartObjectModel, D extends Cha
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(produces = "application/json")
   default Mono<Void> deleteAll(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @Valid Timeframe period) {
-    this.log().debug("Delete All [name={}, period={}]", name, period);
+    this.log().debug("Delete All [name={}, timeframe={}]", name, period);
     return this.getChartDto(name, period).flatMap(chartDto -> this.getService().delete(chartDto)).doOnError(throwable -> this.log().warn("Trouble for deleting all chart object", throwable));
   }
 

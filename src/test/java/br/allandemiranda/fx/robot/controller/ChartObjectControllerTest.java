@@ -72,7 +72,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -110,7 +110,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -134,7 +134,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -158,7 +158,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -184,7 +184,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -192,7 +192,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
         .expectBody(CodeResponseHandler.class)
         .value(response -> {
           Assertions.assertNotNull(response);
-          Assertions.assertEquals("ChartNotFoundException", response.type());
+          Assertions.assertEquals("CandlestickNotFoundException", response.type());
           Assertions.assertEquals("Chart not found: [" + name + ", " + period.getCode() + "]", response.message());
         });
   }
@@ -228,7 +228,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -279,7 +279,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -311,7 +311,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -338,7 +338,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -346,7 +346,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
         .expectBody(CodeResponseHandler.class)
         .value(response -> {
           Assertions.assertNotNull(response);
-          Assertions.assertEquals("ChartNotFoundException", response.type());
+          Assertions.assertEquals("CandlestickNotFoundException", response.type());
           Assertions.assertEquals("Chart not found: [" + name + ", " + period.getCode() + "]", response.message());
         });
   }
@@ -367,7 +367,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -392,7 +392,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -415,7 +415,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
     //when
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -439,7 +439,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
     //when
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri() + "/{timestamp}", name, period, timestamp)
         .exchange()
 
         //then
@@ -488,7 +488,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
     //then
     this.getWebTestClient()
         .post()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .bodyValue(this.getCreateDto())
         .exchange()
         .expectStatus().isCreated()
@@ -522,7 +522,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .post()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .bodyValue(this.getCreateDto())
         .exchange()
 
@@ -554,7 +554,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .post()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .bodyValue(this.getCreateDto())
         .exchange()
 
@@ -563,7 +563,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
         .expectBody(CodeResponseHandler.class)
         .value(response -> {
           Assertions.assertNotNull(response);
-          Assertions.assertEquals("ChartNotFoundException", response.type());
+          Assertions.assertEquals("CandlestickNotFoundException", response.type());
           Assertions.assertEquals("Chart not found: [" + name + ", " + period.getCode() + "]", response.message());
         });
   }
@@ -583,7 +583,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -612,7 +612,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -637,7 +637,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -661,7 +661,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .delete()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -687,7 +687,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
 
     this.getWebTestClient()
         .get()
-        .uri("/symbols/{name}/timeframes/{period}/" + this.getObjectUri(), name, period)
+        .uri("/symbols/{name}/timeframes/{timeframe}/" + this.getObjectUri(), name, period)
         .exchange()
 
         //then
@@ -695,7 +695,7 @@ public abstract class ChartObjectControllerTest<M extends ChartObjectModel, D ex
         .expectBody(CodeResponseHandler.class)
         .value(response -> {
           Assertions.assertNotNull(response);
-          Assertions.assertEquals("ChartNotFoundException", response.type());
+          Assertions.assertEquals("CandlestickNotFoundException", response.type());
           Assertions.assertEquals("Chart not found: [" + name + ", " + period.getCode() + "]", response.message());
         });
   }

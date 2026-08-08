@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/macds")
+@RequestMapping("symbols/{name}/timeframes/{timeframe}/macds")
 public class MACDController implements ChartObjectController<MACD, MACDDto, MACDCreateDto> {
 
   private final SymbolService symbolService;
