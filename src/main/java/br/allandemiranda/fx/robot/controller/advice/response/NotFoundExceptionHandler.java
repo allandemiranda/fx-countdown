@@ -1,5 +1,6 @@
-package br.allandemiranda.fx.robot.controller.advice;
+package br.allandemiranda.fx.robot.controller.advice.response;
 
+import br.allandemiranda.fx.robot.controller.advice.CodeResponseHandler;
 import br.allandemiranda.fx.robot.exception.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
