@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class IADXService implements InputDashboardService<IADX, IADXDto, IADXCreateDto> {
 
   private final IADXRepository repository;
-
   private final IADXMapper mapper;
 
 }

@@ -21,7 +21,7 @@ import br.allandemiranda.fx.robot.service.impl.input.IMAFastService;
 import br.allandemiranda.fx.robot.service.impl.input.IMASlowService;
 import br.allandemiranda.fx.robot.service.impl.input.IRSIService;
 import br.allandemiranda.fx.robot.service.impl.input.IStochasticService;
-import br.allandemiranda.fx.robot.service.impl.input.MLInputService;
+import br.allandemiranda.fx.robot.service.impl.input.XGBoostInputService;
 import jakarta.validation.Valid;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
@@ -67,7 +67,7 @@ public class DashboardController {
   private final IMASlowService imaSlowService;
   private final IRSIService irsiService;
   private final IStochasticService iStochasticService;
-  private final MLInputService mlInputService;
+  private final XGBoostInputService xgBoostInputService;
   private final GarchInputService garchInputService;
 
   @ResponseStatus(HttpStatus.OK)
@@ -116,7 +116,7 @@ public class DashboardController {
             .then(this.getImaSlowService().delete(dashboardDto))
             .then(this.getIrsiService().delete(dashboardDto))
             .then(this.getIStochasticService().delete(dashboardDto))
-            .then(this.getMlInputService().delete(dashboardDto))
+            .then(this.getXgBoostInputService().delete(dashboardDto))
             .then(this.getGarchInputService().delete(dashboardDto))
         )
         .doOnError(throwable -> log.warn("Trouble for deleting dashboard", throwable));

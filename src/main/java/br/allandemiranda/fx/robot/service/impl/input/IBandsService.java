@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class IBandsService implements InputDashboardService<IBands, IBandsDto, IBandsCreateDto> {
 
   private final IBandsRepository repository;
-
   private final IBandsMapper mapper;
 
 }

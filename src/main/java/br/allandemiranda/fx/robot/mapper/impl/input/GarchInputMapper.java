@@ -13,11 +13,11 @@ public final class GarchInputMapper implements InputDashboardMapper<GarchInput, 
 
   @Override
   public GarchInputDto toDto(DashboardDto dashboardDto, GarchInput garchInput) {
-    return new GarchInputDto(garchInput.id(), dashboardDto, garchInput.horizon(), garchInput.priceSize(), garchInput.kTP(), garchInput.kSL());
+    return new GarchInputDto(garchInput.id(), dashboardDto, garchInput.horizon(), garchInput.priceSize());
   }
 
   @Override
   public GarchInput toModel(UUID id, DashboardDto dashboardDto, GarchInputCreateDto garchInputCreateDto) {
-    return new GarchInput(id, dashboardDto.id(), garchInputCreateDto.horizon(), garchInputCreateDto.priceSize(), garchInputCreateDto.kTP(), garchInputCreateDto.kSL());
+    return new GarchInput(id, dashboardDto.id(), garchInputCreateDto.horizon(), garchInputCreateDto.priceSize());
   }
 }

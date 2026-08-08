@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class IMAFastService implements InputDashboardService<IMAFast, IMAFastDto, IMAFastCreateDto> {
 
   private final IMAFastRepository repository;
-
   private final IMAFastMapper mapper;
 
 }

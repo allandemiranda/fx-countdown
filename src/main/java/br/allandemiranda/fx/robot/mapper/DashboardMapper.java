@@ -12,12 +12,10 @@ import org.springframework.stereotype.Component;
 public final class DashboardMapper {
 
   public DashboardDto toDto(Dashboard dashboard) {
-    return new DashboardDto(dashboard.id(), dashboard.symbolName(), dashboard.timeframe(), dashboard.status(), dashboard.updateTime(), dashboard.startScope(), dashboard.endScope(), dashboard.version(),
-        dashboard.minimalLevelAccepted());
+    return new DashboardDto(dashboard.id(), dashboard.symbolName(), dashboard.timeframe(), dashboard.status(), dashboard.updateTime());
   }
 
   public Dashboard toModel(DashboardCreateDto dashboardCreateDto) {
-    return new Dashboard(null, dashboardCreateDto.symbolName(), dashboardCreateDto.timeframe(), DashboardStatus.CREATED, LocalDateTime.now(ZoneId.systemDefault()), dashboardCreateDto.startScope(), dashboardCreateDto.endScope(),
-        0, dashboardCreateDto.minimalLevelAccepted());
+    return new Dashboard(null, dashboardCreateDto.symbolName(), dashboardCreateDto.timeframe(), DashboardStatus.CREATED, LocalDateTime.now(ZoneId.systemDefault()));
   }
 }

@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class IMACDService implements InputDashboardService<IMACD, IMACDDto, IMACDCreateDto> {
 
   private final IMACDRepository repository;
-
   private final IMACDMapper mapper;
 
 }

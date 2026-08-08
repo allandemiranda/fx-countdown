@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class IStochasticService implements InputDashboardService<IStochastic, IStochasticDto, IStochasticCreateDto> {
 
   private final IStochasticRepository repository;
-
   private final IStochasticMapper mapper;
 
 }

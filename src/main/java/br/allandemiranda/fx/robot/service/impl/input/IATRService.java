@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class IATRService implements InputDashboardService<IATR, IATRDto, IATRCreateDto> {
 
   private final IATRRepository repository;
-
   private final IATRMapper mapper;
 
 }

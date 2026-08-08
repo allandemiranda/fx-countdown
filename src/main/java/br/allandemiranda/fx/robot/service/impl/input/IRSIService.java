@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class IRSIService implements InputDashboardService<IRSI, IRSIDto, IRSICreateDto> {
 
   private final IRSIRepository repository;
-
   private final IRSIMapper mapper;
 
 }

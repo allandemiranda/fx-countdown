@@ -16,11 +16,11 @@ public final class Garch11ModuleUtils {
     if (close.length < 50) {
       throw new IllegalArgumentException("close length too short (use >= 50)");
     }
-    for (double v : close) {
-      if (v <= 0) {
-        throw new IllegalArgumentException("close must be > 0");
-      }
-    }
+//    for (double v : close) {
+//      if (v <= 0) {
+//        throw new IllegalArgumentException("close must be > 0");
+//      }
+//    }
 
     // 1) estima parâmetros com finmath (ele trabalha sobre log-returns dos values)
     GARCH garch = new GARCH(close);

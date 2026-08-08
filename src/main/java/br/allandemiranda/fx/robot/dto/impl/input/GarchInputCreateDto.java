@@ -4,9 +4,7 @@ import br.allandemiranda.fx.robot.dto.InputDashboardCreateDto;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import lombok.NonNull;
 
-public record GarchInputCreateDto(@Positive int horizon, @Min(50) int priceSize, @NonNull @Positive BigDecimal kTP, @NonNull @Positive BigDecimal kSL) implements Serializable, InputDashboardCreateDto {
+public record GarchInputCreateDto(@Positive int horizon, @Min(50) int priceSize) implements Serializable, InputDashboardCreateDto {
 
 }

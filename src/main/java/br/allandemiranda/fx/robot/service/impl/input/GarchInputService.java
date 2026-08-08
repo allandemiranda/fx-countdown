@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class GarchInputService implements InputDashboardService<GarchInput, GarchInputDto, GarchInputCreateDto> {
 
   private final GarchInputRepository repository;
-
   private final GarchInputMapper mapper;
 
 }

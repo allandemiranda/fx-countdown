@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 public class IMASlowService implements InputDashboardService<IMASlow, IMASlowDto, IMASlowCreateDto> {
 
   private final IMASlowRepository repository;
-
   private final IMASlowMapper mapper;
 
 }
