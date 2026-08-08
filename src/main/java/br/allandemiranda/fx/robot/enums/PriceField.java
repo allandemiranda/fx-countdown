@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Description;
 
-/**
- * Price Constants
- */
 @Getter
 @RequiredArgsConstructor
 @Description("ENUM_STO_PRICE")

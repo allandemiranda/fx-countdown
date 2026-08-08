@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Description;
 
-/**
- * Smoothing Methods
- */
 @Getter
 @RequiredArgsConstructor
 @Description("ENUM_MA_METHOD")
