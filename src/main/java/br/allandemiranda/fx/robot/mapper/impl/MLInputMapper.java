@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.mapper.impl;
 
-import br.allandemiranda.fx.robot.dto.impl.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.dto.impl.base.MLInputDto;
 import br.allandemiranda.fx.robot.dto.impl.create.MLInputCreateDto;
 import br.allandemiranda.fx.robot.mapper.InputObjectMapper;

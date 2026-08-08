@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.service.impl;
 
-import br.allandemiranda.fx.robot.dto.impl.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.dto.impl.base.GarchTradingDto;
 import br.allandemiranda.fx.robot.dto.impl.create.GarchTradingCreateDto;
 import br.allandemiranda.fx.robot.enums.DealReason;

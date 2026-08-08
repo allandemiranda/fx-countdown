@@ -2,8 +2,8 @@ package br.allandemiranda.fx.robot.controller;
 
 import br.allandemiranda.fx.robot.controller.advice.CodeResponseHandler;
 import br.allandemiranda.fx.robot.controller.impl.EssentialServicesTest;
-import br.allandemiranda.fx.robot.dto.impl.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.impl.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.ChartDto;
+import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.CreateInputObjectDto;
 import br.allandemiranda.fx.robot.dto.InputObjectDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;

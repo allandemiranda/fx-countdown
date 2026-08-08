@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.impl.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.impl.create.SymbolCreateDto;
 import br.allandemiranda.fx.robot.mapper.SymbolMapper;
 import br.allandemiranda.fx.robot.model.Symbol;
@@ -42,6 +42,7 @@ public class SymbolService {
   public Mono<Void> delete(String name) {
     log.debug("Delete [name={}]", name);
     return this.getRepository().deleteById(name);
+    //TODO: implement the delete in cascade for Candlesticks and Ticks that use the same Symbol
   }
 
 }

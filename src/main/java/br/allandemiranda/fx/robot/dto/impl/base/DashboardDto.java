@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.dto.impl.base;
 
 import br.allandemiranda.fx.robot.dto.BaseDto;
+import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.dto.InputObjectDto;
 import br.allandemiranda.fx.robot.enums.DashboardStatus;
 import jakarta.validation.Valid;

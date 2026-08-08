@@ -3,7 +3,7 @@ package br.allandemiranda.fx.robot.service;
 import br.allandemiranda.fx.robot.dto.ChartObjectDto;
 import br.allandemiranda.fx.robot.dto.CreateChartObjectDto;
 import br.allandemiranda.fx.robot.dto.impl.base.CandlestickDto;
-import br.allandemiranda.fx.robot.dto.impl.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.mapper.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.ChartObjectModel;
 import br.allandemiranda.fx.robot.repository.ChartObjectRepository;

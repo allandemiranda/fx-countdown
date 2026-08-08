@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.mapper.impl;
 
 import br.allandemiranda.fx.robot.dto.impl.base.ATRDto;
-import br.allandemiranda.fx.robot.dto.impl.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.dto.impl.create.ATRCreateDto;
 import br.allandemiranda.fx.robot.mapper.ChartObjectMapper;
 import br.allandemiranda.fx.robot.model.impl.ATR;

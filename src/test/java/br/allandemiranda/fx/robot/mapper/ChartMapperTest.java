@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.impl.base.ChartDto;
-import br.allandemiranda.fx.robot.dto.impl.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.ChartDto;
+import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.impl.create.ChartCreateDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.model.Chart;

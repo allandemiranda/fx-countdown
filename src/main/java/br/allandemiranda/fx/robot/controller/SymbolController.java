@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.impl.base.SymbolDto;
+import br.allandemiranda.fx.robot.controller.util.SymbolUtils;
+import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.impl.create.SymbolCreateDto;
-import br.allandemiranda.fx.robot.exception.impl.SymbolNotFoundException;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
@@ -32,11 +32,6 @@ public class SymbolController {
 
   private final SymbolService symbolService;
 
-  private Mono<SymbolDto> getSymbolDto(String name) {
-    log.trace("getSymbolDto(name={})", name);
-    return this.getSymbolService().get(name).switchIfEmpty(Mono.error(() -> new SymbolNotFoundException(name)));
-  }
-
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
   public Flux<SymbolDto> findAll() {
@@ -48,7 +43,7 @@ public class SymbolController {
   @GetMapping(path = "/{name}", produces = "application/json")
   public Mono<SymbolDto> find(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
     log.debug("Find [name={}]", name);
-    return this.getSymbolDto(name).doOnError(throwable -> log.warn("Trouble for finding symbol", throwable));
+    return SymbolUtils.getSymbol(name, this.getSymbolService()).doOnError(throwable -> log.warn("Trouble for finding symbol", throwable));
   }
 
   @ResponseStatus(HttpStatus.CREATED)
@@ -65,7 +60,7 @@ public class SymbolController {
   @DeleteMapping(path = "/{name}", produces = "application/json")
   public Mono<Void> delete(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
     log.debug("Delete [name={}]", name);
-    return this.getSymbolDto(name).flatMap(symbolDto -> this.getSymbolService().delete(symbolDto.name())).doOnError(throwable -> log.warn("Trouble for deleting symbol", throwable));
+    return SymbolUtils.getSymbol(name, this.getSymbolService()).flatMap(symbolDto -> this.getSymbolService().delete(symbolDto.name())).doOnError(throwable -> log.warn("Trouble for deleting symbol", throwable));
   }
 
 }

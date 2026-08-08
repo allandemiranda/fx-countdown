@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.ChartObjectDto;
 import br.allandemiranda.fx.robot.dto.CreateChartObjectDto;
-import br.allandemiranda.fx.robot.dto.impl.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.model.ChartObjectModel;
 import java.util.UUID;
 

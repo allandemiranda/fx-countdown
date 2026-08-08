@@ -10,8 +10,8 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-@Testcontainers
 @SpringBootTest
+@Testcontainers(disabledWithoutDocker = true)
 class FxCountdownApplicationTests {
 
   @Container

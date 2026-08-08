@@ -2,10 +2,10 @@ package br.allandemiranda.fx.robot.controller.impl;
 
 import br.allandemiranda.fx.robot.controller.InputObjectController;
 import br.allandemiranda.fx.robot.dto.TimeLineObjectDto;
-import br.allandemiranda.fx.robot.dto.impl.base.ChartDto;
+import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.dto.impl.base.DashboardDto;
 import br.allandemiranda.fx.robot.dto.impl.base.GarchTradingDto;
-import br.allandemiranda.fx.robot.dto.impl.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.impl.base.TickDto;
 import br.allandemiranda.fx.robot.dto.impl.create.DashboardCreateDto;
 import br.allandemiranda.fx.robot.dto.impl.create.GarchTradingCreateDto;

@@ -1,6 +1,7 @@
 package br.allandemiranda.fx.robot.dto.impl.base;
 
 import br.allandemiranda.fx.robot.dto.BaseDto;
+import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.TimeLineObjectDto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;

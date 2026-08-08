@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.impl.base.SymbolDto;
+import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.impl.create.TickCreateDto;
 import br.allandemiranda.fx.robot.mapper.TickMapper;
 import br.allandemiranda.fx.robot.model.Tick;
