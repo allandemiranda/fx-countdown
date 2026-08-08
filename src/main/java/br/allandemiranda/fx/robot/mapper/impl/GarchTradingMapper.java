@@ -3,7 +3,7 @@ package br.allandemiranda.fx.robot.mapper.impl;
 import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.dto.impl.base.GarchTradingDto;
 import br.allandemiranda.fx.robot.dto.SymbolDto;
-import br.allandemiranda.fx.robot.dto.impl.base.TickDto;
+import br.allandemiranda.fx.robot.dto.TickDto;
 import br.allandemiranda.fx.robot.dto.impl.create.GarchTradingCreateDto;
 import br.allandemiranda.fx.robot.enums.PositionType;
 import br.allandemiranda.fx.robot.mapper.ChartObjectMapper;

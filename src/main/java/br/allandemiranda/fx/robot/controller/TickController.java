@@ -1,10 +1,9 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.SymbolDto;
-import br.allandemiranda.fx.robot.dto.impl.base.TickDto;
-import br.allandemiranda.fx.robot.dto.impl.create.TickCreateDto;
-import br.allandemiranda.fx.robot.exception.impl.SymbolNotFoundException;
-import br.allandemiranda.fx.robot.exception.impl.TickNotFoundException;
+import br.allandemiranda.fx.robot.controller.util.SymbolUtils;
+import br.allandemiranda.fx.robot.controller.util.TickUtils;
+import br.allandemiranda.fx.robot.dto.TickCreateDto;
+import br.allandemiranda.fx.robot.dto.TickDto;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import br.allandemiranda.fx.robot.service.TickService;
 import jakarta.validation.Valid;
@@ -38,52 +37,36 @@ public class TickController {
   private final SymbolService symbolService;
   private final TickService tickService;
 
-  private Mono<SymbolDto> getSymbolDto(String name) {
-    log.trace("getSymbolDto(name={})", name);
-    return this.getSymbolService().get(name).switchIfEmpty(Mono.error(() -> new SymbolNotFoundException(name)));
-  }
-
-  private Mono<TickDto> getTickDto(SymbolDto symbolDto, OffsetDateTime timestamp) {
-    log.trace("getTickDto(symbolDto={}, timestamp={})", symbolDto, timestamp);
-    return this.getTickService().get(symbolDto, timestamp).switchIfEmpty(Mono.error(() -> new TickNotFoundException(symbolDto.name(), timestamp)));
-  }
-
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
   public Flux<TickDto> findAll(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
     log.debug("Find All [name={}]", name);
-    return this.getSymbolDto(name).flatMapMany(symbolDto -> this.getTickService().get(symbolDto)).doOnError(throwable -> log.warn("Trouble for finding all tick", throwable));
+    return SymbolUtils.getSymbol(name, this.getSymbolService()).flatMapMany(symbolDto -> this.getTickService().get(symbolDto)).doOnError(throwable -> log.warn("Trouble for finding all tick", throwable));
   }
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(path = "/{timestamp}", produces = "application/json")
   public Mono<TickDto> find(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @PastOrPresent @Valid OffsetDateTime timestamp) {
     log.debug("Find [name={}, timestamp={}]", name, timestamp);
-    return this.getSymbolDto(name).flatMap(symbolDto -> this.getTickDto(symbolDto, timestamp)).doOnError(throwable -> log.warn("Trouble for finding tick", throwable));
+    return TickUtils.getTick(name, timestamp, this.getSymbolService(), this.getTickService()).doOnError(throwable -> log.warn("Trouble for finding tick", throwable));
   }
 
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(produces = "application/json")
   public Mono<TickDto> create(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @RequestBody @Valid TickCreateDto tickCreateDto) {
     log.debug("Create [name={}, tickCreateDto={}]", name, tickCreateDto);
-    return this.getSymbolDto(name).flatMap(symbolDto -> this.getTickService().create(symbolDto, tickCreateDto)).doOnError(throwable -> log.warn("Trouble for creating tick", throwable)).switchIfEmpty(Mono.defer(() -> {
-      log.warn("Error creating tick: create returned empty tick");
-      return Mono.error(IllegalStateException::new);
-    }));
-  }
-
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  @DeleteMapping(path = "/{timestamp}", produces = "application/json")
-  public Mono<Void> delete(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name, @PathVariable @PastOrPresent @Valid OffsetDateTime timestamp) {
-    log.debug("Delete [name={}, timestamp={}]", name, timestamp);
-    return this.getSymbolDto(name).flatMap(symbolDto -> this.getTickDto(symbolDto, timestamp)).flatMap(tickDto -> this.getTickService().delete(tickDto)).doOnError(throwable -> log.warn("Trouble for deleting tick", throwable));
+    return SymbolUtils.getSymbol(name, this.getSymbolService()).flatMap(symbolDto -> this.getTickService().create(symbolDto, tickCreateDto)).doOnError(throwable -> log.warn("Trouble for creating tick", throwable))
+        .switchIfEmpty(Mono.defer(() -> {
+          log.warn("Error creating tick: create returned empty tick");
+          return Mono.error(IllegalStateException::new);
+        }));
   }
 
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @DeleteMapping(produces = "application/json")
-  public Mono<Void> deleteAll(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
-    log.debug("Delete All [name={}]", name);
-    return this.getSymbolDto(name).flatMap(symbolDto -> this.getTickService().deleteAll(symbolDto)).doOnError(throwable -> log.warn("Trouble for deleting all tick", throwable));
+  public Mono<Void> delete(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
+    log.debug("Delete [name={}]", name);
+    return SymbolUtils.getSymbol(name, this.getSymbolService()).flatMap(symbolDto -> this.getTickService().delete(symbolDto)).doOnError(throwable -> log.warn("Trouble for deleting tick", throwable));
   }
 
 }

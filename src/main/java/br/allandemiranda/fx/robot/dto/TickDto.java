@@ -1,15 +1,16 @@
-package br.allandemiranda.fx.robot.dto.impl.create;
+package br.allandemiranda.fx.robot.dto;
 
 import br.allandemiranda.fx.robot.annotation.AskBidValidate;
-import br.allandemiranda.fx.robot.dto.CreateDto;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
+import java.util.UUID;
 
 @AskBidValidate
-public record TickCreateDto(@NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Positive BigDecimal ask, @NotNull @Positive BigDecimal bid) implements Serializable, CreateDto {
+public record TickDto(@NotNull UUID id, @Valid @NotNull SymbolDto symbolDto, @NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Positive BigDecimal ask, @NotNull @Positive BigDecimal bid) implements Serializable {
 
 }

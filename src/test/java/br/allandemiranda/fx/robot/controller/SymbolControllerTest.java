@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.controller;
 
 import br.allandemiranda.fx.robot.controller.advice.CodeResponseHandler;
 import br.allandemiranda.fx.robot.dto.SymbolDto;
-import br.allandemiranda.fx.robot.dto.impl.create.SymbolCreateDto;
+import br.allandemiranda.fx.robot.dto.SymbolCreateDto;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import java.math.BigDecimal;
 import org.apache.commons.lang3.RandomStringUtils;

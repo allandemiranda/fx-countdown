@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.SymbolDto;
-import br.allandemiranda.fx.robot.dto.impl.create.TickCreateDto;
+import br.allandemiranda.fx.robot.dto.TickCreateDto;
 import br.allandemiranda.fx.robot.mapper.TickMapper;
 import br.allandemiranda.fx.robot.model.Tick;
 import br.allandemiranda.fx.robot.repository.TickRepository;
@@ -139,6 +139,6 @@ class TickServiceTest {
     Mockito.when(this.repository.deleteAllBySymbolName(symbolDto.name())).thenReturn(Mono.empty());
 
     //then
-    StepVerifier.create(this.service.deleteAll(symbolDto)).expectNextCount(0).verifyComplete();
+    StepVerifier.create(this.service.delete(symbolDto)).expectNextCount(0).verifyComplete();
   }
 }

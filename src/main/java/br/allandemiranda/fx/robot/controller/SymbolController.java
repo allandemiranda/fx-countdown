@@ -2,7 +2,7 @@ package br.allandemiranda.fx.robot.controller;
 
 import br.allandemiranda.fx.robot.controller.util.SymbolUtils;
 import br.allandemiranda.fx.robot.dto.SymbolDto;
-import br.allandemiranda.fx.robot.dto.impl.create.SymbolCreateDto;
+import br.allandemiranda.fx.robot.dto.SymbolCreateDto;
 import br.allandemiranda.fx.robot.service.SymbolService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;

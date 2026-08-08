@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.dto.impl.create;
 
 import br.allandemiranda.fx.robot.dto.CreateChartObjectDto;
-import br.allandemiranda.fx.robot.dto.impl.base.TickDto;
+import br.allandemiranda.fx.robot.dto.TickDto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Positive;

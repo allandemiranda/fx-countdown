@@ -1,6 +1,6 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.impl.create.SymbolCreateDto;
+import br.allandemiranda.fx.robot.dto.SymbolCreateDto;
 import br.allandemiranda.fx.robot.mapper.SymbolMapper;
 import br.allandemiranda.fx.robot.model.Symbol;
 import br.allandemiranda.fx.robot.repository.SymbolRepository;

@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.validation;
 
 import br.allandemiranda.fx.robot.annotation.AskBidValidate;
-import br.allandemiranda.fx.robot.dto.impl.base.TickDto;
-import br.allandemiranda.fx.robot.dto.impl.create.TickCreateDto;
+import br.allandemiranda.fx.robot.dto.TickDto;
+import br.allandemiranda.fx.robot.dto.TickCreateDto;
 import br.allandemiranda.fx.robot.model.Tick;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
