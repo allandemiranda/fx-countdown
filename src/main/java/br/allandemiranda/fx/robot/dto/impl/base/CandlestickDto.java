@@ -1,5 +1,6 @@
 package br.allandemiranda.fx.robot.dto.impl.base;
 
+import br.allandemiranda.fx.robot.annotation.CandlestickPriceValidate;
 import br.allandemiranda.fx.robot.dto.BaseDto;
 import br.allandemiranda.fx.robot.dto.ChartDto;
 import br.allandemiranda.fx.robot.dto.ChartObjectDto;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+@CandlestickPriceValidate
 public record CandlestickDto(@NotNull UUID id, @Valid @NotNull ChartDto chartDto, @NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Positive BigDecimal open, @NotNull @Positive BigDecimal high, @NotNull @Positive BigDecimal low, @NotNull @Positive BigDecimal close) implements Serializable,
     BaseDto, ChartObjectDto {
 

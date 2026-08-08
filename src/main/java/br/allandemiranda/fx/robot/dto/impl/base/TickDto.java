@@ -1,5 +1,6 @@
 package br.allandemiranda.fx.robot.dto.impl.base;
 
+import br.allandemiranda.fx.robot.annotation.AskBidValidate;
 import br.allandemiranda.fx.robot.dto.BaseDto;
 import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.TimeLineObjectDto;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
+@AskBidValidate
 public record TickDto(@NotNull UUID id, @Valid @NotNull SymbolDto symbolDto, @NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Positive BigDecimal ask, @NotNull @Positive BigDecimal bid) implements Serializable, BaseDto, TimeLineObjectDto {
 
 }
