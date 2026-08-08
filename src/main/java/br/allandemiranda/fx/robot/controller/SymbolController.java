@@ -1,9 +1,11 @@
 package br.allandemiranda.fx.robot.controller;
 
 import br.allandemiranda.fx.robot.controller.util.SymbolUtils;
-import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.SymbolCreateDto;
+import br.allandemiranda.fx.robot.dto.SymbolDto;
+import br.allandemiranda.fx.robot.service.CandlestickService;
 import br.allandemiranda.fx.robot.service.SymbolService;
+import br.allandemiranda.fx.robot.service.TickService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -31,6 +33,8 @@ import reactor.core.publisher.Mono;
 public class SymbolController {
 
   private final SymbolService symbolService;
+  private final TickService tickService;
+  private final CandlestickService candlestickService;
 
   @ResponseStatus(HttpStatus.OK)
   @GetMapping(produces = "application/json")
@@ -60,7 +64,9 @@ public class SymbolController {
   @DeleteMapping(path = "/{name}", produces = "application/json")
   public Mono<Void> delete(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
     log.debug("Delete [name={}]", name);
-    return SymbolUtils.getSymbol(name, this.getSymbolService()).flatMap(symbolDto -> this.getSymbolService().delete(symbolDto.name())).doOnError(throwable -> log.warn("Trouble for deleting symbol", throwable));
+    return SymbolUtils.getSymbol(name, this.getSymbolService())
+        .flatMap(symbolDto -> this.getSymbolService().delete(symbolDto.name()).then(this.getTickService().delete(symbolDto)).then(this.getCandlestickService().deleteAll(symbolDto)))
+        .doOnError(throwable -> log.warn("Trouble for deleting symbol", throwable));
   }
 
 }

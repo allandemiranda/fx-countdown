@@ -17,4 +17,6 @@ public interface CandlestickRepository extends ReactiveCrudRepository<Candlestic
   Flux<Candlestick> findAllBySymbolNameAndTimeframeOrderByTimestampAsc(String symbolName, Timeframe timeframe);
 
   Mono<Void> deleteAllBySymbolNameAndTimeframe(String symbolName, Timeframe timeframe);
+
+  Mono<Void> deleteAllBySymbolName(String symbolName);
 }

@@ -42,7 +42,6 @@ public class SymbolService {
   public Mono<Void> delete(String name) {
     log.debug("Delete [name={}]", name);
     return this.getRepository().deleteById(name);
-    //TODO: implement the delete in cascade for Candlesticks and Ticks that use the same Symbol
   }
 
 }

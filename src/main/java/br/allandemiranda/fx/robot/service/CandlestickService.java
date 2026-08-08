@@ -65,4 +65,9 @@ public class CandlestickService {
     log.debug("Delete [symbolDto={}, timeframe={}]", symbolDto, timeframe);
     return this.getRepository().deleteAllBySymbolNameAndTimeframe(symbolDto.name(), timeframe);
   }
+
+  public Mono<Void> deleteAll(SymbolDto symbolDto) {
+    log.debug("Delete All [symbolDto={}]", symbolDto);
+    return this.getRepository().deleteAllBySymbolName(symbolDto.name());
+  }
 }
