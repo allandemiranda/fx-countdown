@@ -9,6 +9,7 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("symbol")
-public record Symbol(@Id @Column("name") @NotNull @Pattern(regexp = "^[A-Z]{6}$") String name, @Column("point") @NotNull @Positive BigDecimal point, @Column("swap_long") @NotNull BigDecimal swapLong, @Column("swap_short") @NotNull BigDecimal swapShort) {
+public record Symbol(@Id @Column("name") @NotNull @Pattern(regexp = "^[A-Z]{6}$") String name, @Column("point") @NotNull @Positive BigDecimal point, @Column("swap_long") @NotNull BigDecimal swapLong,
+                     @Column("swap_short") @NotNull BigDecimal swapShort) {
 
 }

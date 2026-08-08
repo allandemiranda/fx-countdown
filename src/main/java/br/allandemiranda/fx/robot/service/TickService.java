@@ -1,8 +1,9 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.impl.base.SymbolDto;
-import br.allandemiranda.fx.robot.dto.impl.base.TickDto;
-import br.allandemiranda.fx.robot.dto.impl.create.TickCreateDto;
+import br.allandemiranda.fx.robot.dto.core.SymbolDto;
+import br.allandemiranda.fx.robot.dto.core.TickCreateDto;
+import br.allandemiranda.fx.robot.dto.core.TickDto;
+import br.allandemiranda.fx.robot.dto.impl.input.ScopeInputCreateDto;
 import br.allandemiranda.fx.robot.mapper.TickMapper;
 import br.allandemiranda.fx.robot.model.Tick;
 import br.allandemiranda.fx.robot.repository.TickRepository;
@@ -29,29 +30,28 @@ public class TickService {
     return this.getRepository().findBySymbolNameAndTimestamp(symbolDto.name(), timestamp).map(tick -> this.getMapper().toDto(symbolDto, tick));
   }
 
-  public Mono<TickDto> getOrNext(SymbolDto symbolDto, OffsetDateTime timestamp) {
-    log.debug("GetOrNext [symbolDto={}, timestamp={}]", symbolDto, timestamp);
-    return this.getRepository().findBySymbolNameAndTimestamp(symbolDto.name(), timestamp).map(tick -> this.getMapper().toDto(symbolDto, tick))
-        .switchIfEmpty(Mono.defer(() -> {
-          log.trace("GetOrNext [symbolDto={}, timestamp={}], not found timestamp, finding the next tick", symbolDto, timestamp);
-          return this.get(symbolDto).filter(tickDto -> tickDto.timestamp().isAfter(timestamp)).next();
-        }))
-        .switchIfEmpty(Mono.defer(() -> {
-          log.warn("GetOrNext [symbolDto={}, timestamp={}], not found timestamp and not find the next tick", symbolDto, timestamp);
-          return Mono.empty();
-        }));
-  }
-
   public Flux<TickDto> get(SymbolDto symbolDto) {
     log.debug("Get [symbolDto={}]", symbolDto);
     return this.getRepository().findAllBySymbolNameOrderByTimestampAsc(symbolDto.name()).map(tick -> this.getMapper().toDto(symbolDto, tick));
+  }
+
+  public Flux<TickDto> getAfterTimestamp(SymbolDto symbolDto, OffsetDateTime start) {
+    log.debug("Get Equal and After Timestamp [symbolDto={}, start={}]", symbolDto, start);
+    return this.getRepository().findAllBySymbolNameAndTimestampGreaterThanEqualOrderByTimestampAsc(symbolDto.name(), start).map(tick -> this.getMapper().toDto(symbolDto, tick));
+  }
+
+  public Flux<TickDto> getBetweenTimestamp(SymbolDto symbolDto, OffsetDateTime start, OffsetDateTime end) {
+    log.debug("Get Equal and After Timestamp [symbolDto={}, start={}, end={}]", symbolDto, start, end);
+    return this.getRepository().findAllBySymbolNameAndTimestampGreaterThanEqualAndTimestampLessThanOrderByTimestampAsc(symbolDto.name(), start, end).map(tick -> this.getMapper().toDto(symbolDto, tick));
   }
 
   public Mono<TickDto> create(SymbolDto symbolDto, TickCreateDto tickCreateDto) {
     log.debug("Get [symbolDto={}, tickCreateDto={}]", symbolDto, tickCreateDto);
     return this.get(symbolDto, tickCreateDto.timestamp()).flatMap(tickDto -> {
       log.trace("Create [symbolDto={}, tickCreateDto={}], object already exist [tickDto={}]", symbolDto, tickCreateDto, tickDto);
-      return this.getRepository().save(this.getMapper().toModel(tickDto.id(), symbolDto, tickCreateDto)).map(tick -> this.getMapper().toDto(symbolDto, tick));
+      Tick model = this.getMapper().toModel(tickDto.id(), symbolDto, tickCreateDto);
+      log.trace("Create [symbolDto={}, tickCreateDto={}], updating already exist [tick={}]", symbolDto, tickCreateDto, model);
+      return this.getRepository().save(model).map(tick -> this.getMapper().toDto(symbolDto, tick));
     }).switchIfEmpty(Mono.defer(() -> {
       Tick model = this.getMapper().toModel(UUID.randomUUID(), symbolDto, tickCreateDto);
       log.trace("Create [symbolDto={}, tickCreateDto={}], new object generated to save [tick={}]", symbolDto, tickCreateDto, model);
@@ -59,14 +59,10 @@ public class TickService {
     }));
   }
 
-  public Mono<Void> delete(TickDto tickDto) {
-    log.debug("Delete [tickDto={}]", tickDto);
-    return this.getRepository().deleteBySymbolNameAndTimestamp(tickDto.symbolDto().name(), tickDto.timestamp());
-  }
-
-  public Mono<Void> deleteAll(SymbolDto symbolDto) {
-    log.debug("Delete All [symbolDto={}]", symbolDto);
-    return this.getRepository().deleteAllBySymbolName(symbolDto.name());
+  public Mono<ScopeInputCreateDto> getScope(SymbolDto symbolDto) {
+    log.debug("Get scope [symbolDto={}]", symbolDto);
+    return Mono.zip(this.getRepository().findFirstBySymbolNameOrderByTimestampAsc(symbolDto.name()), this.getRepository().findFirstBySymbolNameOrderByTimestampDesc(symbolDto.name()))
+        .flatMap(objects -> Mono.just(new ScopeInputCreateDto(objects.getT1().timestamp(), objects.getT2().timestamp())));
   }
 
 }

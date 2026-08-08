@@ -1,12 +1,12 @@
 package br.allandemiranda.fx.robot.controller.impl;
 
-import br.allandemiranda.fx.robot.controller.ChartObjectController;
-import br.allandemiranda.fx.robot.dto.impl.base.ADXDto;
-import br.allandemiranda.fx.robot.dto.impl.create.ADXCreateDto;
-import br.allandemiranda.fx.robot.model.impl.ADX;
-import br.allandemiranda.fx.robot.service.ChartService;
+import br.allandemiranda.fx.robot.controller.IndicatorController;
+import br.allandemiranda.fx.robot.dto.impl.indicator.ADXCreateDto;
+import br.allandemiranda.fx.robot.dto.impl.indicator.ADXDto;
+import br.allandemiranda.fx.robot.model.impl.indicator.ADX;
+import br.allandemiranda.fx.robot.service.ExpertAdvisorService;
 import br.allandemiranda.fx.robot.service.SymbolService;
-import br.allandemiranda.fx.robot.service.impl.ADXService;
+import br.allandemiranda.fx.robot.service.impl.indicator.ADXService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.validation.annotation.Validated;
@@ -17,16 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{period}/adxs")
-public class ADXController implements ChartObjectController<ADX, ADXDto, ADXCreateDto> {
+@RequestMapping("expert_advisors/{expertAdvisorName}/adxs")
+public class ADXController implements IndicatorController<ADX, ADXDto, ADXCreateDto> {
 
   private final SymbolService symbolService;
-  private final ChartService chartService;
+  private final ExpertAdvisorService expertAdvisorService;
   private final ADXService service;
-
-  @Override
-  public String getChartObjectName() {
-    return "ADX";
-  }
 
 }

@@ -1,17 +1,19 @@
 package br.allandemiranda.fx.robot.controller;
 
-import br.allandemiranda.fx.robot.dto.impl.base.SymbolDto;
-import br.allandemiranda.fx.robot.dto.impl.create.SymbolCreateDto;
-import br.allandemiranda.fx.robot.exception.impl.SymbolNotFoundException;
+import br.allandemiranda.fx.robot.controller.util.SymbolUtils;
+import br.allandemiranda.fx.robot.dto.core.SymbolCreateDto;
+import br.allandemiranda.fx.robot.dto.core.SymbolDto;
+import br.allandemiranda.fx.robot.service.CandlestickService;
 import br.allandemiranda.fx.robot.service.SymbolService;
+import br.allandemiranda.fx.robot.service.TickService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,41 +33,31 @@ import reactor.core.publisher.Mono;
 public class SymbolController {
 
   private final SymbolService symbolService;
-
-  private Mono<SymbolDto> getSymbolDto(String name) {
-    log.trace("getSymbolDto(name={})", name);
-    return this.getSymbolService().get(name).switchIfEmpty(Mono.error(() -> new SymbolNotFoundException(name)));
-  }
+  private final TickService tickService;
+  private final CandlestickService candlestickService;
 
   @ResponseStatus(HttpStatus.OK)
-  @GetMapping(produces = "application/json")
+  @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Flux<SymbolDto> findAll() {
     log.debug("Find All");
     return this.getSymbolService().get();
   }
 
   @ResponseStatus(HttpStatus.OK)
-  @GetMapping(path = "/{name}", produces = "application/json")
+  @GetMapping(path = "/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<SymbolDto> find(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
     log.debug("Find [name={}]", name);
-    return this.getSymbolDto(name).doOnError(throwable -> log.warn("Trouble for finding symbol", throwable));
+    return SymbolUtils.getSymbol(name, this.getSymbolService()).doOnError(throwable -> log.warn("Trouble for finding symbol [name={}]", name, throwable));
   }
 
   @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping(produces = "application/json")
+  @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
   public Mono<SymbolDto> create(@RequestBody @Valid SymbolCreateDto symbolCreateDto) {
     log.debug("Create [symbolCreateDto={}]", symbolCreateDto);
-    return this.getSymbolService().create(symbolCreateDto).doOnError(throwable -> log.warn("Trouble for creating symbol", throwable)).switchIfEmpty(Mono.defer(() -> {
+    return this.getSymbolService().create(symbolCreateDto).doOnError(throwable -> log.warn("Trouble for creating symbol [symbolCreateDto={}]", symbolCreateDto, throwable)).switchIfEmpty(Mono.defer(() -> {
       log.warn("Error creating symbol: create returned empty symbol");
       return Mono.error(IllegalStateException::new);
     }));
-  }
-
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  @DeleteMapping(path = "/{name}", produces = "application/json")
-  public Mono<Void> delete(@PathVariable @Pattern(regexp = "^[A-Z]{6}$") @Valid String name) {
-    log.debug("Delete [name={}]", name);
-    return this.getSymbolDto(name).flatMap(symbolDto -> this.getSymbolService().delete(symbolDto.name())).doOnError(throwable -> log.warn("Trouble for deleting symbol", throwable));
   }
 
 }

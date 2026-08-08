@@ -15,8 +15,11 @@ public interface TickRepository extends ReactiveCrudRepository<Tick, UUID> {
 
   Flux<Tick> findAllBySymbolNameOrderByTimestampAsc(String symbolName);
 
-  Mono<Void> deleteBySymbolNameAndTimestamp(String symbolName, OffsetDateTime timestamp);
+  Mono<Tick> findFirstBySymbolNameOrderByTimestampAsc(String symbolName);
 
-  Mono<Void> deleteAllBySymbolName(String symbolName);
+  Mono<Tick> findFirstBySymbolNameOrderByTimestampDesc(String symbolName);
 
+  Flux<Tick> findAllBySymbolNameAndTimestampGreaterThanEqualAndTimestampLessThanOrderByTimestampAsc(String symbolName, OffsetDateTime startTimestamp, OffsetDateTime endTimestamp);
+
+  Flux<Tick> findAllBySymbolNameAndTimestampGreaterThanEqualOrderByTimestampAsc(String symbolName, OffsetDateTime startTimestamp);
 }
