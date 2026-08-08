@@ -1,12 +1,11 @@
 package br.allandemiranda.fx.robot.controller.impl;
 
-import br.allandemiranda.fx.robot.controller.ChartObjectController;
-import br.allandemiranda.fx.robot.dto.impl.base.StochasticDto;
-import br.allandemiranda.fx.robot.dto.impl.create.StochasticCreateDto;
-import br.allandemiranda.fx.robot.model.impl.Stochastic;
-import br.allandemiranda.fx.robot.service.ChartService;
-import br.allandemiranda.fx.robot.service.SymbolService;
-import br.allandemiranda.fx.robot.service.impl.StochasticService;
+import br.allandemiranda.fx.robot.controller.IndicatorController;
+import br.allandemiranda.fx.robot.dto.impl.indicator.StochasticCreateDto;
+import br.allandemiranda.fx.robot.dto.impl.indicator.StochasticDto;
+import br.allandemiranda.fx.robot.model.impl.indicator.Stochastic;
+import br.allandemiranda.fx.robot.service.DashboardService;
+import br.allandemiranda.fx.robot.service.impl.indicator.StochasticService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.validation.annotation.Validated;
@@ -17,16 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{timeframe}/stochastics")
-public class StochasticController implements ChartObjectController<Stochastic, StochasticDto, StochasticCreateDto> {
+@RequestMapping("dashboards/{dashboardId}/stochastics")
+public class StochasticController implements IndicatorController<Stochastic, StochasticDto, StochasticCreateDto> {
 
-  private final SymbolService symbolService;
-  private final ChartService chartService;
   private final StochasticService service;
-
-  @Override
-  public String getChartObjectName() {
-    return "Stochastic";
-  }
+  private final DashboardService dashboardService;
 
 }

@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.validation;
 
 import br.allandemiranda.fx.robot.annotation.AskBidValidate;
-import br.allandemiranda.fx.robot.dto.TickDto;
 import br.allandemiranda.fx.robot.dto.TickCreateDto;
+import br.allandemiranda.fx.robot.dto.TickDto;
 import br.allandemiranda.fx.robot.model.Tick;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -12,8 +12,8 @@ public class AskBidValidator implements ConstraintValidator<AskBidValidate, Obje
 
   @Override
   public boolean isValid(Object value, ConstraintValidatorContext context) {
-    BigDecimal ask = null;
-    BigDecimal bid = null;
+    BigDecimal ask;
+    BigDecimal bid;
 
     switch (value) {
       case Tick model -> {

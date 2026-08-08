@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
 import br.allandemiranda.fx.robot.dto.SymbolDto;
-import br.allandemiranda.fx.robot.dto.TickDto;
 import br.allandemiranda.fx.robot.dto.TickCreateDto;
+import br.allandemiranda.fx.robot.dto.TickDto;
 import br.allandemiranda.fx.robot.model.Tick;
 import java.util.UUID;
 import org.springframework.stereotype.Component;

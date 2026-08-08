@@ -1,12 +1,11 @@
 package br.allandemiranda.fx.robot.controller.impl;
 
-import br.allandemiranda.fx.robot.controller.ChartObjectController;
-import br.allandemiranda.fx.robot.dto.impl.base.BandsDto;
-import br.allandemiranda.fx.robot.dto.impl.create.BandsCreateDto;
-import br.allandemiranda.fx.robot.model.impl.Bands;
-import br.allandemiranda.fx.robot.service.ChartService;
-import br.allandemiranda.fx.robot.service.SymbolService;
-import br.allandemiranda.fx.robot.service.impl.BandsService;
+import br.allandemiranda.fx.robot.controller.IndicatorController;
+import br.allandemiranda.fx.robot.dto.impl.indicator.BandsCreateDto;
+import br.allandemiranda.fx.robot.dto.impl.indicator.BandsDto;
+import br.allandemiranda.fx.robot.model.impl.indicator.Bands;
+import br.allandemiranda.fx.robot.service.DashboardService;
+import br.allandemiranda.fx.robot.service.impl.indicator.BandsService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.validation.annotation.Validated;
@@ -17,16 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{timeframe}/bandss")
-public class BandsController implements ChartObjectController<Bands, BandsDto, BandsCreateDto> {
+@RequestMapping("dashboards/{dashboardId}/bandss")
+public class BandsController implements IndicatorController<Bands, BandsDto, BandsCreateDto> {
 
-  private final SymbolService symbolService;
-  private final ChartService chartService;
   private final BandsService service;
-
-  @Override
-  public String getChartObjectName() {
-    return "Bands";
-  }
+  private final DashboardService dashboardService;
 
 }

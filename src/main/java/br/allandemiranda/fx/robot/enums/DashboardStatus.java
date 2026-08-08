@@ -1,6 +1,8 @@
 package br.allandemiranda.fx.robot.enums;
 
 public enum DashboardStatus {
+  CREATED,
+
   //importing from MT5
   IMPORTING_SYMBOL,
   IMPORTING_SYMBOL_ERROR,

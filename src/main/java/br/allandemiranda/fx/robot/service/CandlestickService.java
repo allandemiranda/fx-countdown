@@ -6,7 +6,7 @@ import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.mapper.CandlestickMapper;
 import br.allandemiranda.fx.robot.model.Candlestick;
-import br.allandemiranda.fx.robot.repository.impl.CandlestickRepository;
+import br.allandemiranda.fx.robot.repository.CandlestickRepository;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;

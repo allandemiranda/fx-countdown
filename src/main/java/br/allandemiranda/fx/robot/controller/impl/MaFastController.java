@@ -1,12 +1,11 @@
 package br.allandemiranda.fx.robot.controller.impl;
 
-import br.allandemiranda.fx.robot.controller.ChartObjectController;
-import br.allandemiranda.fx.robot.dto.impl.base.MaFastDto;
-import br.allandemiranda.fx.robot.dto.impl.create.MaFastCreateDto;
-import br.allandemiranda.fx.robot.model.impl.MaFast;
-import br.allandemiranda.fx.robot.service.ChartService;
-import br.allandemiranda.fx.robot.service.SymbolService;
-import br.allandemiranda.fx.robot.service.impl.MaFastService;
+import br.allandemiranda.fx.robot.controller.IndicatorController;
+import br.allandemiranda.fx.robot.dto.impl.indicator.MaFastCreateDto;
+import br.allandemiranda.fx.robot.dto.impl.indicator.MaFastDto;
+import br.allandemiranda.fx.robot.model.impl.indicator.MaFast;
+import br.allandemiranda.fx.robot.service.DashboardService;
+import br.allandemiranda.fx.robot.service.impl.indicator.MaFastService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.validation.annotation.Validated;
@@ -17,16 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Getter
 @RestController
 @Validated
-@RequestMapping("symbols/{name}/timeframes/{timeframe}/ma_fasts")
-public class MaFastController implements ChartObjectController<MaFast, MaFastDto, MaFastCreateDto> {
+@RequestMapping("dashboards/{dashboardId}/ma_fasts")
+public class MaFastController implements IndicatorController<MaFast, MaFastDto, MaFastCreateDto> {
 
-  private final SymbolService symbolService;
-  private final ChartService chartService;
   private final MaFastService service;
-
-  @Override
-  public String getChartObjectName() {
-    return "MA fast";
-  }
+  private final DashboardService dashboardService;
 
 }

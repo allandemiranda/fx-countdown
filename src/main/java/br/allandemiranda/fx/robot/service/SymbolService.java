@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.dto.SymbolCreateDto;
+import br.allandemiranda.fx.robot.dto.SymbolDto;
 import br.allandemiranda.fx.robot.mapper.SymbolMapper;
 import br.allandemiranda.fx.robot.model.Symbol;
 import br.allandemiranda.fx.robot.repository.SymbolRepository;
@@ -35,8 +35,7 @@ public class SymbolService {
     log.debug("Create [symbolCreateDto={}]", symbolCreateDto);
     Symbol model = this.getMapper().toModel(symbolCreateDto);
     log.trace("Create [symbolCreateDto={}], new object generated to save [symbol={}]", symbolCreateDto, model);
-    Mono<Symbol> savedSymbol = this.getRepository().save(model);
-    return savedSymbol.map(symbol -> this.getMapper().toDto(symbol));
+    return this.getRepository().save(model).map(symbol -> this.getMapper().toDto(symbol));
   }
 
   public Mono<Void> delete(String name) {
