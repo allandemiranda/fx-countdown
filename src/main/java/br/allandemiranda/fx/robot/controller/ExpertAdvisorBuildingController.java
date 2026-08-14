@@ -2,16 +2,16 @@ package br.allandemiranda.fx.robot.controller;
 
 import br.allandemiranda.fx.robot.controller.util.ExpertAdvisorUtils;
 import br.allandemiranda.fx.robot.controller.util.SymbolUtils;
+import br.allandemiranda.fx.robot.dto.IndicatorCreateDto;
+import br.allandemiranda.fx.robot.dto.IndicatorDto;
+import br.allandemiranda.fx.robot.dto.InputCreateDto;
+import br.allandemiranda.fx.robot.dto.InputDto;
 import br.allandemiranda.fx.robot.dto.analysis.DMatrixTrainRowDto;
 import br.allandemiranda.fx.robot.dto.analysis.GarchForecastDto;
 import br.allandemiranda.fx.robot.dto.analysis.PriceRiskLevelDto;
 import br.allandemiranda.fx.robot.dto.core.CandlestickDto;
 import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorCreateDto;
 import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
-import br.allandemiranda.fx.robot.dto.IndicatorCreateDto;
-import br.allandemiranda.fx.robot.dto.IndicatorDto;
-import br.allandemiranda.fx.robot.dto.InputCreateDto;
-import br.allandemiranda.fx.robot.dto.InputDto;
 import br.allandemiranda.fx.robot.dto.impl.indicator.ADXDto;
 import br.allandemiranda.fx.robot.dto.impl.indicator.ATRDto;
 import br.allandemiranda.fx.robot.dto.impl.indicator.BandsDto;
@@ -239,106 +239,113 @@ public class ExpertAdvisorBuildingController {
         .flatMapMany(expertAdvisorDto -> {
           return this.getExpertAdvisorService().updateStatus(expertAdvisorDto, ExpertAdvisorStatus.BUILDING_START)
               .then(this.getXgBoostInputService().get(expertAdvisorDto))
-                .flatMapMany(xgBoostInputDto -> {
-                  return this.getGarchInputService().get(expertAdvisorDto)
-                      .flatMapMany(garchInputDto -> {
-                        return this.getPriceRiskLevelService().get(expertAdvisorDto)
-                            .flatMapMany(priceRiskLevelInputDto -> {
-                              return this.getScopeService().get(expertAdvisorDto)
-                                  .flatMapMany(scopeInputDto -> {
-                                    Mono<List<CandlestickDto>> candlesticksBuy = this.getCandlestickService().get(expertAdvisorDto.symbolDto(), expertAdvisorDto.timeframe(), scopeInputDto.startScope(), scopeInputDto.endScope()).collectList();
-                                    Mono<List<CandlestickDto>> candlesticksSell = this.getTickService().getBetweenTimestamp(expertAdvisorDto.symbolDto(), scopeInputDto.startScope(), scopeInputDto.endScope().plus(expertAdvisorDto.timeframe().getDuration())).collectList().map(tickDtos -> CandlestickUtils.getCandlesticksAsk(tickDtos, expertAdvisorDto.timeframe()));
-                                    return Mono.zip(candlesticksBuy, candlesticksSell)
-                                        .flatMapMany(objects -> {
-                                          List<CandlestickDto> candlesticksBid = objects.getT1();
-                                          List<CandlestickDto> candlesticksAsk = objects.getT2();
-                                          return ParallelFlux.from(GarchUtils.getGarchForecasts(garchInputDto, PositionType.POSITION_TYPE_BUY).apply(candlesticksBid),
-                                                  GarchUtils.getGarchForecasts(garchInputDto, PositionType.POSITION_TYPE_SELL).apply(candlesticksAsk))
-                                              .flatMap(garchForecastDto -> {
-                                                      PriceRiskLevelDto priceRiskLevelDto = PriceRiskLevelUtils.getPriceRiskLevelByGarchForecast(priceRiskLevelInputDto, expertAdvisorDto.symbolDto()).apply(garchForecastDto);
-                                                      return this.getTickService().getAfterTimestamp(expertAdvisorDto.symbolDto(), scopeInputDto.startScope()).collectList()
-                                                          .flatMap(tickDtos -> TradingUtils.getTradingResult(priceRiskLevelDto, expertAdvisorDto.symbolDto()).apply(tickDtos))
-                                                          .filter(tradingDto -> tradingDto.dealReason() != null)
-                                                          .flatMap(tradingDto -> {
-                                                      if(PositionType.POSITION_TYPE_BUY.equals(tradingDto.positionType())) {
-                                                        return Mono.zip(Mono.just(tradingDto), Mono.just(candlesticksBid.getLast()),Mono.just(garchForecastDto));
-                                                      } else {
-                                                        return Mono.zip(Mono.just(tradingDto), Mono.just(candlesticksAsk.getLast()), Mono.just(garchForecastDto));
-                                                      }
-                                                    });
-                                              });
-                                        });
-                                  });
-                            });
-                      }).map(objects -> objects.mapT1(tradingDto -> DealReason.DEAL_REASON_TP.equals(tradingDto.dealReason()) ? XGBoostLabel.OPEN : XGBoostLabel.NOT_OPEN))
-                      .flatMap(technic -> {
-                        XGBoostLabel xgBoostLabel = technic.getT1();
-                        GarchForecastDto garchForecastDto = technic.getT3();
-                        OffsetDateTime timestamp = technic.getT2().timestamp();
-                        int horizon = xgBoostInputDto.horizon();
-                        return Mono.zip(
-                            Mono.zip(
+              .flatMapMany(xgBoostInputDto -> {
+                return this.getGarchInputService().get(expertAdvisorDto)
+                    .flatMapMany(garchInputDto -> {
+                      return this.getPriceRiskLevelService().get(expertAdvisorDto)
+                          .flatMapMany(priceRiskLevelInputDto -> {
+                            return this.getScopeService().get(expertAdvisorDto)
+                                .flatMapMany(scopeInputDto -> {
+                                  Mono<List<CandlestickDto>> candlesticksBuy = this.getCandlestickService().get(expertAdvisorDto.symbolDto(), expertAdvisorDto.timeframe(), scopeInputDto.startScope(), scopeInputDto.endScope())
+                                      .collectList();
+                                  Mono<List<CandlestickDto>> candlesticksSell = this.getTickService()
+                                      .getBetweenTimestamp(expertAdvisorDto.symbolDto(), scopeInputDto.startScope(), scopeInputDto.endScope().plus(expertAdvisorDto.timeframe().getDuration())).collectList()
+                                      .map(tickDtos -> CandlestickUtils.getCandlesticksAsk(tickDtos, expertAdvisorDto.timeframe()));
+                                  return Mono.zip(candlesticksBuy, candlesticksSell)
+                                      .flatMapMany(objects -> {
+                                        List<CandlestickDto> candlesticksBid = objects.getT1();
+                                        List<CandlestickDto> candlesticksAsk = objects.getT2();
+                                        return ParallelFlux.from(GarchUtils.getGarchForecasts(garchInputDto, PositionType.POSITION_TYPE_BUY).apply(candlesticksBid),
+                                                GarchUtils.getGarchForecasts(garchInputDto, PositionType.POSITION_TYPE_SELL).apply(candlesticksAsk))
+                                            .flatMap(garchForecastDto -> {
+                                              PriceRiskLevelDto priceRiskLevelDto = PriceRiskLevelUtils.getPriceRiskLevelByGarchForecast(priceRiskLevelInputDto, expertAdvisorDto.symbolDto()).apply(garchForecastDto);
+                                              return this.getTickService().getAfterTimestamp(expertAdvisorDto.symbolDto(), scopeInputDto.startScope()).collectList()
+                                                  .flatMap(tickDtos -> TradingUtils.getTradingResult(priceRiskLevelDto, expertAdvisorDto.symbolDto()).apply(tickDtos))
+                                                  .filter(tradingDto -> tradingDto.dealReason() != null)
+                                                  .flatMap(tradingDto -> {
+                                                    if (PositionType.POSITION_TYPE_BUY.equals(tradingDto.positionType())) {
+                                                      return Mono.zip(Mono.just(tradingDto), Mono.just(candlesticksBid.getLast()), Mono.just(garchForecastDto));
+                                                    } else {
+                                                      return Mono.zip(Mono.just(tradingDto), Mono.just(candlesticksAsk.getLast()), Mono.just(garchForecastDto));
+                                                    }
+                                                  });
+                                            });
+                                      });
+                                });
+                          });
+                    }).map(objects -> objects.mapT1(tradingDto -> DealReason.DEAL_REASON_TP.equals(tradingDto.dealReason()) ? XGBoostLabel.OPEN : XGBoostLabel.NOT_OPEN))
+                    .flatMap(technic -> {
+                      XGBoostLabel xgBoostLabel = technic.getT1();
+                      GarchForecastDto garchForecastDto = technic.getT3();
+                      OffsetDateTime timestamp = technic.getT2().timestamp();
+                      int horizon = xgBoostInputDto.horizon();
+                      return Mono.zip(
+                          Mono.zip(
                               Mono.just(xgBoostLabel),
                               Mono.just(garchForecastDto)
-                            ),
-                            Mono.zip(
+                          ),
+                          Mono.zip(
                               this.getCandlestickService().getPreviousIndicators(expertAdvisorDto.symbolDto(), expertAdvisorDto.timeframe(), timestamp, horizon).collectList(),
                               this.getAdxService().getPreviousIndicators(expertAdvisorDto, timestamp, horizon).collectList(),
                               this.getAtrService().getPreviousIndicators(expertAdvisorDto, timestamp, horizon).collectList(),
                               this.getBandsService().getPreviousIndicators(expertAdvisorDto, timestamp, horizon).collectList()
-                            ),
-                            Mono.zip(
+                          ),
+                          Mono.zip(
                               this.getMacdService().getPreviousIndicators(expertAdvisorDto, timestamp, horizon).collectList(),
                               this.getMaFastService().getPreviousIndicators(expertAdvisorDto, timestamp, horizon).collectList(),
                               this.getMaSlowService().getPreviousIndicators(expertAdvisorDto, timestamp, horizon).collectList(),
                               this.getRsiService().getPreviousIndicators(expertAdvisorDto, timestamp, horizon).collectList(),
                               this.getStochasticService().getPreviousIndicators(expertAdvisorDto, timestamp, horizon).collectList()
-                            )
-                          );
-                      })
-                      .map(zip -> {
-                        GarchForecastDto garchForecastDto = zip.getT1().getT2();
-                        OffsetDateTime timestamp = garchForecastDto.timestamp();
-                        XGBoostLabel xgBoostLabel = zip.getT1().getT1();
-                        List<CandlestickDto> candlestickDtos = zip.getT2().getT1();
-                        List<ADXDto> adxDtos = zip.getT2().getT2();
-                        List<ATRDto> atrDtos = zip.getT2().getT3();
-                        List<BandsDto> bandsDtos = zip.getT2().getT4();
-                        List<MACDDto> macdDtos = zip.getT3().getT1();
-                        List<MaFastDto> maFastDtos = zip.getT3().getT2();
-                        List<MaSlowDto> maSlowDtos = zip.getT3().getT3();
-                        List<RSIDto> rsiDtos = zip.getT3().getT4();
-                        List<StochasticDto> stochasticDtos = zip.getT3().getT5();
-                        return new DMatrixTrainRowDto(timestamp, xgBoostLabel, garchForecastDto, candlestickDtos, adxDtos, atrDtos, bandsDtos, macdDtos, maFastDtos, maSlowDtos, rsiDtos, stochasticDtos);
-                      })
-                      .groupBy(dMatrixTrainRowDto -> dMatrixTrainRowDto.garchForecastDto().positionType())
-                      .parallel()
-                      .flatMap(group -> {
-                        return group.sort(Comparator.comparing(dMatrixTrainRowDto -> dMatrixTrainRowDto.garchForecastDto().timestamp())).map(dMatrixTrainRowDtos -> DMatrixUtils.toLibSvmRow(dMatrixTrainRowDtos)).collectList().flatMap(lines ->  {
-                          Path path = Paths.get(System.getProperty("user.home") + File.separator + "ml_trading" + File.separator + expertAdvisorDto.name() + "_" + group.key().getTextValue() + "_" + expertAdvisorDto.symbolDto().name() + "_" + expertAdvisorDto.timeframe().getCode() + ".libsvm");
-                          try {
-                            return Mono.just(DMatrixUtils.saveToLibSvmFile(lines, path));
-                          } catch (IOException e) {
-                            return Mono.error(e);
-                          }
-                        });
-                      })
-                      .map(path -> {
-                        Map<String, Object> params = XGBoostTrainerUtils.getDefaultParams(2, xgBoostInputDto.maxDepth(), xgBoostInputDto.eta(),xgBoostInputDto.subsample(),xgBoostInputDto.colSampleByTree(), xgBoostInputDto.minChildWeight(), xgBoostInputDto.lambda(), xgBoostInputDto.alpha(), true, 0, null);
-                        return Map.entry(path, params);
-                      })
-                      .flatMap(pathMapEntry -> {
-                        Path path = Paths.get(pathMapEntry.getKey().toString().replace(".libsvm", ".json"));
-                        try {
-                          return Mono.just(XGBoostTrainerUtils.trainAll(pathMapEntry.getValue(), DMatrixUtils.getDMatrix(pathMapEntry.getKey()), 100, path));
-                        } catch (XGBoostError e) {
-                          return Mono.error(e);
-                        }
-                      })
-                      .collectSortedList((o1, o2) -> 0)
-                      .flatMap(boosters -> boosters.size() != 2 ? Mono.error(IllegalStateException::new) : Mono.just(boosters))
-                      .then(this.getExpertAdvisorService().updateStatus(expertAdvisorDto, ExpertAdvisorStatus.REDY_TO_USE));
-                });
+                          )
+                      );
+                    })
+                    .map(zip -> {
+                      GarchForecastDto garchForecastDto = zip.getT1().getT2();
+                      OffsetDateTime timestamp = garchForecastDto.timestamp();
+                      XGBoostLabel xgBoostLabel = zip.getT1().getT1();
+                      List<CandlestickDto> candlestickDtos = zip.getT2().getT1();
+                      List<ADXDto> adxDtos = zip.getT2().getT2();
+                      List<ATRDto> atrDtos = zip.getT2().getT3();
+                      List<BandsDto> bandsDtos = zip.getT2().getT4();
+                      List<MACDDto> macdDtos = zip.getT3().getT1();
+                      List<MaFastDto> maFastDtos = zip.getT3().getT2();
+                      List<MaSlowDto> maSlowDtos = zip.getT3().getT3();
+                      List<RSIDto> rsiDtos = zip.getT3().getT4();
+                      List<StochasticDto> stochasticDtos = zip.getT3().getT5();
+                      return new DMatrixTrainRowDto(timestamp, xgBoostLabel, garchForecastDto, candlestickDtos, adxDtos, atrDtos, bandsDtos, macdDtos, maFastDtos, maSlowDtos, rsiDtos, stochasticDtos);
+                    })
+                    .groupBy(dMatrixTrainRowDto -> dMatrixTrainRowDto.garchForecastDto().positionType())
+                    .parallel()
+                    .flatMap(group -> {
+                      return group.sort(Comparator.comparing(dMatrixTrainRowDto -> dMatrixTrainRowDto.garchForecastDto().timestamp())).map(dMatrixTrainRowDtos -> DMatrixUtils.toLibSvmRow(dMatrixTrainRowDtos)).collectList()
+                          .flatMap(lines -> {
+                            Path path = Paths.get(
+                                System.getProperty("user.home") + File.separator + "ml_trading" + File.separator + expertAdvisorDto.name() + "_" + group.key().getTextValue() + "_" + expertAdvisorDto.symbolDto().name() + "_"
+                                    + expertAdvisorDto.timeframe().getCode() + ".libsvm");
+                            try {
+                              return Mono.just(DMatrixUtils.saveToLibSvmFile(lines, path));
+                            } catch (IOException e) {
+                              return Mono.error(e);
+                            }
+                          });
+                    })
+                    .map(path -> {
+                      Map<String, Object> params = XGBoostTrainerUtils.getDefaultParams(2, xgBoostInputDto.maxDepth(), xgBoostInputDto.eta(), xgBoostInputDto.subsample(), xgBoostInputDto.colSampleByTree(),
+                          xgBoostInputDto.minChildWeight(), xgBoostInputDto.lambda(), xgBoostInputDto.alpha(), true, 0, null);
+                      return Map.entry(path, params);
+                    })
+                    .flatMap(pathMapEntry -> {
+                      Path path = Paths.get(pathMapEntry.getKey().toString().replace(".libsvm", ".json"));
+                      try {
+                        return Mono.just(XGBoostTrainerUtils.trainAll(pathMapEntry.getValue(), DMatrixUtils.getDMatrix(pathMapEntry.getKey()), 100, path));
+                      } catch (XGBoostError e) {
+                        return Mono.error(e);
+                      }
+                    })
+                    .collectSortedList((o1, o2) -> 0)
+                    .flatMap(boosters -> boosters.size() != 2 ? Mono.error(IllegalStateException::new) : Mono.just(boosters))
+                    .then(this.getExpertAdvisorService().updateStatus(expertAdvisorDto, ExpertAdvisorStatus.REDY_TO_USE));
+              });
         })
         .subscribeOn(Schedulers.fromExecutor(this.getExecutor()))
         .subscribe(

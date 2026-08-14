@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.service;
 
-import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
 import br.allandemiranda.fx.robot.dto.IndicatorCreateDto;
 import br.allandemiranda.fx.robot.dto.IndicatorDto;
+import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
 import br.allandemiranda.fx.robot.dto.impl.input.ScopeInputCreateDto;
 import br.allandemiranda.fx.robot.mapper.IndicatorMapper;
 import br.allandemiranda.fx.robot.model.IndicatorModel;

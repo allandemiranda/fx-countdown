@@ -100,10 +100,12 @@ public class ExpertAdvisorController {
                         GarchUtils.getGarchForecasts(garchInputDto, positionType).apply(CandlestickUtils.getCandlesticksAsk(requestSignalDto.ticks(), timeframe))
                     ).flatMap(garchForecastDto -> {
                       try {
-                        DMatrixPredictRowDto row = new DMatrixPredictRowDto(garchForecastDto, requestSignalDto.candlesticks(), requestSignalDto.adxs(), requestSignalDto.atrs(), requestSignalDto.bandss(), requestSignalDto.macds(), requestSignalDto.maFasts(), requestSignalDto.maSlows(), requestSignalDto.rsis(), requestSignalDto.stochastics());
+                        DMatrixPredictRowDto row = new DMatrixPredictRowDto(garchForecastDto, requestSignalDto.candlesticks(), requestSignalDto.adxs(), requestSignalDto.atrs(), requestSignalDto.bandss(), requestSignalDto.macds(),
+                            requestSignalDto.maFasts(), requestSignalDto.maSlows(), requestSignalDto.rsis(), requestSignalDto.stochastics());
                         float[] predicate = DMatrixUtils.getDMatrixPredict(row);
                         Path path = Paths.get(
-                            System.getProperty("user.home") + File.separator + "ml_trading" + File.separator + expertAdvisorDto.name() + "_" + positionType.getTextValue() + "_" + expertAdvisorDto.symbolDto().name() + "_" + expertAdvisorDto.timeframe().getCode() + ".json");
+                            System.getProperty("user.home") + File.separator + "ml_trading" + File.separator + expertAdvisorDto.name() + "_" + positionType.getTextValue() + "_" + expertAdvisorDto.symbolDto().name() + "_"
+                                + expertAdvisorDto.timeframe().getCode() + ".json");
                         Booster booster = XGBoostTrainerUtils.loadModel(path.toString());
                         float[][] result = XGBoostTrainerUtils.runPredicateSimple(predicate, booster);
                         BigDecimal minP = xgBoostInputDto.minimalLevelAccepted();

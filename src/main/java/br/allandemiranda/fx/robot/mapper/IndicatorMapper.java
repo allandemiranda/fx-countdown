@@ -1,8 +1,8 @@
 package br.allandemiranda.fx.robot.mapper;
 
-import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
 import br.allandemiranda.fx.robot.dto.IndicatorCreateDto;
 import br.allandemiranda.fx.robot.dto.IndicatorDto;
+import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
 import br.allandemiranda.fx.robot.model.IndicatorModel;
 import java.util.UUID;
 

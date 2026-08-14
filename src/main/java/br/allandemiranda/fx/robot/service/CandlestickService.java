@@ -2,13 +2,11 @@ package br.allandemiranda.fx.robot.service;
 
 import br.allandemiranda.fx.robot.dto.core.CandlestickCreateDto;
 import br.allandemiranda.fx.robot.dto.core.CandlestickDto;
-import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
 import br.allandemiranda.fx.robot.dto.core.SymbolDto;
 import br.allandemiranda.fx.robot.dto.impl.input.ScopeInputCreateDto;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import br.allandemiranda.fx.robot.mapper.CandlestickMapper;
 import br.allandemiranda.fx.robot.model.Candlestick;
-import br.allandemiranda.fx.robot.model.IndicatorModel;
 import br.allandemiranda.fx.robot.repository.CandlestickRepository;
 import java.time.OffsetDateTime;
 import java.util.Comparator;

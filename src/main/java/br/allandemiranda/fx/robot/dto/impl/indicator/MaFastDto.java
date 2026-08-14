@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.dto.impl.indicator;
 
-import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
 import br.allandemiranda.fx.robot.dto.IndicatorDto;
+import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import java.io.Serializable;

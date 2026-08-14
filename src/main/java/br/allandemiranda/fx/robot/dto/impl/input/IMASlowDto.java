@@ -1,7 +1,7 @@
 package br.allandemiranda.fx.robot.dto.impl.input;
 
-import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
 import br.allandemiranda.fx.robot.dto.InputDto;
+import br.allandemiranda.fx.robot.dto.core.ExpertAdvisorDto;
 import br.allandemiranda.fx.robot.enums.AppliedPrice;
 import br.allandemiranda.fx.robot.enums.SmoothingMethod;
 import jakarta.validation.Valid;

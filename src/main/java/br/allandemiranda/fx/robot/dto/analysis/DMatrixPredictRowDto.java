@@ -26,6 +26,6 @@ public record DMatrixPredictRowDto(
     @NotNull @NotEmpty List<MaSlowCreateDto> maSlowDtos,
     @NotNull @NotEmpty List<RSICreateDto> rsiDtos,
     @NotNull @NotEmpty List<StochasticCreateDto> stochasticDtos
-) implements Serializable,DMatrixRowDto {
+) implements Serializable, DMatrixRowDto {
 
 }

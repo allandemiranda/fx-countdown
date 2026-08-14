@@ -31,7 +31,7 @@ public class XGBoostTrainerUtils {
   // * @param numClasses número de classes (ex.: 3 para BUY/SELL/NEUTRAL, 2 para OPEN, NOT_OPEN)
   //     * @param useGpu     true para usar GPU (tree_method=gpu_hist)
   //     * @param gpuId      id da GPU CUDA (geralmente 0 se há 1 GPU NVIDIA)
-  public static Map<String, Object> getDefaultParams(int numClasses, int maxDepth, float eta, float subsample, float colSampleByTree,int minChildWeight, float lambda, float alpha, boolean useGpu, int gpuId, Integer seed) {
+  public static Map<String, Object> getDefaultParams(int numClasses, int maxDepth, float eta, float subsample, float colSampleByTree, int minChildWeight, float lambda, float alpha, boolean useGpu, int gpuId, Integer seed) {
     Map<String, Object> p = new HashMap<>();
     p.put("objective", "multi:softprob");
     p.put("num_class", numClasses);
@@ -52,7 +52,9 @@ public class XGBoostTrainerUtils {
     p.put("lambda", lambda);  // L2
     p.put("alpha", alpha);    // L1
 
-    if (seed != null) p.put("seed", seed);
+    if (seed != null) {
+      p.put("seed", seed);
+    }
 
     // CPU vs GPU
     if (useGpu) {

@@ -41,8 +41,6 @@ public class CandlestickUtils {
           OffsetDateTime bucketTimestamp = entry.getKey();
           List<T> ticksInBucket = entry.getValue();
 
-
-
           BigDecimal open = ticksInBucket.getFirst().ask();
           BigDecimal close = ticksInBucket.getLast().ask();
 

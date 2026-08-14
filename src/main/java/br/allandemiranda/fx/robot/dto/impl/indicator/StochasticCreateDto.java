@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 
-public record StochasticCreateDto(@NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Min(0) @Max(100) BigDecimal mainLine, @NotNull @Min(0) @Max(100) BigDecimal signalLine) implements Serializable, IndicatorCreateDto, Stochastic {
+public record StochasticCreateDto(@NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Min(0) @Max(100) BigDecimal mainLine, @NotNull @Min(0) @Max(100) BigDecimal signalLine) implements Serializable, IndicatorCreateDto,
+    Stochastic {
 
 }

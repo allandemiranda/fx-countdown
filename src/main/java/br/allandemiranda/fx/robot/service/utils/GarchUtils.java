@@ -2,7 +2,6 @@ package br.allandemiranda.fx.robot.service.utils;
 
 import br.allandemiranda.fx.robot.dto.analysis.GarchForecastDto;
 import br.allandemiranda.fx.robot.dto.core.Candlestick;
-import br.allandemiranda.fx.robot.dto.core.CandlestickDto;
 import br.allandemiranda.fx.robot.dto.impl.input.GarchInputDto;
 import br.allandemiranda.fx.robot.enums.AppliedPrice;
 import br.allandemiranda.fx.robot.enums.PositionType;

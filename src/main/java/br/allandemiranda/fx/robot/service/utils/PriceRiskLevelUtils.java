@@ -12,9 +12,6 @@ import java.math.MathContext;
 import java.util.function.Function;
 import lombok.experimental.UtilityClass;
 import lombok.extern.log4j.Log4j2;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Mono;
 
 @Log4j2
 @UtilityClass
@@ -59,7 +56,8 @@ public final class PriceRiskLevelUtils {
   public static Function<GarchForecastDto, PriceRiskLevelDto> getPriceRiskLevelByGarchForecast(PriceRiskLevelInputDto priceRiskLevelInputDto, SymbolDto symbolDto) {
     return garchForecastDto -> {
       PriceRiskLevelUtils.log.info("getPriceRiskLevelByGarchForecast(): [priceRiskLevelInputDto={}, garchForecastDto={}]", priceRiskLevelInputDto, garchForecastDto);
-      PriceRiskLevel priceRiskLevel = PriceRiskLevelUtils.fromSigmaAgg(garchForecastDto.price(), symbolDto.point(), BigDecimal.valueOf(garchForecastDto.sigmaAgg()), garchForecastDto.positionType(), priceRiskLevelInputDto.kSL(), priceRiskLevelInputDto.kTP());
+      PriceRiskLevel priceRiskLevel = PriceRiskLevelUtils.fromSigmaAgg(garchForecastDto.price(), symbolDto.point(), BigDecimal.valueOf(garchForecastDto.sigmaAgg()), garchForecastDto.positionType(), priceRiskLevelInputDto.kSL(),
+          priceRiskLevelInputDto.kTP());
       return new PriceRiskLevelDto(garchForecastDto.timestamp(), garchForecastDto.positionType(), priceRiskLevel.tpPrice(), priceRiskLevel.slPrice());
     };
   }

@@ -1,7 +1,6 @@
 package br.allandemiranda.fx.robot.dto.core;
 
 import br.allandemiranda.fx.robot.annotation.CandlestickPriceValidate;
-import br.allandemiranda.fx.robot.dto.Timeseries;
 import br.allandemiranda.fx.robot.enums.Timeframe;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
