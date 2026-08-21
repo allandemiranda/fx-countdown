@@ -1,111 +1,243 @@
 package br.allandemiranda.fx.robot.service.utils;
 
-import br.allandemiranda.fx.robot.dto.analysis.PriceRiskLevelDto;
-import br.allandemiranda.fx.robot.dto.analysis.TradingDto;
-import br.allandemiranda.fx.robot.dto.core.SymbolDto;
-import br.allandemiranda.fx.robot.dto.core.TickDto;
+import br.allandemiranda.fx.robot.dto.provider.PriceRiskLevel;
+import br.allandemiranda.fx.robot.dto.provider.Trading;
 import br.allandemiranda.fx.robot.enums.DealReason;
+import br.allandemiranda.fx.robot.enums.OrderType;
 import br.allandemiranda.fx.robot.enums.PositionType;
+import br.allandemiranda.fx.robot.model.core.SymbolParameters;
+import br.allandemiranda.fx.robot.model.core.Tick;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.time.OffsetDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import lombok.experimental.UtilityClass;
-import lombok.extern.log4j.Log4j2;
-import reactor.core.publisher.Mono;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Unmodifiable;
+import org.jspecify.annotations.NullMarked;
+import org.jspecify.annotations.Nullable;
 
-@Log4j2
+@NullMarked
+@Slf4j
 @UtilityClass
 public class TradingUtils {
 
   private static final RoundingMode DEFAULT_ROUNDING_MODE = RoundingMode.HALF_UP;
+  private static final ZoneId FOREX_ROLLOVER_ZONE = ZoneId.of("America/New_York");
   private static final MathContext MC = MathContext.DECIMAL64;
+  private static final int POINTS_SCALE = 2;
+  private static final LocalTime ROLLOVER_CUTOFF_TIME = LocalTime.of(17, 0);
 
-  private static DealReason getDealReason(TickDto tickDto, BigDecimal tp, BigDecimal sl, PositionType type) {
-    return switch (type) {
-      case POSITION_TYPE_BUY -> TradingUtils.getDealReason(tickDto.bid(), tp, sl, type);
-      case POSITION_TYPE_SELL -> TradingUtils.getDealReason(tickDto.ask(), tp, sl, type);
+
+  @Contract(pure = true)
+  private static BigDecimal getClosePrice(Tick tick, PositionType positionType) {
+    return switch (positionType) {
+      case POSITION_TYPE_BUY -> tick.bid();
+      case POSITION_TYPE_SELL -> tick.ask();
     };
   }
 
-  private static DealReason getDealReason(BigDecimal price, BigDecimal tp, BigDecimal sl, PositionType type) {
+
+  @Contract(pure = true)
+  private static @Nullable DealReason getDealReason(Tick tick, BigDecimal tp, BigDecimal sl, PositionType type) {
+    BigDecimal price = TradingUtils.getClosePrice(tick, type);
+
     return switch (type) {
       case POSITION_TYPE_BUY -> {
         if (price.compareTo(sl) <= 0) {
           yield DealReason.DEAL_REASON_SL;
-        } else if (price.compareTo(tp) >= 0) {
-          yield DealReason.DEAL_REASON_TP;
-        } else {
-          yield null;
         }
+        if (price.compareTo(tp) >= 0) {
+          yield DealReason.DEAL_REASON_TP;
+        }
+        yield null;
       }
       case POSITION_TYPE_SELL -> {
         if (price.compareTo(sl) >= 0) {
           yield DealReason.DEAL_REASON_SL;
-        } else if (price.compareTo(tp) <= 0) {
-          yield DealReason.DEAL_REASON_TP;
-        } else {
-          yield null;
         }
+        if (price.compareTo(tp) <= 0) {
+          yield DealReason.DEAL_REASON_TP;
+        }
+        yield null;
       }
     };
   }
 
-  private static BigDecimal getRollover(OffsetDateTime openTime, OffsetDateTime closeTime, BigDecimal swapLong, BigDecimal swapShort, PositionType type) {
-    if (!closeTime.isAfter(openTime)) {
+  @Contract(pure = true)
+  private static BigDecimal getExpectedProfitPoints(BigDecimal openPice, BigDecimal tpPrice, PositionType type, BigDecimal symbolPoint) {
+    BigDecimal priceDiff = switch (type) {
+      case POSITION_TYPE_BUY -> tpPrice.subtract(openPice);
+      case POSITION_TYPE_SELL -> openPice.subtract(tpPrice);
+    };
+
+    return priceDiff.divide(symbolPoint, POINTS_SCALE, DEFAULT_ROUNDING_MODE);
+  }
+
+  @Contract(pure = true)
+  private static ZonedDateTime getFirstCutoffAfter(ZonedDateTime openZoned) {
+    ZonedDateTime cutoff = openZoned.toLocalDate().atTime(ROLLOVER_CUTOFF_TIME).atZone(FOREX_ROLLOVER_ZONE);
+    return cutoff.isAfter(openZoned) ? cutoff : cutoff.plusDays(1);
+  }
+
+  @Contract(pure = true)
+  private static BigDecimal getOpenPrice(Tick tick, PositionType positionType) {
+    return switch (positionType) {
+      case POSITION_TYPE_BUY -> tick.ask();
+      case POSITION_TYPE_SELL -> tick.bid();
+    };
+  }
+
+  @Contract(pure = true)
+  private static BigDecimal getPoints(Tick open, Tick close, PositionType type, BigDecimal symbolPoint) {
+    BigDecimal openPrice = TradingUtils.getOpenPrice(open, type);
+    BigDecimal closePrice = TradingUtils.getClosePrice(close, type);
+
+    BigDecimal priceDiff = switch (type) {
+      case POSITION_TYPE_BUY -> closePrice.subtract(openPrice);
+      case POSITION_TYPE_SELL -> openPrice.subtract(closePrice);
+    };
+    return priceDiff.divide(symbolPoint, POINTS_SCALE, DEFAULT_ROUNDING_MODE);
+  }
+
+  @Contract(pure = true)
+  private static BigDecimal getRolloverMaxCost(Tick openTick, BigDecimal tpPrice, SymbolParameters symbolParameters, PositionType positionType) {
+    BigDecimal swapRate = TradingUtils.getSwapRate(symbolParameters, positionType);
+
+    if (swapRate.compareTo(BigDecimal.ZERO) >= 0) {
       return BigDecimal.ZERO;
     }
 
-    BigDecimal swap = switch (type) {
-      case POSITION_TYPE_BUY -> swapLong;
-      case POSITION_TYPE_SELL -> swapShort;
-    };
+    BigDecimal openPrice = TradingUtils.getOpenPrice(openTick, positionType);
+    BigDecimal remainingProfit = TradingUtils.getExpectedProfitPoints(openPrice, tpPrice, positionType, symbolParameters.point());
 
-    return openTime.toLocalDate()
-        .plusDays(1)
-        .datesUntil(closeTime.toLocalDate().plusDays(1))
-        .map(date -> DayOfWeek.WEDNESDAY.equals(date.getDayOfWeek()) ? swap.multiply(BigDecimal.valueOf(3)) : swap)
-        .reduce(BigDecimal.ZERO, BigDecimal::add);
+    ZonedDateTime openZoned = openTick.timestamp().atZoneSameInstant(FOREX_ROLLOVER_ZONE);
+    ZonedDateTime currentCutoff = getFirstCutoffAfter(openZoned);
+
+    BigDecimal totalCost = BigDecimal.ZERO;
+
+    while (remainingProfit.compareTo(BigDecimal.ZERO) > 0) {
+      DayOfWeek day = currentCutoff.getDayOfWeek();
+
+      if (!DayOfWeek.SATURDAY.equals(day) && !DayOfWeek.SUNDAY.equals(day)) {
+        BigDecimal multiplier = DayOfWeek.WEDNESDAY.equals(day) ? BigDecimal.valueOf(3) : BigDecimal.ONE;
+        BigDecimal currentSwapCost = swapRate.multiply(multiplier, MC);
+
+        totalCost = totalCost.add(currentSwapCost, MC);
+        remainingProfit = remainingProfit.add(currentSwapCost, MC);
+
+        if (remainingProfit.compareTo(BigDecimal.ZERO) <= 0) {
+          return totalCost;
+        }
+      }
+
+      currentCutoff = currentCutoff.plusDays(1);
+    }
+
+    return totalCost;
   }
 
-  public static BigDecimal getPoints(TickDto open, TickDto close, PositionType type, BigDecimal symbolPoint) {
-    BigDecimal priceDiff = switch (type) {
-      case POSITION_TYPE_BUY -> open.ask().subtract(close.bid());
-      case POSITION_TYPE_SELL -> open.bid().subtract(close.ask());
-    };
-    return priceDiff.divide(symbolPoint, TradingUtils.DEFAULT_ROUNDING_MODE);
+  @Contract(pure = true)
+  private static BigDecimal getSwapRate(SymbolParameters symbolParameters, PositionType positionType) {
+    return PositionType.POSITION_TYPE_BUY.equals(positionType) ? symbolParameters.swapLong() : symbolParameters.swapShort();
   }
 
-  private static BigDecimal getPoints(TickDto open, BigDecimal closePrice, PositionType type, BigDecimal symbolPoint) {
-    BigDecimal priceDiff = switch (type) {
-      case POSITION_TYPE_BUY -> open.ask().subtract(closePrice);
-      case POSITION_TYPE_SELL -> open.bid().subtract(closePrice);
-    };
-    return priceDiff.divide(symbolPoint, TradingUtils.DEFAULT_ROUNDING_MODE);
+  @Contract(pure = true)
+  public static OffsetDateTime getMaxRolloverCutoff(OffsetDateTime openTime, BigDecimal openPrice, BigDecimal tpPrice, SymbolParameters symbolParameters, PositionType positionType) {
+    BigDecimal swapRate = PositionType.POSITION_TYPE_BUY.equals(positionType) ? symbolParameters.swapLong() : symbolParameters.swapShort();
+
+    if (swapRate.compareTo(BigDecimal.ZERO) >= 0) {
+      return OffsetDateTime.MAX;
+    }
+
+    BigDecimal remainingProfit = TradingUtils.getExpectedProfitPoints(openPrice, tpPrice, positionType, symbolParameters.point());
+
+    ZonedDateTime openZoned = openTime.atZoneSameInstant(FOREX_ROLLOVER_ZONE);
+    ZonedDateTime currentCutoff = TradingUtils.getFirstCutoffAfter(openZoned);
+
+    while (remainingProfit.compareTo(BigDecimal.ZERO) > 0) {
+      DayOfWeek day = currentCutoff.getDayOfWeek();
+
+      if (!DayOfWeek.SATURDAY.equals(day) && !DayOfWeek.SUNDAY.equals(day)) {
+        BigDecimal multiplier = DayOfWeek.WEDNESDAY.equals(day) ? BigDecimal.valueOf(3) : BigDecimal.ONE;
+        BigDecimal currentSwapCost = swapRate.multiply(multiplier, MC);
+
+        remainingProfit = remainingProfit.add(currentSwapCost, MC);
+        if (remainingProfit.compareTo(BigDecimal.ZERO) <= 0) {
+          return currentCutoff.toOffsetDateTime().withOffsetSameInstant(openTime.getOffset());
+        }
+      }
+
+      currentCutoff = currentCutoff.plusDays(1);
+    }
+
+    return currentCutoff.toOffsetDateTime().withOffsetSameInstant(openTime.getOffset());
   }
 
-  public Function<List<TickDto>, Mono<TradingDto>> getTradingResult(PriceRiskLevelDto priceRiskLevelDto, SymbolDto symbolDto) {
+  public @Unmodifiable List<? extends Tick> getMaxRolloverCutoffTicks(@Unmodifiable List<? extends Tick> ticks, OffsetDateTime openDataTime, OffsetDateTime maxRolloverCutoff) {
+    return ticks.stream().filter(tick -> !tick.timestamp().isAfter(maxRolloverCutoff) && !tick.timestamp().isBefore(openDataTime)).toList();
+  }
+
+  @Contract(pure = true)
+  public static PositionType getPositionType(OrderType orderType) {
+    return OrderType.ORDER_TYPE_BUY.equals(orderType)
+        ? PositionType.POSITION_TYPE_BUY
+        : PositionType.POSITION_TYPE_SELL;
+  }
+
+  @Contract(pure = true)
+  public static Function<@Unmodifiable List<? extends Tick>, Trading> getTradingResult(PriceRiskLevel priceRiskLevel, SymbolParameters symbolParameters) {
     return ticks -> {
-      TradingDto tradingDto = new TradingDto(priceRiskLevelDto.timestamp(), priceRiskLevelDto.positionType(), ticks.getFirst(), ticks.getFirst(), null);
-      BigDecimal profitExpected = TradingUtils.getPoints(tradingDto.openTick(), priceRiskLevelDto.tpPrice(), priceRiskLevelDto.positionType(), symbolDto.point());
-      for (TickDto tick : ticks) {
-        tradingDto = tradingDto.toBuilder().closeTick(tick).build();
-        DealReason dealReason = TradingUtils.getDealReason(tick, priceRiskLevelDto.tpPrice(), priceRiskLevelDto.slPrice(), priceRiskLevelDto.positionType());
-        if (dealReason == null) {
-          BigDecimal rollover = TradingUtils.getRollover(tradingDto.openTick().timestamp(), tradingDto.closeTick().timestamp(), symbolDto.swapLong(), symbolDto.swapShort(), priceRiskLevelDto.positionType());
-          if (profitExpected.add(rollover, MC).compareTo(BigDecimal.ZERO) <= 0) {
-            tradingDto = tradingDto.toBuilder().dealReason(DealReason.DEAL_REASON_ROLLOVER).build();
-            break;
-          }
-        } else {
-          tradingDto = tradingDto.toBuilder().dealReason(dealReason).build();
+      PositionType positionType = TradingUtils.getPositionType(priceRiskLevel.orderType());
+      Tick openTick = ticks.getFirst();
+
+      Tick finalCloseTick = openTick;
+      DealReason finalDealReason = null;
+
+      for (Tick tick : ticks) {
+        finalCloseTick = tick;
+        DealReason reason = TradingUtils.getDealReason(tick, priceRiskLevel.tpPrice(), priceRiskLevel.slPrice(), positionType);
+
+        if (Objects.nonNull(reason)) {
+          finalDealReason = reason;
           break;
         }
       }
-      return Mono.just(tradingDto);
+
+      if (Objects.isNull(finalDealReason)) {
+        BigDecimal cost = TradingUtils.getRolloverMaxCost(openTick, priceRiskLevel.tpPrice(), symbolParameters, positionType);
+        BigDecimal profit = TradingUtils.getPoints(openTick, finalCloseTick, positionType, symbolParameters.point());
+
+        if (cost.add(profit, MC).compareTo(BigDecimal.ZERO) <= 0) {
+          finalDealReason = DealReason.DEAL_REASON_ROLLOVER;
+        }
+      }
+
+      DealReason dealReason = finalDealReason;
+      return new Trading() {
+        @Override
+        public DealReason dealReason() {
+          return dealReason;
+        }
+
+        @Override
+        public PositionType positionType() {
+          return positionType;
+        }
+
+        @Override
+        public OffsetDateTime timestamp() {
+          return priceRiskLevel.timestamp();
+        }
+      };
     };
   }
 }

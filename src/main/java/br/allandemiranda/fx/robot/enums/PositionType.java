@@ -1,17 +1,16 @@
 package br.allandemiranda.fx.robot.enums;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Description;
+import org.jspecify.annotations.NullMarked;
 
+@NullMarked
 @Getter
-@RequiredArgsConstructor
-@Description("ENUM_POSITION_TYPE")
+@AllArgsConstructor
 public enum PositionType {
-  POSITION_TYPE_BUY("Buy"),
-  POSITION_TYPE_SELL("Sell");
+  POSITION_TYPE_BUY("POSITION_TYPE_BUY"),
+  POSITION_TYPE_SELL("POSITION_TYPE_SELL");
 
-  @NotNull
-  private final String textValue;
+  private final String value;
+
 }

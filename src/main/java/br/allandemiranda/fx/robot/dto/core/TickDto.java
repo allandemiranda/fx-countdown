@@ -1,16 +1,19 @@
 package br.allandemiranda.fx.robot.dto.core;
 
-import br.allandemiranda.fx.robot.annotation.AskBidValidate;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
-import jakarta.validation.constraints.Positive;
+import br.allandemiranda.fx.robot.model.core.SymbolId;
+import br.allandemiranda.fx.robot.model.core.Tick;
+import br.allandemiranda.fx.robot.model.core.TickId;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
-@AskBidValidate
-public record TickDto(@NotNull UUID id, @Valid @NotNull SymbolDto symbolDto, @NotNull @PastOrPresent OffsetDateTime timestamp, @NotNull @Positive BigDecimal ask, @NotNull @Positive BigDecimal bid) implements Serializable, Tick {
+public record TickDto(
+    UUID id,
+    String symbolName,
+    OffsetDateTime timestamp,
+    BigDecimal ask,
+    BigDecimal bid
+) implements Serializable, SymbolId, TickId, Tick {
 
 }

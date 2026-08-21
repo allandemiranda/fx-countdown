@@ -34,3 +34,6 @@ build/
 
 ### JVM CONFIG ###
 /.mvn/jvm.config
+
+### LOGS ###
+/logs/

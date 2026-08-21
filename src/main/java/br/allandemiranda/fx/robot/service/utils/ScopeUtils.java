@@ -1,29 +1,64 @@
 package br.allandemiranda.fx.robot.service.utils;
 
-import br.allandemiranda.fx.robot.dto.impl.input.ScopeInputCreateDto;
+import br.allandemiranda.fx.robot.model.input.ScopeInput;
+import br.allandemiranda.fx.robot.model.provider.Timeseries;
 import java.time.OffsetDateTime;
 import java.util.Collection;
+import java.util.function.Function;
 import lombok.experimental.UtilityClass;
-import lombok.extern.log4j.Log4j2;
-import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.Unmodifiable;
+import org.jspecify.annotations.NullMarked;
+import reactor.util.function.Tuple2;
 
-@Log4j2
+@NullMarked
+@Slf4j
 @UtilityClass
 public class ScopeUtils {
 
-  public static ScopeInputCreateDto combineScopes(ScopeInputCreateDto current, ScopeInputCreateDto next) {
-    ScopeUtils.log.trace("combineScopes: current={}, next={}", current, next);
+  @Contract(pure = true)
+  private static ScopeInput combineScopes(ScopeInput current, ScopeInput next) {
+    log.trace("combineScopes: current={}, next={}", current, next);
     OffsetDateTime newStart = current.startScope().isBefore(next.startScope()) ? next.startScope() : current.startScope();
     OffsetDateTime newEnd = current.endScope().isAfter(next.endScope()) ? next.endScope() : current.endScope();
 
-    ScopeInputCreateDto scopeInputCreateDto = new ScopeInputCreateDto(newStart, newEnd);
-    ScopeUtils.log.trace("combineScopes: scopeInputCreateDto={}", scopeInputCreateDto);
-    return scopeInputCreateDto;
+    ScopeInput scopeInput = new ScopeInput() {
+      @Override
+      public OffsetDateTime endScope() {
+        return newEnd;
+      }
+
+      @Override
+      public OffsetDateTime startScope() {
+        return newStart;
+      }
+    };
+
+    log.trace("combineScopes: ScopeInput={}", scopeInput);
+    return scopeInput;
   }
 
-  public Mono<ScopeInputCreateDto> calculateMergedScope(Collection<Mono<ScopeInputCreateDto>> scopePublishers) {
-    ScopeUtils.log.trace("calculateMergedScope: scopePublishers.size={}", scopePublishers.size());
-    return Flux.merge(scopePublishers).reduce(ScopeUtils::combineScopes).map(finalScope -> new ScopeInputCreateDto(finalScope.startScope(), finalScope.endScope()));
+  @Contract(pure = true)
+  public static Function<@Unmodifiable Collection<ScopeInput>, ScopeInput> calculateMergedScope() {
+    return scopes -> {
+      log.trace("calculateMergedScope: scopes.size={}", scopes.size());
+      return scopes.stream().reduce(ScopeUtils::combineScopes).orElseThrow(IllegalStateException::new);
+    };
+  }
+
+  @Contract(pure = true)
+  public static ScopeInput getScopeInputByTimeseries(Tuple2<? extends Timeseries, ? extends Timeseries> scopeTimeseries) {
+    return new ScopeInput() {
+      @Override
+      public OffsetDateTime endScope() {
+        return scopeTimeseries.getT2().timestamp();
+      }
+
+      @Override
+      public OffsetDateTime startScope() {
+        return scopeTimeseries.getT1().timestamp();
+      }
+    };
   }
 }

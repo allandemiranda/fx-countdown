@@ -33,7 +33,7 @@ A RESTful API for financial market data management, technical indicator computat
 ## Overview
 
 This API provides a complete infrastructure for quantitative trading pipelines:
-* **Market Data & Asset Management:** Registration of financial symbols (e.g., `EURUSD`), candlestick series, and tick data.
+* **Market Data & Asset Management:** Registration of financial symbols (e.g., `EURUSD`), candlestick series, and tickEntity data.
 * **Technical Indicators:** Storage and querying of technical indicator calculations including RSI, MACD, Stochastic, Bollinger Bands, ATR, ADX, and Moving Averages.
 * **Expert Advisor (EA) Builder:** EA configuration, temporal scope validation, data cleaning/reset, GARCH scenario generation, and XGBoost machine learning model training.
 
@@ -43,7 +43,7 @@ This API provides a complete infrastructure for quantitative trading pipelines:
 
 The system's operation is based on predictions generated from quantitative analysis and ML models.
 
-- In MT5, the script detects when a new `Candlestick` is closed/created and collects all necessary data to send to the system.
+- In MT5, the script detects when a new `CandlestickValidate` is closed/created and collects all necessary data to send to the system.
 - MT5 sends a batch of `candlesticks`, `indicators`, and `ticks`.
 - The system computes additional `indicators` (if applicable) and feeds this dataset into the ML model to generate separate predictions for Buy and Sell operations.
 - If a prediction meets the EA's configured margin threshold, the system calculates `TP` (Take Profit) and `SL` (Stop Loss) prices for the order.
@@ -68,12 +68,12 @@ The system's operation is based on predictions generated from quantitative analy
 
 #### **Symbols**
 * `GET /symbols` — List all registered symbols.
-* `POST /symbols` — Register a new symbol or update an existing one.
-* `GET /symbols/{name}` — Retrieve details for a specific symbol (e.g., `EURUSD`).
+* `POST /symbols` — Register a new symbolEntity or update an existing one.
+* `GET /symbols/{name}` — Retrieve details for a specific symbolEntity (e.g., `EURUSD`).
 
 #### **Candlesticks & Ticks**
-* `POST /symbols/{symbolName}/candlesticks/{timeframe}` — Ingest candlestick history for a given symbol and timeframe, or update existing records.
-* `POST /symbols/{name}/ticks` — Ingest tick-level price updates, or update existing records.
+* `POST /symbols/{symbolName}/candlesticks/{timeframe}` — Ingest candlestick history for a given symbolEntity and timeframe, or update existing records.
+* `POST /symbols/{name}/ticks` — Ingest tickEntity-level price updates, or update existing records.
 
 #### **Timeframes**
 * `GET /timeframes` — Get all supported timeframe identifiers.
@@ -90,12 +90,12 @@ The system's operation is based on predictions generated from quantitative analy
 * `DELETE /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}` — Delete an EA and all associated input data.
 
 #### **Building & Training Pipeline**
-* `GET /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/validate_scope` — Validate the historical time range scope for the EA.
+* `POST /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/validate_scope` — Validate the historical time range scope for the EA.
 * `POST /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/clean_build` — Clean input and indicator datasets for the EA.
-* `POST /symbols/{symbolName}/chart/{timeframe}/expert_advisors/generate_xgboost` — Trigger XGBoost model training for the EA.
+* `POST /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/generate_xgboost` — Trigger XGBoost model training for the EA.
 
 #### **Orders**
-* `GET /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/order` — Validate incoming market data and return an open order recommendation if criteria are met.
+* `POST /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/order` — Validate incoming market data and return an open order recommendation if criteria are met.
 
 ---
 
@@ -103,16 +103,16 @@ The system's operation is based on predictions generated from quantitative analy
 
 Endpoints to query and push calculated indicator series for a specific EA (`{name}`):
 
-| Indicator                | Query (`GET`)                          | Insert (`POST`)                       |
-|:-------------------------|:---------------------------------------|:--------------------------------------|
-| **RSI**                  | `/expert_advisors/{name}/rsis`         | `/expert_advisors/{name}/rsis`        |
-| **MACD**                 | `/expert_advisors/{name}/macds`        | `/expert_advisors/{name}/macds`       |
-| **Stochastic**           | `/expert_advisors/{name}/stochastics`  | `/expert_advisors/{name}/stochastics` |
-| **Bollinger Bands**      | `/expert_advisors/{name}/bands`        | `/expert_advisors/{name}/bands`       |
-| **Fast Moving Average**  | `/expert_advisors/{name}/ma_fasts`     | `/expert_advisors/{name}/ma_fasts`    |
-| **Slow Moving Average**  | `/expert_advisors/{name}/ma_slows`     | `/expert_advisors/{name}/ma_slows`    |
-| **ATR**                  | `/expert_advisors/{name}/atrs`         | `/expert_advisors/{name}/atrs`        |
-| **ADX**                  | `/expert_advisors/{name}/adxs`         | `/expert_advisors/{name}/adxs`        |
+| Indicator                | Query (`GET`)                                                                                    | Insert (`POST`)                                                                                 |
+|:-------------------------|:-------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------|
+| **RSI**                  | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/rsis`        | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/rsis`       |
+| **MACD**                 | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/macds`       | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/macds`      |
+| **Stochastic**           | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/stochastics` | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/stochastics`|
+| **Bollinger Bands**      | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/bandss`      | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/bandss`     |
+| **Fast Moving Average**  | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/ma_fasts`    | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/ma_fasts`   |
+| **Slow Moving Average**  | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/ma_slows`    | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/ma_slows`   |
+| **ATR**                  | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/atrs`        | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/atrs`       |
+| **ADX**                  | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/adxs`        | `/symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/adxs`       |
 
 ---
 
@@ -124,7 +124,7 @@ When you want to create a new EA or retrain the XGBoost model, it is best to do 
 
 The MT5 script selects a collection of [Symbols](https://www.mql5.com/en/docs/marketinformation) and [Timeframes](https://www.mql5.com/en/docs/constants/chartconstants/enum_timeframes) to populate the database.
 
-- The MT5 script calls the [Symbol](https://www.mql5.com/en/docs/marketinformation/symbolselect) endpoint to register a new symbol or update it if it already exists:
+- The MT5 script calls the [Symbol](https://www.mql5.com/en/docs/marketinformation/symbolselect) endpoint to register a new symbolEntity or update it if it already exists:
 
 ```markdown
 MT5 → POST HTTP /symbols
@@ -245,7 +245,7 @@ MT5 → POST HTTP /symbols/{symbolName}/chart/{timeframe}/expert_advisors
 After creating the EA, populate the [indicators](https://www.mql5.com/en/docs/indicators) data. Refer to [Indicator Data per EA](#3-indicator-data-per-ea-) for individual `POST` endpoints. All requests follow a similar schema:
 
 ```markdown
-MT5 → POST HTTP /expert_advisors/{name}/{indicator_name}s
+MT5 → POST HTTP /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/{indicator_name}s
 {
     timestamp:      datetime,
     "paramName":    double,
@@ -256,7 +256,7 @@ MT5 → POST HTTP /expert_advisors/{name}/{indicator_name}s
 Upon creation, the EA's status is set to `CREATED`. This unlocks the scope validation step, which checks data availability and adjusts the scope if the existing data does not cover the requested time window. (EAs in the `READY_TO_USE` status can also run `validate_scope`).
 
 ```markdown
-CLIENT → GET HTTP /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/validate_scope
+CLIENT → POST HTTP /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/validate_scope
 ```
 
 When validation begins, the status changes to `VALIDATING_SCOPE`. If an error occurs, it is updated to `VALIDATING_SCOPE_ERROR`; upon successful validation/adjustment, it transitions to `VALIDATING_SCOPE_COMPLETE`.
@@ -268,7 +268,7 @@ When validation begins, the status changes to `VALIDATING_SCOPE`. If an error oc
 Once all data has been inserted and validated, trigger the endpoint to generate forecasts, simulate trading scenarios, and train the ML model:
 
 ```markdown
-CLIENT → POST HTTP /symbols/{symbolName}/chart/{timeframe}/expert_advisors/generate_xgboost
+CLIENT → POST HTTP /symbols/{symbolName}/chart/{timeframe}/expert_advisors/{name}/generate_xgboost
 ```
 
 > **Note:** The endpoint responds immediately with `204 No Content` because processing is executed asynchronously as a background batch job.
@@ -279,7 +279,7 @@ The job only starts if the EA status is `VALIDATING_SCOPE_COMPLETE`; otherwise, 
 1. **GARCH Forecasts:**
   * Calculated using the EA's `horizon` and `priceSize` parameters.
   * Produces `omega`, `alpha`, `beta`, and `sigmaAgg`.
-  * Evaluated separately for Ask and Bid series (since MT5 does not natively provide Ask candlesticks, the system constructs them from tick history).
+  * Evaluated separately for Ask and Bid series (since MT5 does not natively provide Ask candlesticks, the system constructs them from tickEntity history).
   * `sigmaAgg` is used to calculate TP and SL levels in the Risk step; `omega`, `alpha`, and `beta` are kept as features for ML training.
 2. **Trading Simulation:**
   * Using TP/SL levels, the system simulates trades across the historical scope and records outcomes: `DEAL_REASON_SL`, `DEAL_REASON_TP`, or `DEAL_REASON_ROLLOVER` (based on [ENUM_DEAL_REASON](https://www.mql5.com/en/docs/constants/tradingconstants/dealproperties)).

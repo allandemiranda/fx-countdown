@@ -1,9 +1,15 @@
 package br.allandemiranda.fx.robot.enums;
 
-import org.springframework.context.annotation.Description;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.jspecify.annotations.NullMarked;
 
-@Description("ENUM_ORDER_TYPE")
+@NullMarked
+@Getter
+@AllArgsConstructor
 public enum OrderType {
-  ORDER_TYPE_BUY,   // Market Buy order
-  ORDER_TYPE_SELL,  //Market Sell order
+  ORDER_TYPE_BUY("ORDER_TYPE_BUY"),
+  ORDER_TYPE_SELL("ORDER_TYPE_SELL");
+
+  private final String value;
 }

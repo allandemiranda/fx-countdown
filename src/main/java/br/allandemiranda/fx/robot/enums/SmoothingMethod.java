@@ -1,19 +1,39 @@
 package br.allandemiranda.fx.robot.enums;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Description;
+import org.jspecify.annotations.NullMarked;
 
+/**
+ * Moving Average calculation method. Corresponds to {@code ENUM_MA_METHOD} in MetaTrader 5.
+ */
+@NullMarked
 @Getter
-@RequiredArgsConstructor
-@Description("ENUM_MA_METHOD")
+@AllArgsConstructor
 public enum SmoothingMethod {
-  MODE_SMA("Simple"),
-  MODE_EMA("Exponential"),
-  MODE_SMMA("Smmothed"),
-  MODE_LWMA("Linear Weighted");
 
-  @NotNull
-  private final String description;
+  /**
+   * Simple Moving Average (SMA).
+   */
+  MODE_SMA("MODE_SMA"),
+
+  /**
+   * Exponential Moving Average (EMA).
+   */
+  MODE_EMA("MODE_EMA"),
+
+  /**
+   * Smoothed Moving Average (SMMA).
+   */
+  MODE_SMMA("MODE_SMMA"),
+
+  /**
+   * Linear Weighted Moving Average (LWMA).
+   */
+  MODE_LWMA("MODE_LWMA");
+
+  /**
+   * The MQL5 constant eaName string representation.
+   */
+  private final String value;
 }

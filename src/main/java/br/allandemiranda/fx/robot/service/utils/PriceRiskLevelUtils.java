@@ -1,68 +1,99 @@
 package br.allandemiranda.fx.robot.service.utils;
 
-import br.allandemiranda.fx.robot.dto.analysis.GarchForecastDto;
-import br.allandemiranda.fx.robot.dto.analysis.PriceRiskLevelDto;
-import br.allandemiranda.fx.robot.dto.core.SymbolDto;
-import br.allandemiranda.fx.robot.dto.impl.input.PriceRiskLevelInputDto;
-import br.allandemiranda.fx.robot.enums.PositionType;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import br.allandemiranda.fx.robot.dto.provider.GarchForecast;
+import br.allandemiranda.fx.robot.dto.provider.PriceRiskLevel;
+import br.allandemiranda.fx.robot.enums.OrderType;
+import br.allandemiranda.fx.robot.model.core.SymbolParameters;
+import br.allandemiranda.fx.robot.model.input.PriceRiskLevelInput;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.time.OffsetDateTime;
 import java.util.function.Function;
 import lombok.experimental.UtilityClass;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.Contract;
+import org.jspecify.annotations.NullMarked;
 
-@Log4j2
+@NullMarked
+@Slf4j
 @UtilityClass
 public final class PriceRiskLevelUtils {
 
   private static final MathContext MC = MathContext.DECIMAL64;
 
-  private static PriceRiskLevelUtils.PriceRiskLevel fromSigmaAgg(BigDecimal price, BigDecimal pipSize, BigDecimal sigmaAgg, PositionType positionType, BigDecimal kSL, BigDecimal kTP) {
-    if (price.compareTo(BigDecimal.ZERO) <= 0) {
-      throw new IllegalArgumentException("price must be > 0");
-    }
-    if (pipSize.compareTo(BigDecimal.ZERO) <= 0) {
-      throw new IllegalArgumentException("pipSize must be > 0");
-    }
-    if (sigmaAgg.compareTo(BigDecimal.ZERO) <= 0) {
-      throw new IllegalArgumentException("sigmaAgg invalid");
-    }
-    if (kSL.compareTo(BigDecimal.ZERO) <= 0 || kTP.compareTo(BigDecimal.ZERO) <= 0) {
-      throw new IllegalArgumentException("kSL/kTP must be > 0");
-    }
-
-    BigDecimal move1SigmaPrice = price.multiply(sigmaAgg, MC);
-    BigDecimal move1SigmaPips = move1SigmaPrice.divide(pipSize, MC);
-
-    BigDecimal slPips = kSL.multiply(move1SigmaPips, MC);
-    BigDecimal tpPips = kTP.multiply(move1SigmaPips, MC);
-
-    return switch (positionType) {
-      case POSITION_TYPE_BUY -> {
-        BigDecimal slPrice = price.subtract(slPips.multiply(pipSize, MC), MC);
-        BigDecimal tpPrice = price.add(tpPips.multiply(pipSize, MC), MC);
-        yield new PriceRiskLevelUtils.PriceRiskLevel(tpPrice, slPrice);
+  @Contract(pure = true)
+  private static PriceRiskLevel createPriceRiskLevel(OffsetDateTime timestamp, OrderType orderType, BigDecimal tpPrice, BigDecimal slPrice) {
+    return new PriceRiskLevel() {
+      @Override
+      public OrderType orderType() {
+        return orderType;
       }
-      case POSITION_TYPE_SELL -> {
-        BigDecimal slPrice = price.add(slPips.multiply(pipSize, MC), MC);
-        BigDecimal tpPrice = price.subtract(tpPips.multiply(pipSize, MC), MC);
-        yield new PriceRiskLevelUtils.PriceRiskLevel(tpPrice, slPrice);
+
+      @Override
+      public BigDecimal slPrice() {
+        return slPrice;
+      }
+
+      @Override
+      public OffsetDateTime timestamp() {
+        return timestamp;
+      }
+
+      @Override
+      public BigDecimal tpPrice() {
+        return tpPrice;
       }
     };
   }
 
-  public static Function<GarchForecastDto, PriceRiskLevelDto> getPriceRiskLevelByGarchForecast(PriceRiskLevelInputDto priceRiskLevelInputDto, SymbolDto symbolDto) {
-    return garchForecastDto -> {
-      PriceRiskLevelUtils.log.info("getPriceRiskLevelByGarchForecast(): [priceRiskLevelInputDto={}, garchForecastDto={}]", priceRiskLevelInputDto, garchForecastDto);
-      PriceRiskLevel priceRiskLevel = PriceRiskLevelUtils.fromSigmaAgg(garchForecastDto.price(), symbolDto.point(), BigDecimal.valueOf(garchForecastDto.sigmaAgg()), garchForecastDto.positionType(), priceRiskLevelInputDto.kSL(),
-          priceRiskLevelInputDto.kTP());
-      return new PriceRiskLevelDto(garchForecastDto.timestamp(), garchForecastDto.positionType(), priceRiskLevel.tpPrice(), priceRiskLevel.slPrice());
+  @Contract(pure = true)
+  private static PriceRiskLevel fromSigmaAgg(BigDecimal price, GarchForecast garchForecast, SymbolParameters symbolParameters, PriceRiskLevelInput priceRiskLevelInput) {
+    BigDecimal move1SigmaPrice = price.multiply(BigDecimal.valueOf(garchForecast.sigmaAgg()), MC);
+    BigDecimal move1SigmaPips = move1SigmaPrice.divide(symbolParameters.point(), MC);
+
+    BigDecimal slPips = priceRiskLevelInput.kSL().multiply(move1SigmaPips, MC);
+    BigDecimal tpPips = priceRiskLevelInput.kTP().multiply(move1SigmaPips, MC);
+
+    return switch (garchForecast.orderType()) {
+      case ORDER_TYPE_BUY -> {
+        BigDecimal slPrice = price.subtract(slPips.multiply(symbolParameters.point(), MC), MC);
+        BigDecimal tpPrice = price.add(tpPips.multiply(symbolParameters.point(), MC), MC);
+        yield createPriceRiskLevel(garchForecast.timestamp(), OrderType.ORDER_TYPE_BUY, tpPrice, slPrice);
+      }
+      case ORDER_TYPE_SELL -> {
+        BigDecimal slPrice = price.add(slPips.multiply(symbolParameters.point(), MC), MC);
+        BigDecimal tpPrice = price.subtract(tpPips.multiply(symbolParameters.point(), MC), MC);
+        yield createPriceRiskLevel(garchForecast.timestamp(), OrderType.ORDER_TYPE_SELL, tpPrice, slPrice);
+      }
     };
   }
 
-  private record PriceRiskLevel(@NotNull @Positive BigDecimal tpPrice, @NotNull @Positive BigDecimal slPrice) {
+  @Contract(pure = true)
+  public static Function<GarchForecast, PriceRiskLevel> getPriceRiskLevelByGarchForecast(PriceRiskLevelInput priceRiskLevelInput, SymbolParameters symbolParameters) {
+    return garchForecast -> {
+      log.info("getPriceRiskLevelByGarchForecast(): [priceRiskLevelInput={}, garchForecastDto={}]", priceRiskLevelInput, garchForecast);
+      PriceRiskLevel priceRiskLevel = PriceRiskLevelUtils.fromSigmaAgg(garchForecast.price(), garchForecast, symbolParameters, priceRiskLevelInput);
+      return new PriceRiskLevel() {
+        @Override
+        public OrderType orderType() {
+          return garchForecast.orderType();
+        }
 
+        @Override
+        public BigDecimal slPrice() {
+          return priceRiskLevel.slPrice();
+        }
+
+        @Override
+        public OffsetDateTime timestamp() {
+          return garchForecast.timestamp();
+        }
+
+        @Override
+        public BigDecimal tpPrice() {
+          return priceRiskLevel.tpPrice();
+        }
+      };
+    };
   }
 }

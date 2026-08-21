@@ -1,10 +1,34 @@
 package br.allandemiranda.fx.robot.enums;
 
-import org.springframework.context.annotation.Description;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import org.jspecify.annotations.NullMarked;
 
-@Description("ENUM_DEAL_REASON")
+/**
+ * Enumeration of trade closure reasons corresponding to MQL5 {@code ENUM_DEAL_REASON}. Indicates how a simulated trade position exited.
+ */
+@NullMarked
+@Getter
+@AllArgsConstructor
 public enum DealReason {
-  DEAL_REASON_SL,               // The deal was executed as a result of Stop Loss activation
-  DEAL_REASON_TP,               // The deal was executed as a result of Take Profit activation
-  DEAL_REASON_ROLLOVER,         // The deal was executed due to a rollover
+
+  /**
+   * Position was closed upon reaching the Stop Loss threshold.
+   */
+  DEAL_REASON_SL("DEAL_REASON_SL"),
+
+  /**
+   * Position was closed upon reaching the Take Profit threshold.
+   */
+  DEAL_REASON_TP("DEAL_REASON_TP"),
+
+  /**
+   * Position was closed due to accumulated negative rollover/swap costs exceeding expected profit.
+   */
+  DEAL_REASON_ROLLOVER("DEAL_REASON_ROLLOVER");
+
+  /**
+   * The MQL5 identifier text value.
+   */
+  private final String value;
 }
